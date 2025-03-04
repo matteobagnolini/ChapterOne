@@ -123,26 +123,37 @@ CREATE TABLE order_detail (
     book_id INT
 );
 
-CREATE TABLE discount_code_usage (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    discount_code_id INT,
-    user_id INT,
-    order_id INT,
-    usage_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    applied_discount DECIMAL(10, 2) NOT NULL
-);
 
-CREATE TABLE discount_code (
+
+CREATE TABLE DISCOUNT_CODE (
     id INT AUTO_INCREMENT PRIMARY KEY,
     code VARCHAR(50) UNIQUE NOT NULL,
-    description TEXT,
     type ENUM('percentage', 'fixed') NOT NULL,
     value DECIMAL(10, 2) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     single_use BOOLEAN DEFAULT FALSE,
-    min_order DECIMAL(10, 2) DEFAULT 0,
-    max_discount DECIMAL(10, 2) DEFAULT NULL,
-    valid_categories VARCHAR(255) DEFAULT NULL,
     active BOOLEAN DEFAULT TRUE
 );
+
+CREATE TABLE DISCOUNT_CODE_USAGE (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usage_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    discount_code_id INT,
+    user_id INT,
+    order_id INT,
+);
+
+alter table DISCOUNT_CODE_USAGE add constraint FK_DISCOUNT_CODE_USAGE
+    foreign key (discount_code_id)
+    references DISCOUNT_CODE(id);
+
+alter table DISCOUNT_CODE_USAGE add constraint FK_USER_DISCOUNT_CODE_USAGE
+    foreign key (user_id)
+    references CUSTOMER(ID);
+
+
+alter table DISCOUNT_CODE_USAGE add constraint FK_ORDER_DISCOUNT_CODE_USAGE
+    foreign key (order_id)
+    references order_table(id);
+
