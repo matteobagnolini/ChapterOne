@@ -55,15 +55,15 @@ CREATE TABLE BOOK (
 
 alter table BOOK add constraint FK_CATEGORY_BOOK 
     foreign key (category_id) 
-    references CATEGORY(id);
+    references CATEGORY;
 
 alter table BOOK add constraint FK_AUTHOR_BOOK 
     foreign key (author_id) 
-    references AUTHOR(id);
+    references AUTHOR;
 
 alter table BOOK add constraint FK_PUBLISHER_BOOK 
     foreign key (publisher_id) 
-    references PUBLISHER(id);
+    references PUBLISHER;
 
 
 
@@ -77,51 +77,99 @@ CREATE TABLE POST (
 
 alter table POST add constraint FK_AUTHOR_POST
     foreign key (author_id)
-    references (AUTHOR(id));
+    references AUTHOR;
 
 alter table POST add constraint FK_BOOK_POST
     foreign key (book_id)
-    references (BOOK(id));
+    references BOOK;
 
-CREATE TABLE cart (
+
+
+CREATE TABLE REVIEW (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    text TEXT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    book_id INT NOT NULL,
+    user_id INT NOT NULL
+);
+
+alter table REVIEW add constraint FK_BOOK_REVIEW
+    foreign key (book_id)
+    references BOOK;
+
+alter table REVIEW add constraint FK_USER_REVIEW
+    foreign key (user_id)
+    references USER;
+
+
+
+CREATE TABLE CART (
     id INT AUTO_INCREMENT PRIMARY KEY,
     subtotal DECIMAL(10, 2) DEFAULT 0,
     last_modified DATETIME DEFAULT CURRENT_TIMESTAMP,
     item_count INT DEFAULT 0,
-    user_id INT UNIQUE,
-    discount_code_id INT NULL
+    user_id INT NOT NULL
 );
 
-CREATE TABLE book_in_cart (
+alter table CART add constraint FK_USER_CART
+    foreign key (user_id)
+    references CUSTOMER;
+
+
+
+CREATE TABLE BOOK_IN_CART (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    cart_id INT,
-    book_id INT,
+    cart_id INT NOT NULL,
+    book_id INT NOT NULL,
     quantity INT DEFAULT 1
 );
 
-CREATE TABLE review (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    text TEXT,
-    rating INT CHECK (rating BETWEEN 1 AND 5),
-    book_id INT
-);
+ALTER TABLE BOOK_IN_CART ADD CONSTRAINT FK_CART_BOOK_IN_CART
+    FOREIGN KEY (cart_id)
+    REFERENCES CART;
 
-CREATE TABLE order_table (
+ALTER TABLE BOOK_IN_CART ADD CONSTRAINT FK_BOOK_BOOK_IN_CART
+    FOREIGN KEY (book_id)
+    REFERENCES BOOK;
+
+
+
+CREATE TABLE ORDER (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
     total DECIMAL(10, 2) NOT NULL,
-    applied_discount DECIMAL(10, 2) DEFAULT 0,
-    user_id INT,
+    user_id INT NOT NULL,
     discount_code_id INT NULL
 );
 
-CREATE TABLE order_detail (
+
+ALTER TABLE ORDER ADD CONSTRAINT FK_USER_ORDER
+    FOREIGN KEY (user_id)
+    REFERENCES CUSTOMER;
+
+ALTER TABLE ORDER ADD CONSTRAINT FK_DISCOUNT_CODE_ORDER
+    FOREIGN KEY (discount_code_id)
+    REFERENCES DISCOUNT_CODE;
+
+
+
+
+CREATE TABLE ORDER_DETAIL (
     id INT AUTO_INCREMENT PRIMARY KEY,
     quantity INT NOT NULL,
     subtotal DECIMAL(10, 2) NOT NULL,
-    order_id INT,
-    book_id INT
+    order_id INT NOT NULL,
+    book_id INT NOT NULL
 );
+
+
+ALTER TABLE ORDER_DETAIL ADD CONSTRAINT FK_ORDER_ORDER_DETAIL
+    FOREIGN KEY (order_id)
+    REFERENCES ORDER_TABLE;
+
+ALTER TABLE ORDER_DETAIL ADD CONSTRAINT FK_BOOK_ORDER_DETAIL
+    FOREIGN KEY (book_id)
+    REFERENCES BOOK;
 
 
 
@@ -146,14 +194,55 @@ CREATE TABLE DISCOUNT_CODE_USAGE (
 
 alter table DISCOUNT_CODE_USAGE add constraint FK_DISCOUNT_CODE_USAGE
     foreign key (discount_code_id)
-    references DISCOUNT_CODE(id);
+    references DISCOUNT_CODE;
 
 alter table DISCOUNT_CODE_USAGE add constraint FK_USER_DISCOUNT_CODE_USAGE
     foreign key (user_id)
-    references CUSTOMER(ID);
+    references CUSTOMER;
 
 
 alter table DISCOUNT_CODE_USAGE add constraint FK_ORDER_DISCOUNT_CODE_USAGE
     foreign key (order_id)
-    references order_table(id);
+    references ORDER_TABLE;
 
+
+
+-- TRIGGER -- 
+
+
+CREATE TRIGGER after_insert_book_in_cart
+AFTER INSERT ON BOOK_IN_CART
+FOR EACH ROW
+BEGIN
+    UPDATE CART 
+    SET item_count = item_count + NEW.quantity, 
+        last_modified = CURRENT_TIMESTAMP
+    WHERE id = NEW.cart_id;
+END;
+
+
+
+CREATE TRIGGER after_delete_book_in_cart
+AFTER DELETE ON BOOK_IN_CART
+FOR EACH ROW
+BEGIN
+    UPDATE CART 
+    SET item_count = item_count - OLD.quantity, 
+        last_modified = CURRENT_TIMESTAMP
+    WHERE id = OLD.cart_id;
+END;
+
+
+CREATE TRIGGER after_insert_order
+AFTER INSERT ON ORDERS
+FOR EACH ROW
+BEGIN
+    -- Eliminare tutti i libri nel carrello dell'utente
+    DELETE FROM BOOK_IN_CART 
+    WHERE cart_id = (SELECT id FROM CART WHERE user_id = NEW.user_id);
+
+    -- Azzerare il carrello dell'utente
+    UPDATE CART 
+    SET subtotal = 0, item_count = 0, last_modified = CURRENT_TIMESTAMP
+    WHERE user_id = NEW.user_id;
+END;
