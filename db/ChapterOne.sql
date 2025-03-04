@@ -1,63 +1,87 @@
 CREATE DATABASE IF NOT EXISTS chapter_one;
 USE chapter_one;
 
-CREATE TABLE person (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE USER  (
+    ID INT AUTO_INCREMENT NOT NULL,
     first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE user (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    constraint ID_USER primary key (ID)
 );
 
-CREATE TABLE admin (
+CREATE TABLE CUSTOMER (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+    customer_id INT UNIQUE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES USER(ID)
 );
 
-CREATE TABLE author (
+CREATE TABLE ADMIN (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    person_id INT
+    admin_id INT UNIQUE NOT NULL,
+    FOREIGN KEY (admin_id) REFERENCES USER(ID)
 );
 
-CREATE TABLE category (
+CREATE TABLE AUTHOR (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    author_id INT UNIQUE NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES USER(ID)
+);
+
+CREATE TABLE CATEGORY (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    description TEXT
 );
 
-CREATE TABLE publisher (
+CREATE TABLE PUBLISHER (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE book (
+CREATE TABLE BOOK (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
-    cover VARCHAR(255),
-    category_id INT,
-    publisher_id INT
+    cover VARCHAR(255)NOT NULL,
+    category_id INT NOT NULL,
+    publisher_id INT NOT NULL,
+    author_id INT NOT NULL
 );
 
-CREATE TABLE author_book (
-    author_id INT,
-    book_id INT,
-    PRIMARY KEY (author_id, book_id)
-);
 
-CREATE TABLE post (
+
+alter table BOOK add constraint FK_CATEGORY_BOOK 
+    foreign key (category_id) 
+    references CATEGORY(id);
+
+alter table BOOK add constraint FK_AUTHOR_BOOK 
+    foreign key (author_id) 
+    references AUTHOR(id);
+
+alter table BOOK add constraint FK_PUBLISHER_BOOK 
+    foreign key (publisher_id) 
+    references PUBLISHER(id);
+
+
+
+CREATE TABLE POST (
     id INT AUTO_INCREMENT PRIMARY KEY,
     text TEXT NOT NULL,
     publication_date DATETIME NOT NULL,
-    category_id INT,
+    author_id INT,
     book_id INT
 );
+
+alter table POST add constraint FK_AUTHOR_POST
+    foreign key (author_id)
+    references (AUTHOR(id));
+
+alter table POST add constraint FK_BOOK_POST
+    foreign key (book_id)
+    references (BOOK(id));
 
 CREATE TABLE cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
