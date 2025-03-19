@@ -8,7 +8,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Carrello</title>
+    <title>Home</title>
     <style>
         .card-img-container {
             height: 300px; /* Imposta un'altezza fissa per il contenitore delle immagini */
@@ -69,82 +69,47 @@
         </nav>
     </header>
     <main>
-        <div class="container my-4">
-            <section>
-                <h1 class="mb-4">Carrello</h1>
+    <div class="container my-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="mb-4">Notifiche</h1>
                 
-                <section class="mb-5">
-                    <h2 class="mb-3">Articoli</h2>
-                    
+                <section class="notification-section">
                     <ul class="list-unstyled">
-                        <li class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-2">
-                                    <figure class="m-3">
-                                        <img src="deepwork.jpg" alt="Copertina libro 1" class="img-fluid rounded">
-                                    </figure>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Il Nome del Vento</h3>
-                                        <p class="card-text">Autore: Patrick Rothfuss</p>
-                                        <p class="card-text">Quantità: 1</p>
-                                        <p class="card-text">Prezzo: 18,50€</p>
-                                        <button class="btn btn-danger btn-sm">Rimuovi</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="card mb-3 shadow-sm">
+                            <article class="card-body">
+                                <h2 class="h5 card-title">Il tuo ordine è stato spedito</h2>
+                                <p class="card-text">Il tuo ordine #12345 è stato spedito e arriverà entro 3-5 giorni lavorativi.</p>
+                                <time class="text-muted small" datetime="2023-05-15T10:30:00">15 maggio 2023, 10:30</time>
+                            </article>
                         </li>
                         
-                        <li class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-2">
-                                    <figure class="m-3">
-                                        <img src="stevejobs.jpg" alt="Copertina libro 2" class="img-fluid rounded">
-                                    </figure>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body">
-                                        <h3 class="card-title">1984</h3>
-                                        <p class="card-text">Autore: George Orwell</p>
-                                        <p class="card-text">Quantità: 2</p>
-                                        <p class="card-text">Prezzo: 29,00€</p>
-                                        <button class="btn btn-danger btn-sm">Rimuovi</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="card mb-3 shadow-sm">
+                            <article class="card-body">
+                                <h2 class="h5 card-title">Offerta speciale sui libri</h2>
+                                <p class="card-text">Approfitta della nostra offerta speciale: sconto del 20% su tutti i libri di narrativa!</p>
+                                <time class="text-muted small" datetime="2023-05-10T08:15:00">10 maggio 2023, 08:15</time>
+                            </article>
                         </li>
                         
-                        <li class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-2">
-                                    <figure class="m-3">
-                                        <img src="deepwork.jpg" alt="Copertina libro 1" class="img-fluid rounded">
-                                    </figure>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Il Nome del Vento</h3>
-                                        <p class="card-text">Autore: Patrick Rothfuss</p>
-                                        <p class="card-text">Quantità: 1</p>
-                                        <p class="card-text">Prezzo: 18,50€</p>
-                                        <button class="btn btn-danger btn-sm">Rimuovi</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="card mb-3 shadow-sm">
+                            <article class="card-body">
+                                <h2 class="h5 card-title">Conferma pagamento</h2>
+                                <p class="card-text">Il pagamento per l'ordine #10982 è stato confermato. Grazie per il tuo acquisto!</p>
+                                <time class="text-muted small" datetime="2023-05-05T14:22:00">5 maggio 2023, 14:22</time>
+                            </article>
+                        </li>
+                        
+                        <li class="card mb-3 shadow-sm">
+                            <article class="card-body">
+                                <h2 class="h5 card-title">Nuovo libro disponibile</h2>
+                                <p class="card-text">Il libro che hai aggiunto alla tua lista dei desideri "Il nome della rosa" è ora disponibile.</p>
+                                <time class="text-muted small" datetime="2023-05-01T09:45:00">1 maggio 2023, 09:45</time>
+                            </article>
                         </li>
                     </ul>
-    
                 </section>
-                
-                <section class="card p-4 bg-light">
-                    <h2 class="mb-3">Riepilogo</h2>
-                    <p class="fw-bold">Totale articoli: 4</p>
-                    <p class="fw-bold">Prezzo totale: 72,50€</p>
-                    <button class="btn btn-primary mt-2">Procedi all'acquisto</button>
-                </section>
-            </section>
-        </div>
+            
     </main>
     <footer class="bg-light text-center text-lg-start">
         <div class="text-center p-3 bg-dark text-white">
