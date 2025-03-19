@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Home</title>
+    <style>
+        .card-img-container {
+            height: 300px; /* Imposta un'altezza fissa per il contenitore delle immagini */
+            overflow: hidden; /* Nasconde le parti dell'immagine che escono dal contenitore */
+        }
+        .card-img-top {
+            height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
+            object-fit: cover; /* Adatta l'immagine all'interno del contenitore */
+            width: 100%; /* Assicura che l'immagine occupi tutta la larghezza del contenitore */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">ChapterOne Shop</a>
+                <div class="d-flex align-items-center order-lg-2">
+                    <a class="nav-link me-2" href="#"><i class="bi bi-cart"></i> Carrello</a>
+                    <a class="nav-link me-2" href="#"><i class="bi bi-person"></i> Profilo</a>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Cerca</button>
+                    </form>
+                    <button class="navbar-toggler border border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Catalogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Novità</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categorie
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Categoria 1</a></li>
+                                <li><a class="dropdown-item" href="#">Categoria 2</a></li>
+                                <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contatti</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Catalogo</h1>
+                    <p>Questo è il sito di prova per il progetto di Tecnologie Web</p>
+                </div>
+            </div>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0">
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-img-container">
+                            <img src="deepwork.jpg" class="card-img-top" alt="Copertina Libro 1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Titolo Libro 1</h5>
+                            <p class="card-text">Autore Libro 1</p>
+                            <p class="card-text">Prezzo: €10.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-img-container">
+                            <img src="stevejobs.jpg" class="card-img-top" alt="Copertina Libro 2">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Titolo Libro 2</h5>
+                            <p class="card-text">Autore Libro 2</p>
+                            <p class="card-text">Prezzo: €15.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-img-container">
+                            <img src="shining.jpg" class="card-img-top" alt="Copertina Libro 3">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Titolo Libro 3</h5>
+                            <p class="card-text">Autore Libro 3</p>
+                            <p class="card-text">Prezzo: €20.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-img-container">
+                            <img src="stevejobs.jpg" class="card-img-top" alt="Copertina Libro 4">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Titolo Libro 4</h5>
+                            <p class="card-text">Autore Libro 4</p>
+                            <p class="card-text">Prezzo: €25.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-img-container">
+                            <img src="shining.jpg" class="card-img-top" alt="Copertina Libro 5">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Titolo Libro 5</h5>
+                            <p class="card-text">Autore Libro 5</p>
+                            <p class="card-text">Prezzo: €30.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-img-container">
+                            <img src="deepwork.jpg" class="card-img-top" alt="Copertina Libro 6">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Titolo Libro 6</h5>
+                            <p class="card-text">Autore Libro 6</p>
+                            <p class="card-text">Prezzo: €35.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3 bg-dark text-white">
+            © 2023 ChapterOne Shop. Tutti i diritti riservati.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-TcB5vHnxnKlW1qS6WX1kzeF7L/ZFZ2pT3zYWE7GvJm7XwnR2s4vqJ2UmBa4/qnHp" crossorigin="anonymous"></script>
+</body>
+</html>
