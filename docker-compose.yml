@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  php-apache:
+    image: whatsm97/sito:php  # Usa l'immagine salvata del container PHP
+    container_name: sito
+    ports:
+      - "8080:80"  # Mappa la porta 8080 del tuo host alla porta 80 del container
+    volumes:
+      - .:/var/www/html  # Monta la cartella corrente nel container
+    networks:
+      - my_networkSQL
+
+  mysql:
+    image: whatsm97/database:latest  # Usa l'immagine ufficiale di MySQL
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3306:3306"  # Mappa la porta 3306 del tuo host alla porta 3306 del container
+    networks:
+      - my_networkSQL
+
+networks:
+   my_networkSQL:
+    driver: bridge
