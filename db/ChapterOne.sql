@@ -1,5 +1,6 @@
 DROP DATABASE IF EXISTS Chapter_one;
 CREATE DATABASE Chapter_one;
+
 USE Chapter_one;
 
 CREATE TABLE USER  (

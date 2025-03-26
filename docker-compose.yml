@@ -15,13 +15,17 @@ services:
     image: whatsm97/database:latest  # Usa l'immagine ufficiale di MySQL
     container_name: database
     environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: mypassword  # Imposta la password di root
     ports:
       - "3306:3306"  # Mappa la porta 3306 del tuo host alla porta 3306 del container
     networks:
       - my_networkSQL
+    volumes:
+      - mysql_data:/var/lib/mysql  # Usa il volume per salvare i dati del database
 
 networks:
-   my_networkSQL:
+  my_networkSQL:
     driver: bridge
+
+volumes:
+  mysql_data:  # Definisce il volume persistente per i dati del database
