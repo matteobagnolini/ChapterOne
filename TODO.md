@@ -5,19 +5,22 @@
 - [ ] aggiungi carrello
 - [ ] scarica estratto
 - [ ] suggeriti, stesso autore
-- [ ] notifiche lette o non lette
 - [ ] screenshot dettagli ordine prezzi libri
 
-- [ ] pagina admin: Aggiungere e rimuovere e modificare libri, Autori, 
-
-- [ ] home: Piu venduti e ultimi arrivati
-
-- [ ] profilo : modifica informazioni, gestione login 
 - [ ] simulare spedizione e arrivo notifiche
 - [ ] numeri carrello e login
 - [ ] codice sconto
-- [ ] recensioni, nella pagina libro
 
 ---
 
 - [ ] POST: extras
+
+
+## TODO HTML
+
+- [] Aggiungere notifiche lette e non lette
+- [] Pagina admin: modificare, aggiungere, eliminare libri
+- [] Pagina admin: modificare, aggiungere, eliminare autori
+- [] Pagina home: libri bestsellers, ultimi arrivati e categorie
+- [] Pagina utente: login, modifica informazioni
+- [] Pagina libro: aggiungere sezione per le recensioni
