@@ -20,10 +20,14 @@
 
 ## TODO HTML
 
+- [x] Pagina admin: modificare, aggiungere, eliminare libri
+- [x] Pagina admin: modificare, aggiungere, eliminare autori
+- [x] Pagina admin: modificare, aggiungere, eliminare case editrice
+- [x] Pagina home: libri bestsellers, ultimi arrivati e categorie
+- [x] Pagina utente: login, modifica informazioni
+- [x] Pagina libro: aggiungere sezione per le recensioni
+
+## TODO JavaScript
+
 - [] Aggiungere notifiche lette e non lette
-- [] Pagina admin: modificare, aggiungere, eliminare libri
-- [] Pagina admin: modificare, aggiungere, eliminare autori
-- [] Pagina admin: modificare, aggiungere, eliminare case editrice
-- [] Pagina home: libri bestsellers, ultimi arrivati e categorie
-- [] Pagina utente: login, modifica informazioni
-- [] Pagina libro: aggiungere sezione per le recensioni
+- [] Pagina utente (account): rendere modificabile il form
