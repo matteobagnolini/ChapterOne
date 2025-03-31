@@ -11,40 +11,6 @@ class MySqlDatabase implements DatabaseInterface {
         }
     }
 
-    public function getUsers() {
-        $stmt = $this->db->prepare("SELECT * FROM USER");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getUserById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM USER WHERE Id = ?");
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
-    }
-
-    public function insertUser($firstName, $lastName, $email, $password) {
-        $stmt = $this->db->prepare("INSERT INTO USER (First_name, Last_name, Email, Password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('ssss', $firstName, $lastName, $email, $password);
-        $stmt->execute();
-        return $stmt->insert_id;
-    }
-
-    public function updateUser($id, $firstName, $lastName, $email, $password) {
-        $stmt = $this->db->prepare("UPDATE USER SET First_name = ?, Last_name = ?, Email = ?, Password = ? WHERE Id = ?");
-        $stmt->bind_param('ssssi', $firstName, $lastName, $email, $password, $id);
-        return $stmt->execute();
-    }
-
-    public function deleteUser($id) {
-        $stmt = $this->db->prepare("DELETE FROM USER WHERE Id = ?");
-        $stmt->bind_param('i', $id);
-        return $stmt->execute();
-    }
-
     public function getCustomers() {
         $stmt = $this->db->prepare("SELECT * FROM CUSTOMER");
         $stmt->execute();
@@ -60,16 +26,16 @@ class MySqlDatabase implements DatabaseInterface {
         return $result->fetch_assoc();
     }
 
-    public function insertCustomer($customerId, $address, $phone) {
-        $stmt = $this->db->prepare("INSERT INTO CUSTOMER (Customer_id, Address, Phone) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $customerId, $address, $phone);
+    public function insertCustomer($firstName, $lastName, $email, $password, $address, $phone) {
+        $stmt = $this->db->prepare("INSERT INTO CUSTOMER (First_name, Last_name, Email, Password, Address, Phone) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssss', $firstName, $lastName, $email, $password, $address, $phone);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
-    public function updateCustomer($id, $address, $phone) {
-        $stmt = $this->db->prepare("UPDATE CUSTOMER SET Address = ?, Phone = ? WHERE Id = ?");
-        $stmt->bind_param('ssi', $address, $phone, $id);
+    public function updateCustomer($id, $firstName, $lastName, $email, $password, $address, $phone) {
+        $stmt = $this->db->prepare("UPDATE CUSTOMER SET First_name = ?, Last_name = ?, Email = ?, Password = ?, Address = ?, Phone = ? WHERE Id = ?");
+        $stmt->bind_param('ssssssi', $firstName, $lastName, $email, $password, $address, $phone, $id);
         return $stmt->execute();
     }
 
@@ -113,6 +79,136 @@ class MySqlDatabase implements DatabaseInterface {
         return $stmt->execute();
     }
 
-    // Aggiungi altri metodi per le altre tabelle come ADMIN, AUTHOR, CATEGORY, ecc.
+    // ADMIN methods
+    public function getAdmins() {
+        $stmt = $this->db->prepare("SELECT * FROM ADMIN");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAdminById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM ADMIN WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertAdmin($firstName, $lastName, $email, $password) {
+        $stmt = $this->db->prepare("INSERT INTO ADMIN (First_name, Last_name, Email, Password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('ssss', $firstName, $lastName, $email, $password);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateAdmin($id, $firstName, $lastName, $email, $password) {
+        $stmt = $this->db->prepare("UPDATE ADMIN SET First_name = ?, Last_name = ?, Email = ?, Password = ? WHERE Id = ?");
+        $stmt->bind_param('ssssi', $firstName, $lastName, $email, $password, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteAdmin($id) {
+        $stmt = $this->db->prepare("DELETE FROM ADMIN WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // AUTHOR methods
+    public function getAuthors() {
+        $stmt = $this->db->prepare("SELECT * FROM AUTHOR");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAuthorById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM AUTHOR WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertAuthor($firstName, $lastName) {
+        $stmt = $this->db->prepare("INSERT INTO AUTHOR (First_name, Last_name) VALUES (?, ?)");
+        $stmt->bind_param('ss', $firstName, $lastName);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateAuthor($id, $firstName, $lastName) {
+        $stmt = $this->db->prepare("UPDATE AUTHOR SET First_name = ?, Last_name = ? WHERE Id = ?");
+        $stmt->bind_param('ssi', $firstName, $lastName, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteAuthor($id) {
+        $stmt = $this->db->prepare("DELETE FROM AUTHOR WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // CATEGORY methods
+    public function getCategories() {
+        $stmt = $this->db->prepare("SELECT * FROM CATEGORY");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCategoryById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM CATEGORY WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertCategory($name) {
+        $stmt = $this->db->prepare("INSERT INTO CATEGORY (Name) VALUES (?)");
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateCategory($id, $name) {
+        $stmt = $this->db->prepare("UPDATE CATEGORY SET Name = ? WHERE Id = ?");
+        $stmt->bind_param('si', $name, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteCategory($id) {
+        $stmt = $this->db->prepare("DELETE FROM CATEGORY WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // PUBLISHER methods
+    public function getPublishers() {
+        $stmt = $this->db->prepare("SELECT * FROM PUBLISHER");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPublisherById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM PUBLISHER WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertPublisher($name) {
+        $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name) VALUES (?)");
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updatePublisher($id, $name) {
+        $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ? WHERE Id = ?");
+        $stmt->bind_param('si', $name, $id);
+        return $stmt->execute();
+    }
+
+    public function deletePublisher($id) {
+        $stmt = $this->db->prepare("DELETE FROM PUBLISHER WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
 }
 ?>

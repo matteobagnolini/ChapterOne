@@ -1,15 +1,9 @@
 <?php
 interface DatabaseInterface {
-    public function getUsers();
-    public function getUserById($id);
-    public function insertUser($firstName, $lastName, $email, $password);
-    public function updateUser($id, $firstName, $lastName, $email, $password);
-    public function deleteUser($id);
-
     public function getCustomers();
     public function getCustomerById($id);
-    public function insertCustomer($customerId, $address, $phone);
-    public function updateCustomer($id, $address, $phone);
+    public function insertCustomer($firstName, $lastName, $email, $password, $address, $phone);
+    public function updateCustomer($id, $firstName, $lastName, $email, $password, $address, $phone);
     public function deleteCustomer($id);
 
     public function getBooks();
@@ -18,6 +12,32 @@ interface DatabaseInterface {
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId);
     public function deleteBook($id);
 
-    // Aggiungi altri metodi per le altre tabelle come ADMIN, AUTHOR, CATEGORY, ecc.
+    // ADMIN methods
+    public function getAdmins();
+    public function getAdminById($id);
+    public function insertAdmin($firstName, $lastName, $email, $password);
+    public function updateAdmin($id, $firstName, $lastName, $email, $password);
+    public function deleteAdmin($id);
+
+    // AUTHOR methods
+    public function getAuthors();
+    public function getAuthorById($id);
+    public function insertAuthor($firstName, $lastName);
+    public function updateAuthor($id, $firstName, $lastName);
+    public function deleteAuthor($id);
+
+    // CATEGORY methods
+    public function getCategories();
+    public function getCategoryById($id);
+    public function insertCategory($name);
+    public function updateCategory($id, $name);
+    public function deleteCategory($id);
+
+    // PUBLISHER methods
+    public function getPublishers();
+    public function getPublisherById($id);
+    public function insertPublisher($name);
+    public function updatePublisher($id, $name);
+    public function deletePublisher($id);
 }
 ?>
