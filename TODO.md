@@ -18,6 +18,22 @@
 - [ ] POST: extras
 
 
+## TODO PHP
+- [ ] Gestore Libri, creazione, modifica, eliminazione, query e lettura recensioni
+- [ ] Gestore Case editrici, creazione, modifica, eliminazione
+- [ ] Gestore Case editrici, creazione, modifica, eliminazione
+- [ ] Gestore Leggi dati ordine, legge anche i dettagli
+- [ ] Gestore Account personale
+- [ ] Gestore Blog, creazione, modifica, eliminazione
+- [ ] Notifiche?
+- [ ] Gestore sconti
+
+
+
+# TODO SQL
+- [ ] aggiungere carrello alla creazione di un utente
+- [ ] Eliminare carrello, dettaglio ordini e recensioni alla rimozione dell'utente
+
 ## TODO HTML
 
 - [x] Pagina admin: modificare, aggiungere, eliminare libri
