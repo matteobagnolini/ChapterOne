@@ -7,7 +7,7 @@
 - [ ] aggiungi carrello
 - [ ] scarica estratto
 - [ ] suggeriti, stesso autore
-- [ ] screenshot dettagli ordine prezzi libri
+- [ ] screenshot dettagli ordine prezzi libri --vediamo
 
 - [ ] simulare spedizione e arrivo notifiche
 - [ ] numeri carrello e login
@@ -27,7 +27,10 @@
 - [ ] Gestore Blog, creazione, modifica, eliminazione
 - [ ] Notifiche?
 - [ ] Gestore sconti
-
+- [ ] Lettore suggeriti e best seller.
+- [ ] Gestore estratti
+- [ ] Ricerca libri o autori
+- [ ] Simulatore spedizione con notifiche
 
 
 # TODO SQL
