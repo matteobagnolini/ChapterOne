@@ -1,6 +1,6 @@
 # To-Do List
 
-- [] !!! Modificare db Author: non deve essere un'estensione di user
+- [x] !!! Modificare db Author: non deve essere un'estensione di user
 
 - [ ] Riempimento DB con dati fake
 - [ ] ricerca titoli o libri
