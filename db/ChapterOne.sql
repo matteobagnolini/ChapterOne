@@ -3,33 +3,28 @@ CREATE DATABASE Chapter_one;
 
 USE Chapter_one;
 
-CREATE TABLE USER  (
-    Id INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE CUSTOMER (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
     First_name VARCHAR(100) NOT NULL,
     Last_name VARCHAR(100) NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
-    CONSTRAINT Id_User PRIMARY KEY (Id)
-);
-
-CREATE TABLE CUSTOMER (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Customer_id INT UNIQUE NOT NULL,
     Address VARCHAR(255) NOT NULL,
-    Phone VARCHAR(20) NOT NULL,
-    FOREIGN KEY (Customer_id) REFERENCES USER(Id)
+    Phone VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE ADMIN (
     Id INT AUTO_INCREMENT PRIMARY KEY,
-    Admin_id INT UNIQUE NOT NULL,
-    FOREIGN KEY (Admin_id) REFERENCES USER(Id)
+    First_name VARCHAR(100) NOT NULL,
+    Last_name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE AUTHOR (
     Id INT AUTO_INCREMENT PRIMARY KEY,
-    Author_id INT UNIQUE NOT NULL,
-    FOREIGN KEY (Author_id) REFERENCES USER(Id)
+    First_name VARCHAR(100) NOT NULL,
+    Last_name VARCHAR(100) NOT NULL,
 );
 
 CREATE TABLE CATEGORY (
@@ -71,10 +66,10 @@ CREATE TABLE REVIEW (
     Text TEXT,
     Rating INT CHECK (Rating BETWEEN 1 AND 5),
     Book_id INT NOT NULL,
-    User_id INT NOT NULL,
+    Customer_id INT NOT NULL,
     FOREIGN KEY (Book_id) REFERENCES BOOK(Id),
-    FOREIGN KEY (User_id) REFERENCES USER(Id),
-    UNIQUE (Book_id, User_id)
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id),
+    UNIQUE (Book_id, Customer_id)
 );
 
 CREATE TABLE CART (
@@ -82,8 +77,8 @@ CREATE TABLE CART (
     Subtotal DECIMAL(10, 2) DEFAULT 0,
     Last_modified DATETIME DEFAULT CURRENT_TIMESTAMP,
     Item_count INT DEFAULT 0,
-    User_id INT NOT NULL,
-    FOREIGN KEY (User_id) REFERENCES CUSTOMER(Id)
+    Customer_id INT NOT NULL,
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id)
 );
 
 CREATE TABLE BOOK_IN_CART (
@@ -110,9 +105,9 @@ CREATE TABLE `ORDER` (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Date DATETIME DEFAULT CURRENT_TIMESTAMP,
     Total DECIMAL(10, 2) NOT NULL,
-    User_id INT NOT NULL,
+    Customer_id INT NOT NULL,
     Discount_code_id INT NULL,
-    FOREIGN KEY (User_id) REFERENCES CUSTOMER(Id),
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id),
     FOREIGN KEY (Discount_code_id) REFERENCES DISCOUNT_CODE(Id)
 );
 
@@ -130,10 +125,10 @@ CREATE TABLE DISCOUNT_CODE_USAGE (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Usage_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     Discount_code_id INT,
-    User_id INT,
+    Customer_id INT,
     Order_id INT,
     FOREIGN KEY (Discount_code_id) REFERENCES DISCOUNT_CODE(Id),
-    FOREIGN KEY (User_id) REFERENCES CUSTOMER(Id),
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id),
     FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id)
 );
 
@@ -171,12 +166,12 @@ CREATE TRIGGER after_insert_order
 AFTER INSERT ON `ORDER`
 FOR EACH ROW
 BEGIN
-    -- Eliminare tutti i libri nel carrello dell'utente
+    -- Eliminare tutti i libri nel carrello del cliente
     DELETE FROM BOOK_IN_CART 
-    WHERE Cart_id = (SELECT Id FROM CART WHERE User_id = NEW.User_id);
+    WHERE Cart_id = (SELECT Id FROM CART WHERE Customer_id = NEW.Customer_id);
 
-    -- Azzerare il carrello dell'utente
+    -- Azzerare il carrello del cliente
     UPDATE CART 
     SET Subtotal = 0, Item_count = 0, Last_modified = CURRENT_TIMESTAMP
-    WHERE User_id = NEW.User_id;
+    WHERE Customer_id = NEW.Customer_id;
 END;
