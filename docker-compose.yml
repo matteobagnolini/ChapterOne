@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   php-apache:
-    image: whatsm97/sito:php  # Usa l'immagine salvata del container PHP
+    image: whatsm97/sito:latest  # Usa l'immagine salvata del container PHP
     container_name: sito
     ports:
       - "8080:80"  # Mappa la porta 8080 del tuo host alla porta 80 del container
