@@ -48,5 +48,5 @@
 
 ## TODO JavaScript
 
-- [] Aggiungere notifiche lette e non lette
-- [] Pagina utente (account): rendere modificabile il form
+- [ ] Aggiungere notifiche lette e non lette
+- [ ] Pagina utente (account): rendere modificabile il form
