@@ -1,0 +1,9 @@
+.card-img-container {
+    height: 300px; /* Imposta un'altezza fissa per il contenitore delle immagini */
+    overflow: hidden; /* Nasconde le parti dell'immagine che escono dal contenitore */
+}
+.card-img-top {
+    height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
+    object-fit: cover; /* Adatta l'immagine all'interno del contenitore */
+    width: 100%; /* Assicura che l'immagine occupi tutta la larghezza del contenitore */
+}
