@@ -1,0 +1,96 @@
+body {
+    background-color: rgb(247, 247, 247); /* Grigio chiaro */
+    color: rgb(38, 50, 56); /* Blu scuro */
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    background-color: rgb(38, 50, 56); /* Bianco puro */
+    border-bottom: 1px solid rgb(176, 190, 197); /* Grigio medio */
+    font-family: 'Poppins', sans-serif; /* Font per la navbar */
+}
+
+nav a.nav-link, nav a.navbar-brand {
+    color: rgb(255, 255, 255) ;  /* Bianco puro */
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+nav a.nav-link:hover, nav a.navbar-brand:hover {
+    color: rgb(176, 190, 197) ;
+}
+
+h1, h2, h3 {
+    color: rgb(38, 50, 56); /* Blu scuro */
+}
+
+p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.card-img-container {
+    height: 300px; /* Imposta un'altezza fissa per il contenitore delle immagini */
+    overflow: hidden; /* Nasconde le parti dell'immagine che escono dal contenitore */
+}
+.card-img-top {
+    height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
+    object-fit: cover; /* Adatta l'immagine all'interno del contenitore */
+    width: 100%; /* Assicura che l'immagine occupi tutta la larghezza del contenitore */
+}
+
+.card {
+    background-color: rgb(255, 255, 255); /* Bianco puro */
+    border: 1px solid rgb(176, 190, 197); /* Grigio medio */
+    border-radius: 5px;
+    /* padding: 15px; */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: rgb(38, 50, 56); /* Blu scuro */
+    font-weight: bold;
+}
+
+.card-author, .card-price {
+    color: rgb(69, 90, 100); /* Grigio bluastro */
+}
+
+/* Pulsanti */
+button, .btn {
+    background-color: rgb(69, 90, 100); /* Grigio bluastro */
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(69, 90, 100); /* Blu scuro */
+}
+
+/* Input search */
+input[type="search"] {
+    border: 1px solid rgb(176, 190, 197); /* Grigio medio */
+}
+
+input[type="search"]:focus {
+    border-color: rgb(69, 90, 100); /* Grigio bluastro */
+    outline: none;
+}
+
+button.navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+button.navbar-toggler {
+    border: none; /* Rimuove il bordo */
+    margin-left: 10px;
+}
+
+button.navbar-toggler:focus {
+    outline: none; /* Rimuove il bordo di focus */
+    box-shadow: none; /* Rimuove il bordo scuro */
+}
+
+footer {
+    font-family: 'Poppins', sans-serif; /* Font per la navbar */
+}
