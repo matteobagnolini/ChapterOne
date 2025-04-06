@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"  # Mappa la porta 8080 del tuo host alla porta 80 del container
     volumes:
-      - .:/var/www/html  # Monta la cartella corrente nel container
+      - ./src:/var/www/html  # Monta la cartella corrente nel container
     networks:
       - my_networkSQL
 

@@ -1,5 +1,5 @@
 <?php
-require_once '../interfaces/DatabaseInterface.php';
+require_once __DIR__ .  '/../interfaces/DatabaseInterface.php';
 
 class MySqlDatabase implements DatabaseInterface {
     public $db;

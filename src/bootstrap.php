@@ -3,5 +3,5 @@ session_start();
 define("UPLOAD_DIR", "./upload/");
 require_once("utils/functions.php");
 require_once("db/database.php");
-$dbh = new MySqlDatabase("localhost", "root", "", "Chapter_one", 3306);
+$dbh = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
 ?>
