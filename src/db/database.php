@@ -1,7 +1,14 @@
 <?php
-require_once __DIR__ .  '/../interfaces/DatabaseInterface.php';
+require_once __DIR__ . '/../interfaces/DatabaseInterfaces.php';
 
-class MySqlDatabase implements DatabaseInterface {
+class MySqlDatabase implements 
+    CustomerManager, 
+    BookManager, 
+    AdminManager, 
+    AuthorManager, 
+    CategoryManager, 
+    PublisherManager 
+{
     public $db;
 
     public function __construct($servername, $username, $password, $dbname, $port) {
@@ -11,6 +18,7 @@ class MySqlDatabase implements DatabaseInterface {
         }
     }
 
+    // CUSTOMER methods
     public function getCustomers() {
         $stmt = $this->db->prepare("SELECT * FROM CUSTOMER");
         $stmt->execute();
@@ -45,6 +53,7 @@ class MySqlDatabase implements DatabaseInterface {
         return $stmt->execute();
     }
 
+    // BOOK methods
     public function getBooks() {
         $stmt = $this->db->prepare("SELECT * FROM BOOK");
         $stmt->execute();

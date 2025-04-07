@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
+                <a class="navbar-brand" href="index.php">ChapterOne Shop2</a>
                 <div class="d-flex align-items-center order-lg-2">
                     <a class="nav-link me-2" href="./template/cart.php"><i class="bi bi-cart"></i>Cart</a>
                     <a class="nav-link me-2" href="account.php"><i class="bi bi-person"></i>Account</a>
