@@ -4,14 +4,13 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../db/database.php';
 
 class AdminTest extends TestCase {
-    private $db;
+    private AdminManager $db;
 
     protected function setUp(): void {
         $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
     }
 
     protected function tearDown(): void {
-        // Clean up the database after each test
         $this->db->db->query("DELETE FROM BOOK_IN_CART");
         $this->db->db->query("DELETE FROM CART");
         $this->db->db->query("DELETE FROM REVIEW");
@@ -28,55 +27,45 @@ class AdminTest extends TestCase {
         $this->db->db->query("DELETE FROM ADMIN");
     }
 
-    public function testCustomerCRUD() {
-        // Insert a fake customer
-        $customerId = $this->db->insertCustomer('John', 'Doe', 'john.doe@example.com', 'password123', '123 Main St', '1234567890');
-        $this->assertIsInt($customerId);
+    public function testAdminCRUD() {
+        $adminId = $this->db->insertAdmin('John', 'Doe', 'john.doe@example.com', 'password123');
+        $this->assertIsInt($adminId);
 
-        // Retrieve the inserted customer
-        $customer = $this->db->getCustomerById($customerId);
-        $this->assertEquals('John', $customer['First_name']);
-        $this->assertEquals('Doe', $customer['Last_name']);
+        $admin = $this->db->getAdminById($adminId);
+        $this->assertEquals('John', $admin['First_name']);
+        $this->assertEquals('Doe', $admin['Last_name']);
 
-        // Update the customer
-        $updated = $this->db->updateCustomer($customerId, 'Jane', 'Doe', 'jane.doe@example.com', 'newpassword123', '456 Elm St', '0987654321');
+        $updated = $this->db->updateAdmin($adminId, 'Jane', 'Doe', 'jane.doe@example.com', 'newpassword123');
         $this->assertTrue($updated);
 
-        // Verify the update
-        $updatedCustomer = $this->db->getCustomerById($customerId);
-        $this->assertEquals('Jane', $updatedCustomer['First_name']);
-        $this->assertEquals('Doe', $updatedCustomer['Last_name']);
+        $updatedAdmin = $this->db->getAdminById($adminId);
+        $this->assertEquals('Jane', $updatedAdmin['First_name']);
+        $this->assertEquals('Doe', $updatedAdmin['Last_name']);
 
-        // Delete the customer
-        $deleted = $this->db->deleteCustomer($customerId);
+        $deleted = $this->db->deleteAdmin($adminId);
         $this->assertTrue($deleted);
 
-        // Verify the customer has been deleted
-        $deletedCustomer = $this->db->getCustomerById($customerId);
-        $this->assertNull($deletedCustomer);
+        $deletedAdmin = $this->db->getAdminById($adminId);
+        $this->assertNull($deletedAdmin);
     }
 
     public function testDuplicateEmail() {
-        // Insert the first customer
-        $customerId1 = $this->db->insertCustomer('Alice', 'Smith', 'alice.smith@example.com', 'password123', '123 Main St', '1234567890');
-        $this->assertIsInt($customerId1);
+        $adminId1 = $this->db->insertAdmin('Alice', 'Smith', 'alice.smith@example.com', 'password123');
+        $this->assertIsInt($adminId1);
 
-        // Attempt to insert a second customer with the same email
         $this->expectException(mysqli_sql_exception::class);
-        $this->db->insertCustomer('Bob', 'Johnson', 'alice.smith@example.com', 'password456', '456 Elm St', '0987654321');
+        $this->db->insertAdmin('Bob', 'Johnson', 'alice.smith@example.com', 'password456');
     }
 
     public function testMissingRequiredFields() {
-        // Attempt to insert a customer without all required fields
         $this->expectException(mysqli_sql_exception::class);
-        $this->db->insertCustomer('Charlie', 'Brown', null, 'password123', '789 Oak St', '1234567890');
+        $this->db->insertAdmin('Charlie', null, 'charlie.brown@example.com', 'password123');
 
-        // Valid insertion
-        $customerId = $this->db->insertCustomer('Diana', 'Prince', 'diana.prince@example.com', 'password123', '123 Main St', '1234567890');
-        $this->assertIsInt($customerId);
+        $adminId = $this->db->insertAdmin('Diana', 'Prince', 'diana.prince@example.com', 'password123');
+        $this->assertIsInt($adminId);
 
-        // Attempt to update the customer by removing a required field
         $this->expectException(mysqli_sql_exception::class);
-        $this->db->updateCustomer($customerId, 'Diana', 'Prince', null, 'password123', '123 Main St', '1234567890');
+        $this->db->updateAdmin($adminId, null, 'Prince', 'diana.prince@example.com', 'password123');
     }
 }
+?>

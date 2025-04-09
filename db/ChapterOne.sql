@@ -69,7 +69,7 @@ CREATE TABLE REVIEW (
     Book_id INT NOT NULL,
     Customer_id INT NOT NULL,
     FOREIGN KEY (Book_id) REFERENCES BOOK(Id),
-    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id),
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id) ON DELETE CASCADE,
     UNIQUE (Book_id, Customer_id)
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE CART (
     Last_modified DATETIME DEFAULT CURRENT_TIMESTAMP,
     Item_count INT DEFAULT 0,
     Customer_id INT NOT NULL,
-    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id)
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id) ON DELETE CASCADE
 );
 
 CREATE TABLE BOOK_IN_CART (
@@ -87,7 +87,7 @@ CREATE TABLE BOOK_IN_CART (
     Cart_id INT NOT NULL,
     Book_id INT NOT NULL,
     Quantity INT DEFAULT 1,
-    FOREIGN KEY (Cart_id) REFERENCES CART(Id),
+    FOREIGN KEY (Cart_id) REFERENCES CART(Id) ON DELETE CASCADE,
     FOREIGN KEY (Book_id) REFERENCES BOOK(Id)
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE `ORDER` (
     Total DECIMAL(10, 2) NOT NULL,
     Customer_id INT NOT NULL,
     Discount_code_id INT NULL,
-    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id),
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id) ON DELETE CASCADE,
     FOREIGN KEY (Discount_code_id) REFERENCES DISCOUNT_CODE(Id)
 );
 
@@ -118,7 +118,7 @@ CREATE TABLE ORDER_DETAIL (
     Subtotal DECIMAL(10, 2) NOT NULL,
     Order_id INT NOT NULL,
     Book_id INT NOT NULL,
-    FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id),
+    FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id) ON DELETE CASCADE,
     FOREIGN KEY (Book_id) REFERENCES BOOK(Id)
 );
 
@@ -129,8 +129,8 @@ CREATE TABLE DISCOUNT_CODE_USAGE (
     Customer_id INT,
     Order_id INT,
     FOREIGN KEY (Discount_code_id) REFERENCES DISCOUNT_CODE(Id),
-    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id),
-    FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id)
+    FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id) ON DELETE CASCADE,
+    FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id) ON DELETE CASCADE
 );
 
 CREATE TABLE ORDER_NOTIFICATION (
@@ -138,7 +138,7 @@ CREATE TABLE ORDER_NOTIFICATION (
     Order_id INT NOT NULL,
     Message TEXT NOT NULL,
     Status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
-    FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id)
+    FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id) ON DELETE CASCADE
 );
 
 -- TRIGGER -- 
@@ -177,8 +177,6 @@ BEGIN
     WHERE Customer_id = NEW.Customer_id;
 END;
 
-
-
 -- Trigger per creare un carrello quando viene creato un nuovo cliente
 CREATE TRIGGER after_insert_customer
 AFTER INSERT ON CUSTOMER
@@ -187,23 +185,3 @@ BEGIN
     INSERT INTO CART (Customer_id) VALUES (NEW.Id);
 END;
 
--- Trigger per eliminare i dati correlati quando un cliente viene eliminato
-CREATE TRIGGER after_delete_customer
-AFTER DELETE ON CUSTOMER
-FOR EACH ROW
-BEGIN
- 
-    DELETE FROM CART WHERE Customer_id = OLD.Id;
-    
-    DELETE FROM ORDER_DETAIL WHERE Order_id IN (
-        SELECT Id FROM `ORDER` WHERE Customer_id = OLD.Id
-    );
-   
-    DELETE FROM `ORDER` WHERE Customer_id = OLD.Id;
-
-    DELETE FROM REVIEW WHERE Customer_id = OLD.Id;
-
-    DELETE FROM ORDER_NOTIFICATION WHERE Order_id IN (
-        SELECT Id FROM `ORDER` WHERE Customer_id = OLD.Id
-    );
-END;

@@ -4,14 +4,13 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../db/database.php';
 
 class CategoryTest extends TestCase {
-    private $db;
+    private CategoryManager $db;
 
     protected function setUp(): void {
         $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
     }
 
     protected function tearDown(): void {
-        // Clean up the database after each test
         $this->db->db->query("DELETE FROM BOOK_IN_CART");
         $this->db->db->query("DELETE FROM CART");
         $this->db->db->query("DELETE FROM REVIEW");
@@ -28,55 +27,37 @@ class CategoryTest extends TestCase {
         $this->db->db->query("DELETE FROM ADMIN");
     }
 
-    public function testCustomerCRUD() {
-        // Insert a fake customer
-        $customerId = $this->db->insertCustomer('John', 'Doe', 'john.doe@example.com', 'password123', '123 Main St', '1234567890');
-        $this->assertIsInt($customerId);
+    public function testCategoryCRUD() {
+        $categoryId = $this->db->insertCategory('Fiction');
+        $this->assertIsInt($categoryId);
 
-        // Retrieve the inserted customer
-        $customer = $this->db->getCustomerById($customerId);
-        $this->assertEquals('John', $customer['First_name']);
-        $this->assertEquals('Doe', $customer['Last_name']);
+        $category = $this->db->getCategoryById($categoryId);
+        $this->assertEquals('Fiction', $category['Name']);
 
-        // Update the customer
-        $updated = $this->db->updateCustomer($customerId, 'Jane', 'Doe', 'jane.doe@example.com', 'newpassword123', '456 Elm St', '0987654321');
+        $updated = $this->db->updateCategory($categoryId, 'Science Fiction');
         $this->assertTrue($updated);
 
-        // Verify the update
-        $updatedCustomer = $this->db->getCustomerById($customerId);
-        $this->assertEquals('Jane', $updatedCustomer['First_name']);
-        $this->assertEquals('Doe', $updatedCustomer['Last_name']);
+        $updatedCategory = $this->db->getCategoryById($categoryId);
+        $this->assertEquals('Science Fiction', $updatedCategory['Name']);
 
-        // Delete the customer
-        $deleted = $this->db->deleteCustomer($customerId);
+        $deleted = $this->db->deleteCategory($categoryId);
         $this->assertTrue($deleted);
 
-        // Verify the customer has been deleted
-        $deletedCustomer = $this->db->getCustomerById($customerId);
-        $this->assertNull($deletedCustomer);
+        $deletedCategory = $this->db->getCategoryById($categoryId);
+        $this->assertNull($deletedCategory);
     }
 
-    public function testDuplicateEmail() {
-        // Insert the first customer
-        $customerId1 = $this->db->insertCustomer('Alice', 'Smith', 'alice.smith@example.com', 'password123', '123 Main St', '1234567890');
-        $this->assertIsInt($customerId1);
+    public function testDuplicateCategoryName() {
+        $categoryId1 = $this->db->insertCategory('Non-Fiction');
+        $this->assertIsInt($categoryId1);
 
-        // Attempt to insert a second customer with the same email
         $this->expectException(mysqli_sql_exception::class);
-        $this->db->insertCustomer('Bob', 'Johnson', 'alice.smith@example.com', 'password456', '456 Elm St', '0987654321');
+        $this->db->insertCategory('Non-Fiction');
     }
 
     public function testMissingRequiredFields() {
-        // Attempt to insert a customer without all required fields
         $this->expectException(mysqli_sql_exception::class);
-        $this->db->insertCustomer('Charlie', 'Brown', null, 'password123', '789 Oak St', '1234567890');
-
-        // Valid insertion
-        $customerId = $this->db->insertCustomer('Diana', 'Prince', 'diana.prince@example.com', 'password123', '123 Main St', '1234567890');
-        $this->assertIsInt($customerId);
-
-        // Attempt to update the customer by removing a required field
-        $this->expectException(mysqli_sql_exception::class);
-        $this->db->updateCustomer($customerId, 'Diana', 'Prince', null, 'password123', '123 Main St', '1234567890');
+        $this->db->insertCategory(null);
     }
 }
+?>
