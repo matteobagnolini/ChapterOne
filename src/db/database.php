@@ -303,18 +303,11 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getCartById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM CART WHERE Id = ?");
+    public function getCartByCustomerId($id) {
+        $stmt = $this->db->prepare("SELECT * FROM CART WHERE Customer_id = ?");
         $stmt->bind_param('i', $id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
-    }
-
-    public function insertCart($subtotal, $lastModified, $itemCount, $customerId) {
-        $stmt = $this->db->prepare("INSERT INTO CART (Subtotal, Last_modified, Item_count, Customer_id) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('dsii', $subtotal, $lastModified, $itemCount, $customerId);
-        $stmt->execute();
-        return $stmt->insert_id;
     }
 
     public function updateCart($id, $subtotal, $lastModified, $itemCount, $customerId) {
@@ -323,11 +316,6 @@ class MySqlDatabase implements
         return $stmt->execute();
     }
 
-    public function deleteCart($id) {
-        $stmt = $this->db->prepare("DELETE FROM CART WHERE Id = ?");
-        $stmt->bind_param('i', $id);
-        return $stmt->execute();
-    }
 
     // BOOK_IN_CART methods
     public function getBooksInCart() {

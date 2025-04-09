@@ -66,10 +66,8 @@ interface ReviewManager {
 
 interface CartManager {
     public function getCarts();
-    public function getCartById($id);
-    public function insertCart($subtotal, $lastModified, $itemCount, $customerId);
+    public function getCartByCustomerId($id);
     public function updateCart($id, $subtotal, $lastModified, $itemCount, $customerId);
-    public function deleteCart($id);
 }
 
 interface BookInCartManager {
