@@ -149,6 +149,7 @@ FOR EACH ROW
 BEGIN
     UPDATE CART 
     SET Item_count = Item_count + NEW.Quantity, 
+        Subtotal = Subtotal + (NEW.Quantity * (SELECT Price FROM BOOK WHERE Id = NEW.Book_id)),
         Last_modified = CURRENT_TIMESTAMP
     WHERE Id = NEW.Cart_id;
 END;
@@ -159,23 +160,11 @@ FOR EACH ROW
 BEGIN
     UPDATE CART 
     SET Item_count = Item_count - OLD.Quantity, 
+        Subtotal = Subtotal - (OLD.Quantity * (SELECT Price FROM BOOK WHERE Id = OLD.Book_id)),
         Last_modified = CURRENT_TIMESTAMP
     WHERE Id = OLD.Cart_id;
 END;
 
-CREATE TRIGGER after_insert_order
-AFTER INSERT ON `ORDER`
-FOR EACH ROW
-BEGIN
-    -- Eliminare tutti i libri nel carrello del cliente
-    DELETE FROM BOOK_IN_CART 
-    WHERE Cart_id = (SELECT Id FROM CART WHERE Customer_id = NEW.Customer_id);
-
-    -- Azzerare il carrello del cliente
-    UPDATE CART 
-    SET Subtotal = 0, Item_count = 0, Last_modified = CURRENT_TIMESTAMP
-    WHERE Customer_id = NEW.Customer_id;
-END;
 
 -- Trigger per creare un carrello quando viene creato un nuovo cliente
 CREATE TRIGGER after_insert_customer

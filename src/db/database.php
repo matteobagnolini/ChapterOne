@@ -338,17 +338,18 @@ class MySqlDatabase implements
         return $stmt->insert_id;
     }
 
-    public function updateBookInCart($id, $cartId, $bookId, $quantity) {
-        $stmt = $this->db->prepare("UPDATE BOOK_IN_CART SET Cart_id = ?, Book_id = ?, Quantity = ? WHERE Id = ?");
-        $stmt->bind_param('iiii', $cartId, $bookId, $quantity, $id);
+    public function updateBookInCart($cartId, $bookId, $quantity) {
+        $stmt = $this->db->prepare("UPDATE BOOK_IN_CART SET Quantity = ? WHERE Cart_id = ? AND Book_id = ?");
+        $stmt->bind_param('iii', $quantity, $cartId, $bookId);
         return $stmt->execute();
     }
 
-    public function deleteBookInCart($id) {
-        $stmt = $this->db->prepare("DELETE FROM BOOK_IN_CART WHERE Id = ?");
-        $stmt->bind_param('i', $id);
+    public function deleteBookInCart($cartId, $bookId) {
+        $stmt = $this->db->prepare("DELETE FROM BOOK_IN_CART WHERE Cart_id = ? AND Book_id = ?");
+        $stmt->bind_param('ii', $cartId, $bookId);
         return $stmt->execute();
     }
+
 
     // DISCOUNT_CODE methods
     public function getDiscountCodes() {
@@ -399,10 +400,38 @@ class MySqlDatabase implements
     }
 
     public function insertOrder($date, $total, $customerId, $discountCodeId) {
-        $stmt = $this->db->prepare("INSERT INTO `ORDER` (Date, Total, Customer_id, Discount_code_id) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('sdii', $date, $total, $customerId, $discountCodeId);
-        $stmt->execute();
-        return $stmt->insert_id;
+        // Inizio transazione
+        $this->db->begin_transaction();
+        
+        try {
+            // Inserisci l'ordine
+            $stmt = $this->db->prepare("INSERT INTO `ORDER` (Date, Total, Customer_id, Discount_code_id) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param('sdii', $date, $total, $customerId, $discountCodeId);
+            $stmt->execute();
+            $orderId = $stmt->insert_id;
+            
+            // Recupera il Cart_id
+            $cartId = $this->getCartByCustomerId($customerId)['Id'];
+            
+            // Elimina i libri dal carrello
+            $stmt = $this->db->prepare("DELETE FROM BOOK_IN_CART WHERE Cart_id = ?");
+            $stmt->bind_param('i', $cartId);
+            $stmt->execute();
+            
+            // Azzera il carrello
+            $stmt = $this->db->prepare("UPDATE CART SET Subtotal = 0, Item_count = 0, Last_modified = CURRENT_TIMESTAMP WHERE Customer_id = ?");
+            $stmt->bind_param('i', $customerId);
+            $stmt->execute();
+            
+            // Commit transazione
+            $this->db->commit();
+            
+            return $orderId;
+        } catch (Exception $e) {
+            // Rollback in caso di errore
+            $this->db->rollback();
+            throw $e;
+        }
     }
 
     public function updateOrder($id, $date, $total, $customerId, $discountCodeId) {

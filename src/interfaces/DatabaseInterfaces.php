@@ -74,8 +74,8 @@ interface BookInCartManager {
     public function getBooksInCart();
     public function getBookInCartById($id);
     public function insertBookInCart($cartId, $bookId, $quantity);
-    public function updateBookInCart($id, $cartId, $bookId, $quantity);
-    public function deleteBookInCart($id);
+    public function updateBookInCart($cartId, $bookId, $quantity);
+    public function deleteBookInCart($cartId, $bookId);
 }
 
 interface DiscountCodeManager {
