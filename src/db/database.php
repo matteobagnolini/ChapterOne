@@ -219,5 +219,171 @@ class MySqlDatabase implements
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    // POST methods
+    public function getPosts() {
+        $stmt = $this->db->prepare("SELECT * FROM POST");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPostById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM POST WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertPost($text, $publicationDate, $authorId, $bookId) {
+        $stmt = $this->db->prepare("INSERT INTO POST (Text, Publication_date, Author_id, Book_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('ssii', $text, $publicationDate, $authorId, $bookId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updatePost($id, $text, $publicationDate, $authorId, $bookId) {
+        $stmt = $this->db->prepare("UPDATE POST SET Text = ?, Publication_date = ?, Author_id = ?, Book_id = ? WHERE Id = ?");
+        $stmt->bind_param('ssiii', $text, $publicationDate, $authorId, $bookId, $id);
+        return $stmt->execute();
+    }
+
+    public function deletePost($id) {
+        $stmt = $this->db->prepare("DELETE FROM POST WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    
+    // REVIEW methods
+    public function getReviews() {
+        $stmt = $this->db->prepare("SELECT * FROM REVIEW");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getReviewById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM REVIEW WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertReview($text, $rating, $bookId, $customerId) {
+        $stmt = $this->db->prepare("INSERT INTO REVIEW (Text, Rating, Book_id, Customer_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('siii', $text, $rating, $bookId, $customerId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateReview($id, $text, $rating, $bookId, $customerId) {
+        $stmt = $this->db->prepare("UPDATE REVIEW SET Text = ?, Rating = ?, Book_id = ?, Customer_id = ? WHERE Id = ?");
+        $stmt->bind_param('siiii', $text, $rating, $bookId, $customerId, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteReview($id) {
+        $stmt = $this->db->prepare("DELETE FROM REVIEW WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+    
+    // CART methods
+    public function getCarts() {
+        $stmt = $this->db->prepare("SELECT * FROM CART");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCartById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM CART WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertCart($subtotal, $lastModified, $itemCount, $customerId) {
+        $stmt = $this->db->prepare("INSERT INTO CART (Subtotal, Last_modified, Item_count, Customer_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('dsii', $subtotal, $lastModified, $itemCount, $customerId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateCart($id, $subtotal, $lastModified, $itemCount, $customerId) {
+        $stmt = $this->db->prepare("UPDATE CART SET Subtotal = ?, Last_modified = ?, Item_count = ?, Customer_id = ? WHERE Id = ?");
+        $stmt->bind_param('dsiii', $subtotal, $lastModified, $itemCount, $customerId, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteCart($id) {
+        $stmt = $this->db->prepare("DELETE FROM CART WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // BOOK_IN_CART methods
+    public function getBooksInCart() {
+        $stmt = $this->db->prepare("SELECT * FROM BOOK_IN_CART");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getBookInCartById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM BOOK_IN_CART WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertBookInCart($cartId, $bookId, $quantity) {
+        $stmt = $this->db->prepare("INSERT INTO BOOK_IN_CART (Cart_id, Book_id, Quantity) VALUES (?, ?, ?)");
+        $stmt->bind_param('iii', $cartId, $bookId, $quantity);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateBookInCart($id, $cartId, $bookId, $quantity) {
+        $stmt = $this->db->prepare("UPDATE BOOK_IN_CART SET Cart_id = ?, Book_id = ?, Quantity = ? WHERE Id = ?");
+        $stmt->bind_param('iiii', $cartId, $bookId, $quantity, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteBookInCart($id) {
+        $stmt = $this->db->prepare("DELETE FROM BOOK_IN_CART WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // DISCOUNT_CODE methods
+    public function getDiscountCodes() {
+        $stmt = $this->db->prepare("SELECT * FROM DISCOUNT_CODE");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getDiscountCodeById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM DISCOUNT_CODE WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertDiscountCode($code, $type, $value, $startDate, $endDate, $singleUse, $active) {
+        $stmt = $this->db->prepare("INSERT INTO DISCOUNT_CODE (Code, Type, Value, Start_date, End_date, Single_use, Active) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssdsiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateDiscountCode($id, $code, $type, $value, $startDate, $endDate, $singleUse, $active) {
+        $stmt = $this->db->prepare("UPDATE DISCOUNT_CODE SET Code = ?, Type = ?, Value = ?, Start_date = ?, End_date = ?, Single_use = ?, Active = ? WHERE Id = ?");
+        $stmt->bind_param('ssdsiiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteDiscountCode($id) {
+        $stmt = $this->db->prepare("DELETE FROM DISCOUNT_CODE WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
 }
 ?>

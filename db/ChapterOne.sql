@@ -176,3 +176,34 @@ BEGIN
     SET Subtotal = 0, Item_count = 0, Last_modified = CURRENT_TIMESTAMP
     WHERE Customer_id = NEW.Customer_id;
 END;
+
+
+
+-- Trigger per creare un carrello quando viene creato un nuovo cliente
+CREATE TRIGGER after_insert_customer
+AFTER INSERT ON CUSTOMER
+FOR EACH ROW
+BEGIN
+    INSERT INTO CART (Customer_id) VALUES (NEW.Id);
+END;
+
+-- Trigger per eliminare i dati correlati quando un cliente viene eliminato
+CREATE TRIGGER after_delete_customer
+AFTER DELETE ON CUSTOMER
+FOR EACH ROW
+BEGIN
+ 
+    DELETE FROM CART WHERE Customer_id = OLD.Id;
+    
+    DELETE FROM ORDER_DETAIL WHERE Order_id IN (
+        SELECT Id FROM `ORDER` WHERE Customer_id = OLD.Id
+    );
+   
+    DELETE FROM `ORDER` WHERE Customer_id = OLD.Id;
+
+    DELETE FROM REVIEW WHERE Customer_id = OLD.Id;
+
+    DELETE FROM ORDER_NOTIFICATION WHERE Order_id IN (
+        SELECT Id FROM `ORDER` WHERE Customer_id = OLD.Id
+    );
+END;
