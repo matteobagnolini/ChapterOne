@@ -7,7 +7,16 @@ class MySqlDatabase implements
     AdminManager, 
     AuthorManager, 
     CategoryManager, 
-    PublisherManager 
+    PublisherManager, 
+    PostManager, 
+    ReviewManager, 
+    CartManager, 
+    BookInCartManager, 
+    DiscountCodeManager, 
+    OrderManager, 
+    OrderDetailManager, 
+    DiscountCodeUsageManager, 
+    OrderNotificationManager
 {
     public $db;
 
@@ -382,6 +391,139 @@ class MySqlDatabase implements
 
     public function deleteDiscountCode($id) {
         $stmt = $this->db->prepare("DELETE FROM DISCOUNT_CODE WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+
+    // ORDER methods
+    public function getOrders() {
+        $stmt = $this->db->prepare("SELECT * FROM `ORDER`");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getOrderById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM `ORDER` WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertOrder($date, $total, $customerId, $discountCodeId) {
+        $stmt = $this->db->prepare("INSERT INTO `ORDER` (Date, Total, Customer_id, Discount_code_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('sdii', $date, $total, $customerId, $discountCodeId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateOrder($id, $date, $total, $customerId, $discountCodeId) {
+        $stmt = $this->db->prepare("UPDATE `ORDER` SET Date = ?, Total = ?, Customer_id = ?, Discount_code_id = ? WHERE Id = ?");
+        $stmt->bind_param('sdiii', $date, $total, $customerId, $discountCodeId, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteOrder($id) {
+        $stmt = $this->db->prepare("DELETE FROM `ORDER` WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // ORDER_DETAIL methods
+    public function getOrderDetails() {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_DETAIL");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getOrderDetailById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_DETAIL WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertOrderDetail($quantity, $subtotal, $orderId, $bookId) {
+        $stmt = $this->db->prepare("INSERT INTO ORDER_DETAIL (Quantity, Subtotal, Order_id, Book_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('idii', $quantity, $subtotal, $orderId, $bookId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateOrderDetail($id, $quantity, $subtotal, $orderId, $bookId) {
+        $stmt = $this->db->prepare("UPDATE ORDER_DETAIL SET Quantity = ?, Subtotal = ?, Order_id = ?, Book_id = ? WHERE Id = ?");
+        $stmt->bind_param('idiii', $quantity, $subtotal, $orderId, $bookId, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteOrderDetail($id) {
+        $stmt = $this->db->prepare("DELETE FROM ORDER_DETAIL WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // DISCOUNT_CODE_USAGE methods
+    public function getDiscountCodeUsages() {
+        $stmt = $this->db->prepare("SELECT * FROM DISCOUNT_CODE_USAGE");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getDiscountCodeUsageById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM DISCOUNT_CODE_USAGE WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertDiscountCodeUsage($usageDate, $discountCodeId, $customerId, $orderId) {
+        $stmt = $this->db->prepare("INSERT INTO DISCOUNT_CODE_USAGE (Usage_date, Discount_code_id, Customer_id, Order_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('siii', $usageDate, $discountCodeId, $customerId, $orderId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateDiscountCodeUsage($id, $usageDate, $discountCodeId, $customerId, $orderId) {
+        $stmt = $this->db->prepare("UPDATE DISCOUNT_CODE_USAGE SET Usage_date = ?, Discount_code_id = ?, Customer_id = ?, Order_id = ? WHERE Id = ?");
+        $stmt->bind_param('siiii', $usageDate, $discountCodeId, $customerId, $orderId, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteDiscountCodeUsage($id) {
+        $stmt = $this->db->prepare("DELETE FROM DISCOUNT_CODE_USAGE WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    // ORDER_NOTIFICATION methods
+    public function getOrderNotifications() {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION");
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getOrderNotificationById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function insertOrderNotification($orderId, $message, $status) {
+        $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Message, Status) VALUES (?, ?, ?)");
+        $stmt->bind_param('iss', $orderId, $message, $status);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
+    public function updateOrderNotification($id, $orderId, $message, $status) {
+        $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Message = ?, Status = ? WHERE Id = ?");
+        $stmt->bind_param('issi', $orderId, $message, $status, $id);
+        return $stmt->execute();
+    }
+
+    public function deleteOrderNotification($id) {
+        $stmt = $this->db->prepare("DELETE FROM ORDER_NOTIFICATION WHERE Id = ?");
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
