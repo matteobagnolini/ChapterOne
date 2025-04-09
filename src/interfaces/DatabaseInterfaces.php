@@ -71,7 +71,7 @@ interface CartManager {
 }
 
 interface BookInCartManager {
-    public function getBooksInCart();
+    public function getBooksInCart($cartId);
     public function getBookInCartById($id);
     public function insertBookInCart($cartId, $bookId, $quantity);
     public function updateBookInCart($cartId, $bookId, $quantity);

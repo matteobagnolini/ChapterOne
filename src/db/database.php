@@ -86,12 +86,94 @@ class MySqlDatabase implements
     }
 
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId) {
-        $stmt = $this->db->prepare("UPDATE BOOK SET Title = ?, Description = ?, Price = ?, Cover = ?, Category_id = ?, Publisher_id = ?, Author_id = ? WHERE Id = ?");
-        $stmt->bind_param('ssdsiiii', $title, $description, $price, $cover, $categoryId, $publisherId, $authorId, $id);
-        return $stmt->execute();
+        // Inizia transazione
+        $this->db->begin_transaction();
+        
+        try {
+            // Ottieni il prezzo attuale del libro prima dell'aggiornamento
+            $stmt = $this->db->prepare("SELECT Price FROM BOOK WHERE Id = ?");
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            $oldPriceResult = $stmt->get_result()->fetch_assoc();
+            $oldPrice = $oldPriceResult['Price'] ?? 0;
+            
+            // Aggiorna il libro
+            $stmt = $this->db->prepare("UPDATE BOOK SET Title = ?, Description = ?, Price = ?, Cover = ?, Category_id = ?, Publisher_id = ?, Author_id = ? WHERE Id = ?");
+            $stmt->bind_param('ssdsiiii', $title, $description, $price, $cover, $categoryId, $publisherId, $authorId, $id);
+            $stmt->execute();
+            
+            // Se il prezzo è cambiato, aggiorna tutti i carrelli che contengono questo libro
+            if ($oldPrice != $price) {
+                // Trova tutti i carrelli che contengono questo libro
+                $stmt = $this->db->prepare("
+                    SELECT bic.Cart_id, bic.Quantity
+                    FROM BOOK_IN_CART bic
+                    WHERE bic.Book_id = ?
+                ");
+                $stmt->bind_param('i', $id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                // Aggiorna ogni carrello
+                while ($row = $result->fetch_assoc()) {
+                    $cartId = $row['Cart_id'];
+                    $quantity = $row['Quantity'];
+                    $priceDifference = $price - $oldPrice;
+                    
+                    // Aggiorna il subtotale del carrello
+                    $updateStmt = $this->db->prepare("
+                        UPDATE CART 
+                        SET Subtotal = Subtotal + (? * ?),
+                            Last_modified = CURRENT_TIMESTAMP
+                        WHERE Id = ?
+                    ");
+                    $updateStmt->bind_param('ddi', $priceDifference, $quantity, $cartId);
+                    $updateStmt->execute();
+                }
+            }
+            
+            // Commit della transazione
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            // In caso di errore, annulla le modifiche
+            $this->db->rollback();
+            error_log("Errore durante l'aggiornamento del libro e dei carrelli: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function deleteBook($id) {
+        // Ottieni tutte le informazioni necessarie sui libri nei carrelli prima di eliminarli
+        $stmt = $this->db->prepare("
+            SELECT c.Id as cart_id, bic.Quantity as quantity, b.Price as price
+            FROM BOOK b
+            JOIN BOOK_IN_CART bic ON b.Id = bic.Book_id
+            JOIN CART c ON bic.Cart_id = c.Id
+            WHERE b.Id = ?
+        ");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        // Aggiorna manualmente i carrelli
+        while ($row = $result->fetch_assoc()) {
+            $cartId = $row['cart_id'];
+            $quantity = $row['quantity'];
+            $price = $row['price'];
+            
+            $updateStmt = $this->db->prepare("
+                UPDATE CART 
+                SET Item_count = Item_count - ?, 
+                    Subtotal = Subtotal - (? * ?),
+                    Last_modified = CURRENT_TIMESTAMP
+                WHERE Id = ?
+            ");
+            $updateStmt->bind_param('iddi', $quantity, $quantity, $price, $cartId);
+            $updateStmt->execute();
+        }
+        
+        // Ora elimina il libro (le righe in BOOK_IN_CART verranno eliminate automaticamente)
         $stmt = $this->db->prepare("DELETE FROM BOOK WHERE Id = ?");
         $stmt->bind_param('i', $id);
         return $stmt->execute();
@@ -318,8 +400,9 @@ class MySqlDatabase implements
 
 
     // BOOK_IN_CART methods
-    public function getBooksInCart() {
-        $stmt = $this->db->prepare("SELECT * FROM BOOK_IN_CART");
+    public function getBooksInCart($cartid) {
+        $stmt = $this->db->prepare("SELECT * FROM BOOK_IN_CART WHERE Cart_id = ?");
+        $stmt->bind_param('i', $cartid);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
