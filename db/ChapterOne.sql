@@ -44,12 +44,12 @@ CREATE TABLE BOOK (
     Description TEXT,
     Price DECIMAL(10, 2) NOT NULL,
     Cover VARCHAR(255) NOT NULL,
-    Category_id INT NOT NULL,
-    Publisher_id INT NOT NULL,
-    Author_id INT NOT NULL,
-    FOREIGN KEY (Category_id) REFERENCES CATEGORY(Id),
-    FOREIGN KEY (Author_id) REFERENCES AUTHOR(Id),
-    FOREIGN KEY (Publisher_id) REFERENCES PUBLISHER(Id)
+    Category_id INT ,
+    Publisher_id INT ,
+    Author_id INT ,
+    FOREIGN KEY (Category_id) REFERENCES CATEGORY(Id) ON DELETE SET NULL,
+    FOREIGN KEY (Author_id) REFERENCES AUTHOR(Id) ON DELETE SET NULL,
+    FOREIGN KEY (Publisher_id) REFERENCES PUBLISHER(Id) ON DELETE SET NULL
 );
 
 CREATE TABLE POST (
