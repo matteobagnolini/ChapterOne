@@ -31,6 +31,7 @@ class PublisherTest extends TestCase {
     }
 
     public function testPublisherCRUD() {
+        $this->tearDown();
         // Insert a publisher
         $publisherId = $this->db->insertPublisher('Penguin Books');
         $this->assertIsInt($publisherId);

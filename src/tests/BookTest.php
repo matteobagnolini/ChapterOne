@@ -11,11 +11,6 @@ class BookTest extends TestCase {
 
     protected function setUp(): void {
         $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
-
-        // Inserire dati necessari per i test
-        $this->categoryId = $this->db->insertCategory('Fiction');
-        $this->publisherId = $this->db->insertPublisher('Penguin Books');
-        $this->authorId = $this->db->insertAuthor('John', 'Doe');
     }
 
     protected function tearDown(): void {
@@ -36,14 +31,20 @@ class BookTest extends TestCase {
     }
 
     public function testBookCRUD(): void {
+        $this->tearDown();
+
+        $categoryId = $this->db->insertCategory('Fiction');
+        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+
         $bookId = $this->db->insertBook(
             'The Great Gatsby',
             'A classic novel by F. Scott Fitzgerald',
             10.99,
             'cover.jpg',
-            $this->categoryId,
-            $this->publisherId,
-            $this->authorId
+            $categoryId,
+            $publisherId,
+            $authorId
         );
         $this->assertIsInt($bookId);
 
@@ -52,9 +53,9 @@ class BookTest extends TestCase {
         $this->assertSame('A classic novel by F. Scott Fitzgerald', $book['Description']);
         $this->assertSame(10.99, (float) $book['Price']);
         $this->assertSame('cover.jpg', $book['Cover']);
-        $this->assertSame($this->categoryId, (int) $book['Category_id']);
-        $this->assertSame($this->publisherId, (int) $book['Publisher_id']);
-        $this->assertSame($this->authorId, (int) $book['Author_id']);
+        $this->assertSame($categoryId, (int) $book['Category_id']);
+        $this->assertSame($publisherId, (int) $book['Publisher_id']);
+        $this->assertSame($authorId, (int) $book['Author_id']);
 
         $updated = $this->db->updateBook(
             $bookId,
@@ -62,9 +63,9 @@ class BookTest extends TestCase {
             'An updated description',
             12.99,
             'new_cover.jpg',
-            $this->categoryId,
-            $this->publisherId,
-            $this->authorId
+            $categoryId,
+            $publisherId,
+            $authorId
         );
         $this->assertTrue($updated);
 
@@ -82,64 +83,92 @@ class BookTest extends TestCase {
     }
 
     public function testMissingRequiredFields(): void {
+        $this->tearDown();
+
+        $categoryId = $this->db->insertCategory('Fiction');
+        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+
         $this->expectException(mysqli_sql_exception::class);
         $this->db->insertBook(
             null,
             'A book without a title',
             9.99,
             'cover.jpg',
-            $this->categoryId,
-            $this->publisherId,
-            $this->authorId
+            $categoryId,
+            $publisherId,
+            $authorId
         );
     }
 
     public function testSetNullOnDeletePublisher(): void {
+        $this->tearDown();
+
+        $categoryId = $this->db->insertCategory('Fiction');
+        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+
+
         $bookId = $this->db->insertBook(
             'Book with Publisher',
             'Description',
             15.99,
             'cover.jpg',
-            $this->categoryId,
-            $this->publisherId,
-            $this->authorId
+            $categoryId,
+            $publisherId,
+            $authorId
         );
 
-        $this->db->deletePublisher($this->publisherId);
+        $this->db->deletePublisher($publisherId);
 
         $book = $this->db->getBookById($bookId);
         $this->assertNull($book['Publisher_id']);
     }
 
     public function testSetNullOnDeleteAuthor(): void {
+        $this->tearDown();
+
+        $categoryId = $this->db->insertCategory('Fiction');
+        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+
+
         $bookId = $this->db->insertBook(
             'Book with Author',
             'Description',
             15.99,
             'cover.jpg',
-            $this->categoryId,
-            $this->publisherId,
-            $this->authorId
+            $categoryId,
+            $publisherId,
+            $authorId
         );
 
-        $this->db->deleteAuthor($this->authorId);
+        $this->db->deleteAuthor($authorId);
 
         $book = $this->db->getBookById($bookId);
         $this->assertNull($book['Author_id']);
     }
 
     public function testSetNullOnDeleteCategory(): void {
+        $this->tearDown();
+
+
+        $categoryId = $this->db->insertCategory('Fiction');
+        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+
+
         $bookId = $this->db->insertBook(
             'Book with Category',
             'Description',
             15.99,
             'cover.jpg',
-            $this->categoryId,
-            $this->publisherId,
-            $this->authorId
+            $categoryId,
+            $publisherId,
+            $authorId
         );
 
-        $this->db->deleteCategory($this->categoryId);
+        $this->db->deleteCategory($categoryId);
 
         $book = $this->db->getBookById($bookId);
         $this->assertNull($book['Category_id']);

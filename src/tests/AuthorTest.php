@@ -28,6 +28,7 @@ class AuthorTest extends TestCase {
     }
 
     public function testAuthorCRUD() {
+        $this->tearDown();
         $authorId = $this->db->insertAuthor('John', 'Doe');
         $this->assertIsInt($authorId);
 
@@ -50,6 +51,7 @@ class AuthorTest extends TestCase {
     }
 
     public function testDuplicateAuthor() {
+        $this->tearDown();
         $authorId1 = $this->db->insertAuthor('Alice', 'Smith');
         $this->assertIsInt($authorId1);
 
@@ -58,6 +60,7 @@ class AuthorTest extends TestCase {
     }
 
     public function testMissingRequiredFields() {
+        $this->tearDown();
         $this->expectException(mysqli_sql_exception::class);
         $this->db->insertAuthor(null, 'Brown');
 

@@ -28,6 +28,7 @@ class CategoryTest extends TestCase {
     }
 
     public function testCategoryCRUD() {
+        $this->tearDown();
         $categoryId = $this->db->insertCategory('Fiction');
         $this->assertIsInt($categoryId);
 
@@ -48,6 +49,7 @@ class CategoryTest extends TestCase {
     }
 
     public function testDuplicateCategoryName() {
+        $this->tearDown();
         $categoryId1 = $this->db->insertCategory('Non-Fiction');
         $this->assertIsInt($categoryId1);
 
@@ -56,6 +58,7 @@ class CategoryTest extends TestCase {
     }
 
     public function testMissingRequiredFields() {
+        $this->tearDown();
         $this->expectException(mysqli_sql_exception::class);
         $this->db->insertCategory(null);
     }

@@ -5,26 +5,14 @@ require_once __DIR__ . '/../db/database.php';
 
 class PostTest extends TestCase {
     private PostManager $db;
-    private int $authorId;
-    private int $bookId;
 
     protected function setUp(): void {
+        // Inizializza il database
         $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
-
-        // Inserire dati necessari per i test
-        $this->authorId = $this->db->insertAuthor('John', 'Doe');
-        $this->bookId = $this->db->insertBook(
-            'The Great Gatsby',
-            'A classic novel by F. Scott Fitzgerald',
-            10.99,
-            'cover.jpg',
-            null, // Nessuna categoria
-            null, // Nessun publisher
-            $this->authorId
-        );
     }
 
     protected function tearDown(): void {
+        // Pulisci tutte le tabelle
         $this->db->db->query("DELETE FROM BOOK_IN_CART");
         $this->db->db->query("DELETE FROM CART");
         $this->db->db->query("DELETE FROM REVIEW");
@@ -42,47 +30,56 @@ class PostTest extends TestCase {
     }
 
     public function testPostCRUD(): void {
-        // Inserire un post
+        $this->tearDown(); 
+
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+        $bookId = $this->db->insertBook(
+            'The Great Gatsby',
+            'A classic novel by F. Scott Fitzgerald',
+            10.99,
+            'cover.jpg',
+            null,
+            null,
+            $authorId
+        );
+
         $postId = $this->db->insertPost(
             'This is a post about a book.',
             '2025-04-09 12:00:00',
-            $this->authorId,
-            $this->bookId
+            $authorId,
+            $bookId
         );
         $this->assertIsInt($postId);
 
-        // Recuperare il post inserito
         $post = $this->db->getPostById($postId);
         $this->assertEquals('This is a post about a book.', $post['Text']);
         $this->assertEquals('2025-04-09 12:00:00', $post['Publication_date']);
-        $this->assertEquals($this->authorId, $post['Author_id']);
-        $this->assertEquals($this->bookId, $post['Book_id']);
+        $this->assertEquals($authorId, $post['Author_id']);
+        $this->assertEquals($bookId, $post['Book_id']);
 
-        // Aggiornare il post
         $updated = $this->db->updatePost(
             $postId,
             'Updated post text.',
             '2025-04-10 12:00:00',
-            $this->authorId,
-            $this->bookId
+            $authorId,
+            $bookId
         );
         $this->assertTrue($updated);
 
-        // Verificare l'aggiornamento
         $updatedPost = $this->db->getPostById($postId);
         $this->assertEquals('Updated post text.', $updatedPost['Text']);
         $this->assertEquals('2025-04-10 12:00:00', $updatedPost['Publication_date']);
 
-        // Eliminare il post
         $deleted = $this->db->deletePost($postId);
         $this->assertTrue($deleted);
 
-        // Verificare che il post sia stato eliminato
         $deletedPost = $this->db->getPostById($postId);
         $this->assertNull($deletedPost);
     }
 
     public function testInsertPostWithoutReferences(): void {
+        $this->tearDown(); 
+
         $postId = $this->db->insertPost(
             'Post without references.',
             '2025-04-09 12:00:00',
@@ -98,69 +95,125 @@ class PostTest extends TestCase {
     }
 
     public function testInsertPostWithOnlyBook(): void {
+        $this->tearDown(); 
+
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+        $bookId = $this->db->insertBook(
+            'The Great Gatsby',
+            'A classic novel by F. Scott Fitzgerald',
+            10.99,
+            'cover.jpg',
+            null,
+            null,
+            $authorId
+        );
+
         $postId = $this->db->insertPost(
             'Post with only book.',
             '2025-04-09 12:00:00',
             null,
-            $this->bookId
+            $bookId
         );
         $this->assertIsInt($postId);
 
         $post = $this->db->getPostById($postId);
         $this->assertEquals('Post with only book.', $post['Text']);
         $this->assertNull($post['Author_id']);
-        $this->assertEquals($this->bookId, $post['Book_id']);
+        $this->assertEquals($bookId, $post['Book_id']);
     }
 
     public function testInsertPostWithOnlyAuthor(): void {
+        $this->tearDown(); 
+
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+
         $postId = $this->db->insertPost(
             'Post with only author.',
             '2025-04-09 12:00:00',
-            $this->authorId,
+            $authorId,
             null
         );
         $this->assertIsInt($postId);
 
         $post = $this->db->getPostById($postId);
         $this->assertEquals('Post with only author.', $post['Text']);
-        $this->assertEquals($this->authorId, $post['Author_id']);
+        $this->assertEquals($authorId, $post['Author_id']);
         $this->assertNull($post['Book_id']);
     }
 
     public function testDeleteBookCascade(): void {
+        $this->tearDown(); 
+
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+        $bookId = $this->db->insertBook(
+            'The Great Gatsby',
+            'A classic novel by F. Scott Fitzgerald',
+            10.99,
+            'cover.jpg',
+            null,
+            null,
+            $authorId
+        );
+
         $postId = $this->db->insertPost(
             'Post with book.',
             '2025-04-09 12:00:00',
-            $this->authorId,
-            $this->bookId
+            $authorId,
+            $bookId
         );
 
-        $this->db->deleteBook($this->bookId);
+        $this->db->deleteBook($bookId);
 
         $post = $this->db->getPostById($postId);
         $this->assertNull($post);
     }
 
     public function testDeleteAuthorCascade(): void {
+        $this->tearDown(); 
+
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+        $bookId = $this->db->insertBook(
+            'The Great Gatsby',
+            'A classic novel by F. Scott Fitzgerald',
+            10.99,
+            'cover.jpg',
+            null,
+            null,
+            $authorId
+        );
+
         $postId = $this->db->insertPost(
             'Post with author.',
             '2025-04-09 12:00:00',
-            $this->authorId,
-            $this->bookId
+            $authorId,
+            $bookId
         );
 
-        $this->db->deleteAuthor($this->authorId);
+        $this->db->deleteAuthor($authorId);
 
         $post = $this->db->getPostById($postId);
         $this->assertNull($post);
     }
 
     public function testDeletePost(): void {
+        $this->tearDown(); 
+
+        $authorId = $this->db->insertAuthor('John', 'Doe');
+        $bookId = $this->db->insertBook(
+            'The Great Gatsby',
+            'A classic novel by F. Scott Fitzgerald',
+            10.99,
+            'cover.jpg',
+            null,
+            null,
+            $authorId
+        );
+
         $postId = $this->db->insertPost(
             'Post to delete.',
             '2025-04-09 12:00:00',
-            $this->authorId,
-            $this->bookId
+            $authorId,
+            $bookId
         );
 
         $deleted = $this->db->deletePost($postId);

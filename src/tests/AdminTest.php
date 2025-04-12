@@ -28,6 +28,7 @@ class AdminTest extends TestCase {
     }
 
     public function testAdminCRUD() {
+        $this->tearDown();
         $adminId = $this->db->insertAdmin('John', 'Doe', 'john.doe@example.com', 'password123');
         $this->assertIsInt($adminId);
 
@@ -50,6 +51,7 @@ class AdminTest extends TestCase {
     }
 
     public function testDuplicateEmail() {
+        $this->tearDown();
         $adminId1 = $this->db->insertAdmin('Alice', 'Smith', 'alice.smith@example.com', 'password123');
         $this->assertIsInt($adminId1);
 
@@ -58,6 +60,7 @@ class AdminTest extends TestCase {
     }
 
     public function testMissingRequiredFields() {
+        $this->tearDown();
         $this->expectException(mysqli_sql_exception::class);
         $this->db->insertAdmin('Charlie', null, 'charlie.brown@example.com', 'password123');
 

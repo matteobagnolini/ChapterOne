@@ -29,6 +29,7 @@ class CustomerTest extends TestCase {
     }
 
     public function testCustomerCRUD() {
+        $this->tearDown();
         // Insert a fake customer
         $customerId = $this->db->insertCustomer('John', 'Doe', 'john.doe@example.com', 'password123', '123 Main St', '1234567890');
         $this->assertIsInt($customerId);
@@ -57,6 +58,7 @@ class CustomerTest extends TestCase {
     }
 
     public function testDuplicateEmail() {
+        $this->tearDown();
         // Insert the first customer
         $customerId1 = $this->db->insertCustomer('Alice', 'Smith', 'alice.smith@example.com', 'password123', '123 Main St', '1234567890');
         $this->assertIsInt($customerId1);
@@ -67,6 +69,7 @@ class CustomerTest extends TestCase {
     }
 
     public function testMissingRequiredFields() {
+        $this->tearDown();
         // Attempt to insert a customer without all required fields
         $this->expectException(mysqli_sql_exception::class);
         $this->db->insertCustomer('Charlie', 'Brown', null, 'password123', '789 Oak St', '1234567890');
