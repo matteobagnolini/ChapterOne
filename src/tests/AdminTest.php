@@ -1,31 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/BaseTest.php';
 
-class AdminTest extends TestCase {
-    private AdminManager $db;
-
-    protected function setUp(): void {
-        $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
-    }
-
-    protected function tearDown(): void {
-        $this->db->db->query("DELETE FROM BOOK_IN_CART");
-        $this->db->db->query("DELETE FROM CART");
-        $this->db->db->query("DELETE FROM REVIEW");
-        $this->db->db->query("DELETE FROM `ORDER`");
-        $this->db->db->query("DELETE FROM ORDER_DETAIL");
-        $this->db->db->query("DELETE FROM DISCOUNT_CODE_USAGE");
-        $this->db->db->query("DELETE FROM DISCOUNT_CODE");
-        $this->db->db->query("DELETE FROM POST");
-        $this->db->db->query("DELETE FROM BOOK");
-        $this->db->db->query("DELETE FROM CATEGORY");
-        $this->db->db->query("DELETE FROM AUTHOR");
-        $this->db->db->query("DELETE FROM PUBLISHER");
-        $this->db->db->query("DELETE FROM CUSTOMER");
-        $this->db->db->query("DELETE FROM ADMIN");
-    }
+class AdminTest extends BaseTest {
 
     public function testAdminCRUD() {
         $this->tearDown();
