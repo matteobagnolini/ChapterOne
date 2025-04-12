@@ -65,7 +65,32 @@
     if(isset($templateParams["nome"])){
         require($templateParams["nome"]);
     }
-    ?>
+    
+
+        // Utilizzo del metodo getBooks
+        $books = $dbh->getBooks(); // Ottieni i libri dal database
+        if (!empty($books)) {
+            echo '<div class="container mt-4">';
+            echo '<h2>Books</h2>';
+            echo '<div class="row">';
+            foreach ($books as $book) {
+                echo '<div class="col-md-4">';
+                echo '<div class="card mb-4">';
+                echo '<img src="' . htmlspecialchars($book["cover"]) . '" class="card-img-top" alt="Book Cover">';
+                echo '<div class="card-body">';
+                echo '<h5 class="card-title">' . htmlspecialchars($book["title"]) . '</h5>';
+                echo '<p class="card-text">' . htmlspecialchars($book["description"]) . '</p>';
+                echo '<p class="card-text"><strong>Price:</strong> $' . htmlspecialchars($book["price"]) . '</p>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+            echo '</div>';
+            echo '</div>';
+        } else {
+            echo '<p class="text-center mt-4">No books available.</p>';
+        }
+        ?>
 
 
     </main>

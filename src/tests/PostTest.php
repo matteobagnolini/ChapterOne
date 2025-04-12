@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/BaseTest.php';
 
 class PostTest extends TestCase {
     private PostManager $db;

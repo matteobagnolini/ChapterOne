@@ -1,35 +1,9 @@
 <?php
-use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/BaseTest.php';
 
-class BookTest extends TestCase {
-    private BookManager $db;
-    private int $categoryId;
-    private int $publisherId;
-    private int $authorId;
-
-    protected function setUp(): void {
-        $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
-    }
-
-    protected function tearDown(): void {
-        $this->db->db->query("DELETE FROM BOOK_IN_CART");
-        $this->db->db->query("DELETE FROM CART");
-        $this->db->db->query("DELETE FROM REVIEW");
-        $this->db->db->query("DELETE FROM `ORDER`");
-        $this->db->db->query("DELETE FROM ORDER_DETAIL");
-        $this->db->db->query("DELETE FROM DISCOUNT_CODE_USAGE");
-        $this->db->db->query("DELETE FROM DISCOUNT_CODE");
-        $this->db->db->query("DELETE FROM POST");
-        $this->db->db->query("DELETE FROM BOOK");
-        $this->db->db->query("DELETE FROM CATEGORY");
-        $this->db->db->query("DELETE FROM AUTHOR");
-        $this->db->db->query("DELETE FROM PUBLISHER");
-        $this->db->db->query("DELETE FROM CUSTOMER");
-        $this->db->db->query("DELETE FROM ADMIN");
-    }
-
+class BookTest extends BaseTest {
+ 
     public function testBookCRUD(): void {
         $this->tearDown();
 

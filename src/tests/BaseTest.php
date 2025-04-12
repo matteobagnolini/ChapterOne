@@ -1,7 +1,7 @@
 <?php
-// filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\tests\BaseTest.php
 
 use PHPUnit\Framework\TestCase;
+require_once __DIR__ . '/../db/database.php';
 
 abstract class BaseTest extends TestCase {
     protected MySqlDatabase $db;
