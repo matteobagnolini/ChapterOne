@@ -44,6 +44,7 @@ interface BookManager {
     public function getBooks();
     public function getBookById($id);
     public function insertBook($title, $description, $price, $cover, $categoryId, $publisherId, $authorId);
+    public function insertBookWithExceptr($title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId);
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId);
     public function deleteBook($id);
 }

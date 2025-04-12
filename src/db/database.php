@@ -85,6 +85,14 @@ class MySqlDatabase implements
         return $stmt->insert_id;
     }
 
+
+    public function insertBookWithExceptr($title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId) {
+        $stmt = $this->db->prepare("INSERT INTO BOOK (Title, Description, Price, Cover, Excepter, Category_id, Publisher_id, Author_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssdsiii', $title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId) {
         // Inizia transazione
         $this->db->begin_transaction();

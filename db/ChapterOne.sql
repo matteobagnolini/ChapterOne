@@ -44,6 +44,7 @@ CREATE TABLE BOOK (
     Description TEXT,
     Price DECIMAL(10, 2) NOT NULL,
     Cover VARCHAR(255) NOT NULL,
+    Exceptr VARCHAR(255),
     Category_id INT ,
     Publisher_id INT ,
     Author_id INT ,
