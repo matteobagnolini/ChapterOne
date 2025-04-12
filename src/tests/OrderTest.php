@@ -133,4 +133,39 @@ class OrderTest extends BaseTest {
         $order = $this->db->getOrderById($orderId);
         $this->assertEquals($order['Total'], $totalFromDetails);
     }
+
+    public function testOrderStatusFlow(): void {
+        $this->tearDown();
+
+        // Creazione del cliente
+        $customerId = $this->db->insertCustomer('John', 'Doe', 'john.doe@example.com', 'password123', '123 Main St', '1234567890');
+        $this->assertIsInt($customerId);
+
+        // Creazione di un libro
+        $bookId = $this->db->insertBook('Book Title', 'Book Description', 20.00, 'cover.jpg', null, null, null);
+        $this->assertIsInt($bookId);
+
+        // Aggiunta del libro al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $bookId, 1);
+
+        // Creazione dell'ordine
+        $orderId = $this->db->insertOrder('2025-04-09 12:00:00', 20.00, $customerId, null);
+        $this->assertIsInt($orderId);
+
+        // Verifica dello stato iniziale dell'ordine
+        $order = $this->db->getOrderById($orderId);
+        $this->assertEquals('pending', $order['Status'], "Lo stato iniziale dell'ordine dovrebbe essere 'pending'.");
+
+        // Aggiorna lo stato a 'sent'
+        $this->db->updateOrderStatus($orderId, 'sent');
+        $order = $this->db->getOrderById($orderId);
+        $this->assertEquals('sent', $order['Status'], "Lo stato dell'ordine dovrebbe essere aggiornato a 'sent'.");
+
+        // Aggiorna lo stato a 'failed'
+        $this->db->updateOrderStatus($orderId, 'failed');
+        $order = $this->db->getOrderById($orderId);
+        $this->assertEquals('failed', $order['Status'], "Lo stato dell'ordine dovrebbe essere aggiornato a 'failed'.");
+    }
 }

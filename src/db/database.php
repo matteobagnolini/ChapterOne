@@ -571,6 +571,26 @@ class MySqlDatabase implements
         return $stmt->execute();
     }
 
+    public function updateOrderStatus($id, $status) {
+        // Controlla che lo stato sia valido
+        $validStatuses = ['pending', 'sent', 'failed'];
+        if (!in_array($status, $validStatuses)) {
+            throw new InvalidArgumentException("Stato non valido: $status");
+        }
+    
+        // Aggiorna lo stato dell'ordine
+        $stmt = $this->db->prepare("UPDATE `ORDER` SET Status = ? WHERE Id = ?");
+        $stmt->bind_param('si', $status, $id);
+        $stmt->execute();
+    
+        // Verifica che l'aggiornamento sia avvenuto
+        if ($stmt->affected_rows === 0) {
+            throw new Exception("Ordine non trovato o stato non modificato.");
+        }
+    
+        return true;
+    }
+
     public function deleteOrder($id) {
         $stmt = $this->db->prepare("DELETE FROM `ORDER` WHERE Id = ?");
         $stmt->bind_param('i', $id);

@@ -1,32 +1,10 @@
 <?php
-use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../db/database.php';
 
-class CustomerTest extends TestCase {
-    private $db;
+require_once __DIR__ . '/BaseTest.php';
 
-    protected function setUp(): void {
-        $this->db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
-    }
+class CustomerTest extends BaseTest {
 
-    protected function tearDown(): void {
-        // Clean up the database after each test
-        $this->db->db->query("DELETE FROM BOOK_IN_CART");
-        $this->db->db->query("DELETE FROM CART");
-        $this->db->db->query("DELETE FROM REVIEW");
-        $this->db->db->query("DELETE FROM `ORDER`");
-        $this->db->db->query("DELETE FROM ORDER_DETAIL");
-        $this->db->db->query("DELETE FROM DISCOUNT_CODE_USAGE");
-        $this->db->db->query("DELETE FROM DISCOUNT_CODE");
-        $this->db->db->query("DELETE FROM POST");
-        $this->db->db->query("DELETE FROM BOOK");
-        $this->db->db->query("DELETE FROM CATEGORY");
-        $this->db->db->query("DELETE FROM AUTHOR");
-        $this->db->db->query("DELETE FROM PUBLISHER");
-        $this->db->db->query("DELETE FROM CUSTOMER");
-        $this->db->db->query("DELETE FROM ADMIN");
-    }
 
     public function testCustomerCRUD() {
         $this->tearDown();
@@ -82,4 +60,95 @@ class CustomerTest extends TestCase {
         $this->expectException(mysqli_sql_exception::class);
         $this->db->updateCustomer($customerId, 'Diana', 'Prince', null, 'password123', '123 Main St', '1234567890');
     }
+
+    public function testCustomerOrderAndReviewDeletion(): void {
+        $this->tearDown();
+
+        // Creazione del cliente
+        $customerId = $this->db->insertCustomer('John', 'Doe', 'john.doe@example.com', 'password123', '123 Main St', '1234567890');
+        $this->assertIsInt($customerId);
+
+        // Creazione di due libri
+        $book1Id = $this->db->insertBook('Book 1', 'Description 1', 20.00, 'cover1.jpg', null, null, null);
+        $this->assertIsInt($book1Id);
+
+        $book2Id = $this->db->insertBook('Book 2', 'Description 2', 25.00, 'cover2.jpg', null, null, null);
+        $this->assertIsInt($book2Id);
+
+        // Aggiunta del primo libro al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $book1Id, 1);
+
+        // Completamento del primo ordine
+        $orderId1 = $this->db->insertOrder('2025-04-09 12:00:00', 20.00, $customerId, null);
+        $this->assertIsInt($orderId1);
+
+        // Verifica dei dettagli del primo ordine
+        $orderDetails1 = $this->db->getOrderDetails($orderId1);
+        $this->assertCount(1, $orderDetails1);
+        $this->assertEquals($book1Id, $orderDetails1[0]['Book_id']);
+        $this->assertEquals(1, $orderDetails1[0]['Quantity']);
+        $this->assertEquals(20.00, $orderDetails1[0]['Subtotal']);
+
+        // Aggiunta di una recensione per il primo libro
+        $reviewId1 = $this->db->insertReview('Great book!', 5, $book1Id, $customerId);
+        $this->assertIsInt($reviewId1);
+
+        // Verifica della recensione per il primo libro
+        $review1 = $this->db->getReviewById($reviewId1);
+        $this->assertEquals('Great book!', $review1['Text']);
+        $this->assertEquals(5, $review1['Rating']);
+        $this->assertEquals($book1Id, $review1['Book_id']);
+        $this->assertEquals($customerId, $review1['Customer_id']);
+
+        // Aggiunta del secondo libro al carrello
+        $this->db->insertBookInCart($cartId, $book2Id, 1);
+
+        // Completamento del secondo ordine
+        $orderId2 = $this->db->insertOrder('2025-04-10 12:00:00', 25.00, $customerId, null);
+        $this->assertIsInt($orderId2);
+
+        // Verifica dei dettagli del secondo ordine
+        $orderDetails2 = $this->db->getOrderDetails($orderId2);
+        $this->assertCount(2, $orderDetails2);
+        $this->assertEquals($book2Id, $orderDetails2[1]['Book_id']);
+        $this->assertEquals(1, $orderDetails2[1]['Quantity']);
+        $this->assertEquals(25.00, $orderDetails2[1]['Subtotal']);
+
+        // Aggiunta di una recensione per il secondo libro
+        $reviewId2 = $this->db->insertReview('Another great book!', 4, $book2Id, $customerId);
+        $this->assertIsInt($reviewId2);
+
+        // Verifica della recensione per il secondo libro
+        $review2 = $this->db->getReviewById($reviewId2);
+        $this->assertEquals('Another great book!', $review2['Text']);
+        $this->assertEquals(4, $review2['Rating']);
+        $this->assertEquals($book2Id, $review2['Book_id']);
+        $this->assertEquals($customerId, $review2['Customer_id']);
+
+        // Eliminazione del cliente
+        $deleted = $this->db->deleteCustomer($customerId);
+        $this->assertTrue($deleted);
+
+        // Verifica che tutto sia stato eliminato
+        $deletedCustomer = $this->db->getCustomerById($customerId);
+        $this->assertNull($deletedCustomer);
+
+        $deletedCart = $this->db->getCartByCustomerId($customerId);
+        $this->assertNull($deletedCart);
+
+        $deletedOrder1 = $this->db->getOrderById($orderId1);
+        $this->assertNull($deletedOrder1);
+
+        $deletedOrder2 = $this->db->getOrderById($orderId2);
+        $this->assertNull($deletedOrder2);
+
+        $deletedReview1 = $this->db->getReviewById($reviewId1);
+        $this->assertNull($deletedReview1);
+
+        $deletedReview2 = $this->db->getReviewById($reviewId2);
+        $this->assertNull($deletedReview2);
+    }
+    
 }

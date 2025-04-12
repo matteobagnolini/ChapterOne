@@ -108,6 +108,7 @@ CREATE TABLE `ORDER` (
     Total DECIMAL(10, 2) NOT NULL,
     Customer_id INT NOT NULL,
     Discount_code_id INT NULL,
+    Status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
     FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id) ON DELETE CASCADE,
     FOREIGN KEY (Discount_code_id) REFERENCES DISCOUNT_CODE(Id)
 );

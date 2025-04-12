@@ -92,6 +92,8 @@ interface OrderManager {
     public function insertOrder($date, $total, $customerId, $discountCodeId);
     public function updateOrder($id, $date, $total, $customerId, $discountCodeId);
     public function deleteOrder($id);
+    public function updateOrderStatus($id, $status);
+    
 }
 
 interface OrderDetailManager {
