@@ -70,17 +70,23 @@
         // Utilizzo del metodo getBooks
         $books = $dbh->getBooks(); // Ottieni i libri dal database
         if (!empty($books)) {
+
             echo '<div class="container mt-4">';
             echo '<h2>Books</h2>';
             echo '<div class="row">';
             foreach ($books as $book) {
                 echo '<div class="col-md-4">';
                 echo '<div class="card mb-4">';
-                echo '<img src="' . htmlspecialchars($book["cover"]) . '" class="card-img-top" alt="Book Cover">';
+                echo '<img src="' . htmlspecialchars($book["Cover"] ?? 'default_cover.jpg') . '" class="card-img-top" alt="Book Cover">';
                 echo '<div class="card-body">';
-                echo '<h5 class="card-title">' . htmlspecialchars($book["title"]) . '</h5>';
-                echo '<p class="card-text">' . htmlspecialchars($book["description"]) . '</p>';
-                echo '<p class="card-text"><strong>Price:</strong> $' . htmlspecialchars($book["price"]) . '</p>';
+                echo '<h5 class="card-title">' . htmlspecialchars($book["Title"] ?? 'Untitled') . '</h5>';
+                echo '<ul>';
+                echo '<li><strong>Description:</strong> ' . htmlspecialchars($book["Description"] ?? 'No description available') . '</li>';
+                echo '<li><strong>Price:</strong> $' . htmlspecialchars($book["Price"] ?? '0.00') . '</li>';
+                echo '<li><strong>Category ID:</strong> ' . htmlspecialchars($book["Category_id"] ?? 'N/A') . '</li>';
+                echo '<li><strong>Publisher ID:</strong> ' . htmlspecialchars($book["Publisher_id"] ?? 'N/A') . '</li>';
+                echo '<li><strong>Author ID:</strong> ' . htmlspecialchars($book["Author_id"] ?? 'N/A') . '</li>';
+                echo '</ul>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
