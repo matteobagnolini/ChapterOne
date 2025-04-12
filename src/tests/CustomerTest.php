@@ -150,5 +150,84 @@ class CustomerTest extends BaseTest {
         $deletedReview2 = $this->db->getReviewById($reviewId2);
         $this->assertNull($deletedReview2);
     }
+
+
+    public function testCustomerOrderAndReviewDeletion_WithNotifications(): void {
+        $this->tearDown();
+
+        // Creazione del cliente
+        $customerId = $this->db->insertCustomer('John', 'Doe', 'john.doe@example.com', 'password123', '123 Main St', '1234567890');
+        $this->assertIsInt($customerId);
+
+        // Creazione di un libro
+        $bookId = $this->db->insertBook('Book 1', 'Description 1', 20.00, 'cover1.jpg', null, null, null);
+        $this->assertIsInt($bookId);
+
+        // Aggiunta del libro al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $bookId, 1);
+
+        // Completamento dell'ordine
+        $orderId = $this->db->insertOrder('2025-04-09 12:00:00', 20.00, $customerId, null);
+        $this->assertIsInt($orderId);
+
+        // Verifica dei dettagli dell'ordine
+        $orderDetails = $this->db->getOrderDetails($orderId);
+        $this->assertCount(1, $orderDetails);
+        $this->assertEquals($bookId, $orderDetails[0]['Book_id']);
+        $this->assertEquals(1, $orderDetails[0]['Quantity']);
+        $this->assertEquals(20.00, $orderDetails[0]['Subtotal']);
+
+        // Aggiunta di una recensione per il libro
+        $reviewId = $this->db->insertReview('Great book!', 5, $bookId, $customerId);
+        $this->assertIsInt($reviewId);
+
+        // Verifica della recensione per il libro
+        $review = $this->db->getReviewById($reviewId);
+        $this->assertEquals('Great book!', $review['Text']);
+        $this->assertEquals(5, $review['Rating']);
+        $this->assertEquals($bookId, $review['Book_id']);
+        $this->assertEquals($customerId, $review['Customer_id']);
+
+        // Aggiorna lo stato dell'ordine a 'sent'
+        $this->db->updateOrderStatus($orderId, 'sent');
+
+        // Verifica notifica per 'sent'
+        $notifications = $this->db->getOrderNotifications($orderId);
+        $this->assertCount(1, $notifications);
+        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[0]['Message']);
+        $this->assertEquals("sent", $notifications[0]['Status']);
+
+        // Aggiorna lo stato dell'ordine a 'arrived'
+        $this->db->updateOrderStatus($orderId, 'arrived');
+
+        // Verifica notifica per 'arrived'
+        $notifications = $this->db->getOrderNotifications($orderId);
+        $this->assertCount(2, $notifications);
+        $this->assertEquals("Il tuo ordine è arrivato!", $notifications[1]['Message']);
+        $this->assertEquals("arrived", $notifications[1]['Status']);
+
+        // Eliminazione del cliente
+        $deleted = $this->db->deleteCustomer($customerId);
+        $this->assertTrue($deleted);
+
+        // Verifica che tutto sia stato eliminato
+        $deletedCustomer = $this->db->getCustomerById($customerId);
+        $this->assertNull($deletedCustomer);
+
+        $deletedCart = $this->db->getCartByCustomerId($customerId);
+        $this->assertNull($deletedCart);
+
+        $deletedOrder = $this->db->getOrderById($orderId);
+        $this->assertNull($deletedOrder);
+
+        $deletedReview = $this->db->getReviewById($reviewId);
+        $this->assertNull($deletedReview);
+
+        // Verifica che le notifiche siano state eliminate
+        $deletedNotifications = $this->db->getOrderNotifications($orderId);
+        $this->assertEmpty($deletedNotifications);
+    }
     
 }
