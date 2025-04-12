@@ -108,7 +108,7 @@ CREATE TABLE `ORDER` (
     Total DECIMAL(10, 2) NOT NULL,
     Customer_id INT NOT NULL,
     Discount_code_id INT NULL,
-    Status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+    Status ENUM('pending', 'sent', 'arrived') DEFAULT 'pending',
     FOREIGN KEY (Customer_id) REFERENCES CUSTOMER(Id) ON DELETE CASCADE,
     FOREIGN KEY (Discount_code_id) REFERENCES DISCOUNT_CODE(Id)
 );
@@ -138,7 +138,8 @@ CREATE TABLE ORDER_NOTIFICATION (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Order_id INT NOT NULL,
     Message TEXT NOT NULL,
-    Status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+    Status ENUM('pending', 'sent', 'arrived') DEFAULT 'pending',
+    Seen BOOL NOT NULL DEFAULT FALSE,
     FOREIGN KEY (Order_id) REFERENCES `ORDER`(Id) ON DELETE CASCADE
 );
 

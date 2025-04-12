@@ -164,8 +164,8 @@ class OrderTest extends BaseTest {
         $this->assertEquals('sent', $order['Status'], "Lo stato dell'ordine dovrebbe essere aggiornato a 'sent'.");
 
         // Aggiorna lo stato a 'failed'
-        $this->db->updateOrderStatus($orderId, 'failed');
+        $this->db->updateOrderStatus($orderId, 'arrived');
         $order = $this->db->getOrderById($orderId);
-        $this->assertEquals('failed', $order['Status'], "Lo stato dell'ordine dovrebbe essere aggiornato a 'failed'.");
+        $this->assertEquals('arrived', $order['Status'], "Lo stato dell'ordine dovrebbe essere aggiornato a 'failed'.");
     }
 }

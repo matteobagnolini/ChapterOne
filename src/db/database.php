@@ -573,10 +573,22 @@ class MySqlDatabase implements
 
     public function updateOrderStatus($id, $status) {
         // Controlla che lo stato sia valido
-        $validStatuses = ['pending', 'sent', 'failed'];
+        $validStatuses = ['pending', 'sent', 'arrived'];
         if (!in_array($status, $validStatuses)) {
             throw new InvalidArgumentException("Stato non valido: $status");
         }
+    
+        // Recupera lo stato attuale dell'ordine
+        $stmt = $this->db->prepare("SELECT Status FROM `ORDER` WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $currentOrder = $stmt->get_result()->fetch_assoc();
+    
+        if (!$currentOrder) {
+            throw new Exception("Ordine non trovato.");
+        }
+    
+        $currentStatus = $currentOrder['Status'];
     
         // Aggiorna lo stato dell'ordine
         $stmt = $this->db->prepare("UPDATE `ORDER` SET Status = ? WHERE Id = ?");
@@ -586,6 +598,13 @@ class MySqlDatabase implements
         // Verifica che l'aggiornamento sia avvenuto
         if ($stmt->affected_rows === 0) {
             throw new Exception("Ordine non trovato o stato non modificato.");
+        }
+    
+        // Crea notifiche in base al nuovo stato
+        if ($status === 'sent') {
+            $this->insertOrderNotification($id, "Il tuo ordine è stato spedito!", $status);
+        } elseif ($status === 'arrived') {
+            $this->insertOrderNotification($id, "Il tuo ordine è arrivato!", $status);
         }
     
         return true;
@@ -686,8 +705,22 @@ class MySqlDatabase implements
 
     public function updateOrderNotification($id, $orderId, $message, $status) {
         $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Message = ?, Status = ? WHERE Id = ?");
-        $stmt->bind_param('issi', $orderId, $message, $status, $id);
+        $stmt->bind_param('iss', $orderId, $message, $status, $id);
         return $stmt->execute();
+    }
+
+    public function SetSeenNotification($id) {
+        $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Seen = ? WHERE Id = ?");
+        $seen = true;
+        $stmt->bind_param('ii', $seen, $id);
+        $stmt->execute();
+    
+        // Verifica che l'aggiornamento sia avvenuto
+        if ($stmt->affected_rows === 0) {
+            throw new Exception("Notifica non trovata o già aggiornata.");
+        }
+    
+        return true;
     }
 
     public function deleteOrderNotification($id) {

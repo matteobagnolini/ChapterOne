@@ -118,5 +118,6 @@ interface OrderNotificationManager {
     public function insertOrderNotification($orderId, $message, $status);
     public function updateOrderNotification($id, $orderId, $message, $status);
     public function deleteOrderNotification($id);
+    public function SetSeenNotification($id);
 }
 ?>
