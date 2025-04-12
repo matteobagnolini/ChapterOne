@@ -505,52 +505,58 @@ class MySqlDatabase implements
         $this->db->begin_transaction();
         
         try {
+            // Recupera il Cart_id
+            $cart = $this->getCartByCustomerId($customerId);
+            $cartId = $cart['Id'];
+    
+            // Verifica se il carrello è vuoto
+            if ($cart['Item_count'] == 0) {
+                throw new Exception("Il carrello è vuoto, impossibile completare l'ordine.");
+            }
+    
             // Inserisci l'ordine
             $stmt = $this->db->prepare("INSERT INTO `ORDER` (Date, Total, Customer_id, Discount_code_id) VALUES (?, ?, ?, ?)");
             $stmt->bind_param('sdii', $date, $total, $customerId, $discountCodeId);
             $stmt->execute();
             $orderId = $stmt->insert_id;
-
-            // Recupera il Cart_id
-            $cartId = $this->getCartByCustomerId($customerId)['Id'];
-
+    
             // Recupera i libri nel carrello
             $booksInCart = $this->getBooksInCart($cartId);
-
+    
             // Crea i dettagli dell'ordine per ogni libro nel carrello
             foreach ($booksInCart as $book) {
                 $bookId = $book['Book_id'];
                 $quantity = $book['Quantity'];
-
+    
                 // Recupera il prezzo del libro dalla tabella BOOK
                 $stmt = $this->db->prepare("SELECT Price FROM BOOK WHERE Id = ?");
                 $stmt->bind_param('i', $bookId);
                 $stmt->execute();
                 $result = $stmt->get_result()->fetch_assoc();
                 $price = $result['Price'];
-
+    
                 // Calcola il subtotale
                 $subtotal = $quantity * $price;
-
+    
                 // Inserisci i dettagli dell'ordine
                 $stmt = $this->db->prepare("INSERT INTO ORDER_DETAIL (Quantity, Subtotal, Order_id, Book_id) VALUES (?, ?, ?, ?)");
                 $stmt->bind_param('idii', $quantity, $subtotal, $orderId, $bookId);
                 $stmt->execute();
             }
-
+    
             // Elimina i libri dal carrello
             $stmt = $this->db->prepare("DELETE FROM BOOK_IN_CART WHERE Cart_id = ?");
             $stmt->bind_param('i', $cartId);
             $stmt->execute();
-
+    
             // Azzera il carrello
             $stmt = $this->db->prepare("UPDATE CART SET Subtotal = 0, Item_count = 0, Last_modified = CURRENT_TIMESTAMP WHERE Customer_id = ?");
             $stmt->bind_param('i', $customerId);
             $stmt->execute();
-
+    
             // Commit transazione
             $this->db->commit();
-
+    
             return $orderId;
         } catch (Exception $e) {
             // Rollback in caso di errore
