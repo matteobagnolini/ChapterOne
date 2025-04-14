@@ -2,7 +2,7 @@
 require_once 'bootstrap.php';
 
 $templateParams["titolo"] = "ChapterOne - Home";
-$templateParams["nome"] = "homepage.php";
+$templateParams["nome"] = "aboutuspage.php";
 // $templateParams["categorie"] = $dbh->getCategories();
 // $templateParams["articolicasuali"] = $dbh->getRandomPosts(2);
 //Home Template
