@@ -61,9 +61,15 @@
                                 Categories
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                                <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                                <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                                <?php
+                                // Recupera le categorie dal database
+                                $categories = $dbh->getCategories();
+
+                                // Itera sulle categorie e crea gli elementi del menu
+                                foreach ($categories as $category) {
+                                    echo '<li><a class="dropdown-item" href="category.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>';
+                                }
+                                ?>
                             </ul>
                         </li>
                         <li class="nav-item">
