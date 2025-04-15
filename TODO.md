@@ -50,3 +50,9 @@
 
 - [ ] Aggiungere notifiche lette e non lette
 - [ ] Pagina utente (account): rendere modificabile il form
+
+
+## Queries
+
+- [ ] Bestsellers
+- [ ] New releases
