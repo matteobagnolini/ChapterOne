@@ -542,6 +542,11 @@ class MySqlDatabase implements
                         if ($total < 0) {
                             $total = 0;
                         }
+
+                        if ($discount['Single_use']) {
+                            // Imposta il codice sconto come non più utilizzabile
+                            $this->updateDiscountCode($discountCodeId, $discount['Code'], $discount['Type'], $discount['Value'], $discount['Start_date'], $discount['End_date'], false, $discount['Active']);
+                        }
                     } else {
                         throw new Exception("Codice sconto non valido o non applicabile.");
                     }
