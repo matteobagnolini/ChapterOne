@@ -1,6 +1,5 @@
 <?php
 
-
 require_once __DIR__ . '/BaseTest.php';
 
 class DiscountTest extends BaseTest {
@@ -45,7 +44,7 @@ class DiscountTest extends BaseTest {
         $this->assertNull($deletedDiscount, "Il codice sconto dovrebbe essere stato eliminato.");
     }
 
-    public function testApplyDiscountToOrder(): void {
+    public function testApplyPercentageDiscountToOrder(): void {
         $this->tearDown();
 
         // Aggiungi un cliente
@@ -70,7 +69,7 @@ class DiscountTest extends BaseTest {
             'percentage', 
             10.00, 
             '2025-04-01', // Data di inizio valida
-            '2025-12-31', // Data di fine valida
+            '2030-12-31', // Data di fine valida
             false, 
             true
         );
@@ -86,5 +85,118 @@ class DiscountTest extends BaseTest {
         // Verifica che il codice sconto sia stato associato all'ordine
         $this->assertEquals($discountCodeId, $order['Discount_code_id'], "Il codice sconto dovrebbe essere associato all'ordine.");
     }
-}
 
+    public function testApplyFixedDiscountToOrder(): void {
+        $this->tearDown();
+
+        // Aggiungi un cliente
+        $customerId = $this->db->insertCustomer('Jane', 'Smith', 'jane.smith@example.com', 'password123', '456 Elm St', '0987654321');
+
+        // Aggiungi libri
+        $book1Id = $this->db->insertBook('Book 1', 'Description 1', 50.00, 'cover1.jpg', null, null, null);
+
+        // Aggiungi i libri al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $book1Id, 1); // 1 copia di Book 1
+
+        // Calcola il totale del carrello
+        $cartTotal = 50.00;
+
+        // Aggiungi un codice sconto
+        $discountCodeId = $this->db->insertDiscountCode(
+            'DISCOUNT15', 
+            'fixed', 
+            15.00, 
+            '2025-04-01', // Data di inizio valida
+            '2025-12-31', // Data di fine valida
+            false, 
+            true
+        );
+
+        // Applica lo sconto e crea l'ordine
+        $orderId = $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId); // Applica lo sconto fisso
+        $this->assertIsInt($orderId);
+
+        // Verifica che il totale dell'ordine sia corretto
+        $order = $this->db->getOrderById($orderId);
+        $this->assertEquals(35.00, $order['Total'], "Il totale dell'ordine dovrebbe essere 35.00 dopo l'applicazione dello sconto fisso.");
+
+        // Verifica che il codice sconto sia stato associato all'ordine
+        $this->assertEquals($discountCodeId, $order['Discount_code_id'], "Il codice sconto dovrebbe essere associato all'ordine.");
+    }
+
+    public function testSingleUseDiscount(): void {
+        $this->tearDown();
+
+        // Aggiungi un cliente
+        $customerId = $this->db->insertCustomer('Alice', 'Brown', 'alice.brown@example.com', 'password123', '789 Pine St', '1122334455');
+
+        // Aggiungi libri
+        $book1Id = $this->db->insertBook('Book 1', 'Description 1', 40.00, 'cover1.jpg', null, null, null);
+
+        // Aggiungi i libri al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $book1Id, 1); // 1 copia di Book 1
+
+        // Calcola il totale del carrello
+        $cartTotal = 40.00;
+
+        // Aggiungi un codice sconto a uso singolo
+        $discountCodeId = $this->db->insertDiscountCode(
+            'SINGLEUSE', 
+            'fixed', 
+            10.00, 
+            '2025-04-01', // Data di inizio valida
+            '2025-12-31', // Data di fine valida
+            true, // Uso singolo
+            true
+        );
+
+        // Applica lo sconto e crea il primo ordine
+        $orderId1 = $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId);
+        $this->assertIsInt($orderId1);
+
+        // Verifica che il totale dell'ordine sia corretto
+        $order1 = $this->db->getOrderById($orderId1);
+        $this->assertEquals(30.00, $order1['Total'], "Il totale dell'ordine dovrebbe essere 30.00 dopo l'applicazione dello sconto.");
+
+        // Prova a riutilizzare lo stesso codice sconto
+        $this->expectException(Exception::class);
+        $this->db->insertOrder('2025-04-10 12:00:00', $cartTotal, $customerId, $discountCodeId);
+    }
+
+    public function testInactiveDiscount(): void {
+        $this->tearDown();
+
+        // Aggiungi un cliente
+        $customerId = $this->db->insertCustomer('Bob', 'White', 'bob.white@example.com', 'password123', '123 Oak St', '5566778899');
+
+        // Aggiungi libri
+        $book1Id = $this->db->insertBook('Book 1', 'Description 1', 60.00, 'cover1.jpg', null, null, null);
+
+        // Aggiungi i libri al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $book1Id, 1); // 1 copia di Book 1
+
+        // Calcola il totale del carrello
+        $cartTotal = 60.00;
+
+        // Aggiungi un codice sconto inattivo
+        $discountCodeId = $this->db->insertDiscountCode(
+            'INACTIVE', 
+            'fixed', 
+            20.00, 
+            '2025-04-01', // Data di inizio valida
+            '2025-12-31', // Data di fine valida
+            false, 
+            false // Non attivo
+        );
+
+        // Prova ad applicare lo sconto inattivo
+        $this->expectException(Exception::class);
+        $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId);
+    }
+}

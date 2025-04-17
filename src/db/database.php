@@ -524,24 +524,26 @@ class MySqlDatabase implements
     
             // Calcola il totale con lo sconto, se applicabile
             if ($discountCodeId !== null) {
-                // Recupera i dettagli del codice sconto
-                $stmt = $this->db->prepare("SELECT Type, Value FROM DISCOUNT_CODE WHERE Id = ?");
-                $stmt->bind_param('i', $discountCodeId);
-                $stmt->execute();
-                $discount = $stmt->get_result()->fetch_assoc();
+                $discount = $this->getDiscountCodeById($discountCodeId);
     
                 if ($discount) {
-                    if ($discount['Type'] === 'percentage') {
-                        // Applica lo sconto percentuale
-                        $total -= ($total * ($discount['Value'] / 100));
-                    } elseif ($discount['Type'] === 'fixed') {
-                        // Applica lo sconto fisso
-                        $total -= $discount['Value'];
-                    }
-    
-                    // Assicurati che il totale non sia negativo
-                    if ($total < 0) {
-                        $total = 0;
+                    $currentDate = date('Y-m-d'); // Ottieni la data corrente
+                
+                    if ($discount['Active'] && $currentDate >= $discount['Start_date'] && $currentDate <= $discount['End_date']) {
+                        if ($discount['Type'] === 'percentage') {
+                            // Applica lo sconto percentuale
+                            $total -= ($total * ($discount['Value'] / 100));
+                        } elseif ($discount['Type'] === 'fixed') {
+                            // Applica lo sconto fisso
+                            $total -= $discount['Value'];
+                        }
+                
+                        // Assicurati che il totale non sia negativo
+                        if ($total < 0) {
+                            $total = 0;
+                        }
+                    } else {
+                        throw new Exception("Codice sconto non valido o non applicabile.");
                     }
                 } else {
                     throw new Exception("Codice sconto non valido.");
