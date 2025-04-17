@@ -474,14 +474,14 @@ class MySqlDatabase implements
 
     public function insertDiscountCode($code, $type, $value, $startDate, $endDate, $singleUse, $active) {
         $stmt = $this->db->prepare("INSERT INTO DISCOUNT_CODE (Code, Type, Value, Start_date, End_date, Single_use, Active) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssdsiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active);
+        $stmt->bind_param('ssdssii', $code, $type, $value, $startDate, $endDate, $singleUse, $active);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
     public function updateDiscountCode($id, $code, $type, $value, $startDate, $endDate, $singleUse, $active) {
         $stmt = $this->db->prepare("UPDATE DISCOUNT_CODE SET Code = ?, Type = ?, Value = ?, Start_date = ?, End_date = ?, Single_use = ?, Active = ? WHERE Id = ?");
-        $stmt->bind_param('ssdsiiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active, $id);
+        $stmt->bind_param('ssdssiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active, $id);
         return $stmt->execute();
     }
 
@@ -520,6 +520,32 @@ class MySqlDatabase implements
             // Verifica se il carrello è vuoto
             if ($cart['Item_count'] == 0) {
                 throw new Exception("Il carrello è vuoto, impossibile completare l'ordine.");
+            }
+    
+            // Calcola il totale con lo sconto, se applicabile
+            if ($discountCodeId !== null) {
+                // Recupera i dettagli del codice sconto
+                $stmt = $this->db->prepare("SELECT Type, Value FROM DISCOUNT_CODE WHERE Id = ?");
+                $stmt->bind_param('i', $discountCodeId);
+                $stmt->execute();
+                $discount = $stmt->get_result()->fetch_assoc();
+    
+                if ($discount) {
+                    if ($discount['Type'] === 'percentage') {
+                        // Applica lo sconto percentuale
+                        $total -= ($total * ($discount['Value'] / 100));
+                    } elseif ($discount['Type'] === 'fixed') {
+                        // Applica lo sconto fisso
+                        $total -= $discount['Value'];
+                    }
+    
+                    // Assicurati che il totale non sia negativo
+                    if ($total < 0) {
+                        $total = 0;
+                    }
+                } else {
+                    throw new Exception("Codice sconto non valido.");
+                }
             }
     
             // Inserisci l'ordine
