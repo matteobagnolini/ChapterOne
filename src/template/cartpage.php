@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="it">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Carrello</title>
-    <style>
-        .card-img-container {
-            height: 300px; /* Imposta un'altezza fissa per il contenitore delle immagini */
-            overflow: hidden; /* Nasconde le parti dell'immagine che escono dal contenitore */
-        }
-        .card-img-top {
-            height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
-            object-fit: cover; /* Adatta l'immagine all'interno del contenitore */
-            width: 100%; /* Assicura che l'immagine occupi tutta la larghezza del contenitore */
-        }
-    </style>
-</head>
-
-<body>
-   
     <main>
         <div class="container my-4">
             <section>
@@ -102,7 +77,3 @@
             </section>
         </div>
     </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-TcB5vHnxnKlW1qS6WX1kzeF7L/ZFZ2pT3zYWE7GvJm7XwnR2s4vqJ2UmBa4/qnHp" crossorigin="anonymous"></script>
-</body>
-</html>
