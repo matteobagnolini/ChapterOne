@@ -36,6 +36,7 @@
                 <div class="d-flex align-items-center order-lg-2">
                     <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart"></i>Cart</a>
                     <a class="nav-link me-2" href="account.php"><i class="bi bi-person"></i>Account</a>
+                    <a class="nav-link me-2" href="accountadmin.php"><i class="bi bi-person"></i>admin</a>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
                         <button class="btn" type="submit">Search</button>
