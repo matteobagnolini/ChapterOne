@@ -16,7 +16,8 @@ class MySqlDatabase implements
     OrderManager, 
     OrderDetailManager, 
     DiscountCodeUsageManager, 
-    OrderNotificationManager
+    OrderNotificationManager,
+    BusinessLogic
 {
     public $db;
 
@@ -781,5 +782,21 @@ class MySqlDatabase implements
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    
+    public function getBestSellers($numberOfBooks) {
+        $stmt = $this->db->prepare("
+            SELECT b.Id AS Book_id, b.Title, bs.Purchase_count
+            FROM BEST_SELLER bs
+            JOIN BOOK b ON bs.Book_id = b.Id
+            ORDER BY bs.Purchase_count DESC
+            LIMIT ?
+        ");
+        $stmt->bind_param('i', $numberOfBooks);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 ?>
