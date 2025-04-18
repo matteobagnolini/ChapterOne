@@ -34,6 +34,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
                 <div class="d-flex align-items-center order-lg-2">
+                <a class="nav-link me-2" href="notifiche.php"><i class="bi bi-cart"></i>Notifiche</a>
                     <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart"></i>Cart</a>
                     <a class="nav-link me-2" href="account.php"><i class="bi bi-person"></i>Account</a>
                     <a class="nav-link me-2" href="accountadmin.php"><i class="bi bi-person"></i>admin</a>
