@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="it">
-
 
    
 <main>
@@ -15,7 +12,7 @@
                 </div>
                 <p class="mb-1">Data ordine: 15/04/2023</p>
                 <p class="mb-1">Totale: €45,90</p>
-                <small><button class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</button></small>
+                <small><a href="../orderdetails.php" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a></small>
             </div>
             
             <div class="list-group-item list-group-item-action">
@@ -25,7 +22,7 @@
                 </div>
                 <p class="mb-1">Data ordine: 23/05/2023</p>
                 <p class="mb-1">Totale: €78,50</p>
-                <small><button class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</button></small>
+                <small><a href="../orderdetails.php" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a></small>
             </div>
             
             <div class="list-group-item list-group-item-action">
@@ -35,7 +32,7 @@
                 </div>
                 <p class="mb-1">Data ordine: 07/06/2023</p>
                 <p class="mb-1">Totale: €32,20</p>
-                <small><button class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</button></small>
+                <small><a href="../orderdetails.php" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a></small>
             </div>
         </div>
 
