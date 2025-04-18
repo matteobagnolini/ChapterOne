@@ -84,6 +84,12 @@ class DiscountTest extends BaseTest {
 
         // Verifica che il codice sconto sia stato associato all'ordine
         $this->assertEquals($discountCodeId, $order['Discount_code_id'], "Il codice sconto dovrebbe essere associato all'ordine.");
+
+        // Verifica che l'utilizzo dello sconto sia stato registrato
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(1, $usage, "L'utilizzo del codice sconto dovrebbe essere registrato.");
+        $this->assertEquals($discountCodeId, $usage[0]['Discount_code_id'], "Il codice sconto utilizzato dovrebbe corrispondere.");
+        $this->assertEquals($customerId, $usage[0]['Customer_id'], "Il cliente associato all'utilizzo dovrebbe corrispondere.");
     }
 
     public function testApplyFixedDiscountToOrder(): void {
@@ -124,6 +130,12 @@ class DiscountTest extends BaseTest {
 
         // Verifica che il codice sconto sia stato associato all'ordine
         $this->assertEquals($discountCodeId, $order['Discount_code_id'], "Il codice sconto dovrebbe essere associato all'ordine.");
+
+        // Verifica che l'utilizzo dello sconto sia stato registrato
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(1, $usage, "L'utilizzo del codice sconto dovrebbe essere registrato.");
+        $this->assertEquals($discountCodeId, $usage[0]['Discount_code_id'], "Il codice sconto utilizzato dovrebbe corrispondere.");
+        $this->assertEquals($customerId, $usage[0]['Customer_id'], "Il cliente associato all'utilizzo dovrebbe corrispondere.");
     }
 
     public function testSingleUseDiscount(): void {
@@ -162,6 +174,12 @@ class DiscountTest extends BaseTest {
         $order1 = $this->db->getOrderById($orderId1);
         $this->assertEquals(30.00, $order1['Total'], "Il totale dell'ordine dovrebbe essere 30.00 dopo l'applicazione dello sconto.");
 
+        // Verifica che l'utilizzo dello sconto sia stato registrato
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(1, $usage, "L'utilizzo del codice sconto dovrebbe essere registrato.");
+        $this->assertEquals($discountCodeId, $usage[0]['Discount_code_id'], "Il codice sconto utilizzato dovrebbe corrispondere.");
+        $this->assertEquals($customerId, $usage[0]['Customer_id'], "Il cliente associato all'utilizzo dovrebbe corrispondere.");
+
         // Prova a riutilizzare lo stesso codice sconto
         $this->expectException(Exception::class);
         $this->db->insertOrder('2025-04-10 12:00:00', $cartTotal, $customerId, $discountCodeId);
@@ -198,6 +216,10 @@ class DiscountTest extends BaseTest {
         // Prova ad applicare lo sconto inattivo
         $this->expectException(Exception::class);
         $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId);
+
+        // Verifica che l'utilizzo dello sconto non sia stato registrato
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(0, $usage, "L'utilizzo del codice sconto non dovrebbe essere registrato.");
     }
 
   
@@ -232,6 +254,10 @@ class DiscountTest extends BaseTest {
         // Prova ad applicare lo sconto scaduto
         $this->expectException(Exception::class);
         $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId);
+
+        // Verifica che l'utilizzo dello sconto non sia stato registrato
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(0, $usage, "L'utilizzo del codice sconto non dovrebbe essere registrato.");
     }
 
     
@@ -271,8 +297,99 @@ class DiscountTest extends BaseTest {
         $order1 = $this->db->getOrderById($orderId1);
         $this->assertEquals(25.00, $order1['Total'], "Il totale dell'ordine dovrebbe essere 25.00 dopo l'applicazione dello sconto.");
 
+        // Verifica che l'utilizzo dello sconto sia stato registrato una sola volta
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(1, $usage, "L'utilizzo del codice sconto dovrebbe essere registrato una sola volta.");
+        $this->assertEquals($discountCodeId, $usage[0]['Discount_code_id'], "Il codice sconto utilizzato dovrebbe corrispondere.");
+        $this->assertEquals($customerId, $usage[0]['Customer_id'], "Il cliente associato all'utilizzo dovrebbe corrispondere.");
+
         // Prova a riutilizzare lo stesso codice sconto su un secondo ordine
         $this->expectException(Exception::class);
         $this->db->insertOrder('2025-04-10 12:00:00', $cartTotal, $customerId, $discountCodeId);
     }
+
+    public function testFixedDiscountCannotMakeOrderTotalNegative(): void {
+        $this->tearDown();
+    
+        // Aggiungi un cliente
+        $customerId = $this->db->insertCustomer('Eve', 'Black', 'eve.black@example.com', 'password123', '987 Willow St', '3344556677');
+    
+        // Aggiungi libri
+        $book1Id = $this->db->insertBook('Book 1', 'Description 1', 10.00, 'cover1.jpg', null, null, null);
+    
+        // Aggiungi i libri al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $book1Id, 1); // 1 copia di Book 1
+    
+        // Calcola il totale del carrello
+        $cartTotal = 10.00;
+    
+        // Aggiungi un codice sconto fisso che supera il totale del carrello
+        $discountCodeId = $this->db->insertDiscountCode(
+            'BIGDISCOUNT', 
+            'fixed', 
+            20.00, // Sconto maggiore del totale
+            '2025-04-01', // Data di inizio valida
+            '2025-12-31', // Data di fine valida
+            false, 
+            true
+        );
+    
+        // Applica lo sconto e crea l'ordine
+        $orderId = $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId);
+        $this->assertIsInt($orderId);
+    
+        // Verifica che il totale dell'ordine sia 0
+        $order = $this->db->getOrderById($orderId);
+        $this->assertEquals(0.00, $order['Total'], "Il totale dell'ordine dovrebbe essere 0.00 se lo sconto supera il totale.");
+    }
+
+    public function testDeleteDiscountCodeDeletesUsages(): void {
+        $this->tearDown();
+    
+        // Aggiungi un cliente
+        $customerId = $this->db->insertCustomer('Frank', 'Gray', 'frank.gray@example.com', 'password123', '123 Cedar St', '9988776655');
+    
+        // Aggiungi libri
+        $book1Id = $this->db->insertBook('Book 1', 'Description 1', 30.00, 'cover1.jpg', null, null, null);
+    
+        // Aggiungi i libri al carrello
+        $cart = $this->db->getCartByCustomerId($customerId);
+        $cartId = $cart['Id'];
+        $this->db->insertBookInCart($cartId, $book1Id, 1); // 1 copia di Book 1
+    
+        // Calcola il totale del carrello
+        $cartTotal = 30.00;
+    
+        // Aggiungi un codice sconto
+        $discountCodeId = $this->db->insertDiscountCode(
+            'DELETE_ME', 
+            'fixed', 
+            10.00, 
+            '2025-04-01', // Data di inizio valida
+            '2025-12-31', // Data di fine valida
+            false, 
+            true
+        );
+    
+        // Applica lo sconto e crea l'ordine
+        $orderId = $this->db->insertOrder('2025-04-09 12:00:00', $cartTotal, $customerId, $discountCodeId);
+        $this->assertIsInt($orderId);
+    
+        // Verifica che l'utilizzo dello sconto sia stato registrato
+        $usage = $this->db->getDiscountCodeUsages();
+        $this->assertCount(1, $usage, "L'utilizzo del codice sconto dovrebbe essere registrato.");
+        $this->assertEquals($discountCodeId, $usage[0]['Discount_code_id'], "Il codice sconto utilizzato dovrebbe corrispondere.");
+    
+        // Elimina il codice sconto
+        $this->db->deleteDiscountCode($discountCodeId);
+    
+        // Verifica che gli utilizzi associati siano stati eliminati
+        $usageAfterDeletion = $this->db->getDiscountCodeUsages();
+        $this->assertCount(0, $usageAfterDeletion, "Gli utilizzi del codice sconto dovrebbero essere stati eliminati.");
+    }
+
+
+
 }

@@ -521,7 +521,7 @@ class MySqlDatabase implements
             if ($cart['Item_count'] == 0) {
                 throw new Exception("Il carrello è vuoto, impossibile completare l'ordine.");
             }
-    
+            $discountUsed = false;
             // Calcola il totale con lo sconto, se applicabile
             if ($discountCodeId !== null) {
                 $discount = $this->getDiscountCodeById($discountCodeId);
@@ -547,6 +547,8 @@ class MySqlDatabase implements
                             // Imposta il codice sconto come non più utilizzabile
                             $this->updateDiscountCode($discountCodeId, $discount['Code'], $discount['Type'], $discount['Value'], $discount['Start_date'], $discount['End_date'], false, $discount['Active']);
                         }
+                        $discountUsed = true;
+                     
                     } else {
                         throw new Exception("Codice sconto non valido o non applicabile.");
                     }
@@ -560,6 +562,16 @@ class MySqlDatabase implements
             $stmt->bind_param('sdii', $date, $total, $customerId, $discountCodeId);
             $stmt->execute();
             $orderId = $stmt->insert_id;
+
+            if ($discountUsed){
+                // Registra l'utilizzo del codice sconto
+                $this->insertDiscountCodeUsage(
+                    date('Y-m-d H:i:s'), // Data di utilizzo
+                    $discountCodeId,     // ID del codice sconto
+                    $customerId,         // ID del cliente
+                    $orderId                // L'ID dell'ordine sarà aggiunto dopo
+                );
+             }
     
             // Recupera i libri nel carrello
             $booksInCart = $this->getBooksInCart($cartId);
