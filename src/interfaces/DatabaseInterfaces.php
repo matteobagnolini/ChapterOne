@@ -122,7 +122,7 @@ interface OrderNotificationManager {
     public function SetSeenNotification($id);
 }
 
-interface businessLogic {
+interface BusinessLogic {
     public function getbestSellers($numberOfBooks);
 }
 ?>
