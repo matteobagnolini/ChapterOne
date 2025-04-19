@@ -42,7 +42,7 @@ services:
           sleep 1
         done
         echo 'MySQL started, executing initialization script...'
-        mysql -h database -u root -pmypassword < /ChapterOne.sql
+ 
         echo 'Initialization completed'
       "
     volumes:
