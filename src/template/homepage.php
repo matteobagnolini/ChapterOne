@@ -20,43 +20,29 @@
                     </div>
                 </div>
                 <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
-                    <li class="col">
-                        <div class="card mb-4">
-                            <div class="card-img-container">
-                                <img src="deepwork.jpg" class="card-img-top" alt="Copertina Libro 1">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Titolo Libro 1</h5>
-                                <p class="card-text">Autore Libro 1</p>
-                                <p class="card-text">Prezzo: €10.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col">
-                        <div class="card mb-4">
-                            <div class="card-img-container">
-                                <img src="stevejobs.jpg" class="card-img-top" alt="Copertina Libro 2">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Titolo Libro 2</h5>
-                                <p class="card-text">Autore Libro 2</p>
-                                <p class="card-text">Prezzo: €15.00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col">
-                        <div class="card mb-4">
-                            <div class="card-img-container">
-                                <img src="shining.jpg" class="card-img-top" alt="Copertina Libro 3">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Titolo Libro 3</h5>
-                                <p class="card-text">Autore Libro 3</p>
-                                <p class="card-text">Prezzo: €20.00</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+        <?php if(isset($templateParams["bestsellers"]) && count($templateParams["bestsellers"]) > 0): ?>
+            <?php foreach($templateParams["bestsellers"] as $book): 
+                $author = $dbh->getAuthorById($book["Author_id"]);
+            ?>
+            <li class="col">
+                <div class="card mb-4">
+                    <div class="card-img-container">
+                        <img src="<?php echo UPLOAD_DIR . $book["Cover"]; ?>" class="card-img-top" alt="Copertina <?php echo $book["Title"]; ?>">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $book["Title"]; ?></h5>
+                        <p class="card-text"><?php echo $author["First_name"] . " " . $author["Last_name"]; ?></p>
+                        <p class="card-text">Prezzo: €<?php echo number_format($book["Price"], 2, ',', '.'); ?></p>
+                    </div>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <li class="col-12">
+                <p>Nessun bestseller disponibile al momento.</p>
+            </li>
+        <?php endif; ?>
+    </ul>
             </div>
         </section>
 

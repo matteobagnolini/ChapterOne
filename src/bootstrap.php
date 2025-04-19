@@ -1,6 +1,6 @@
 <?php
 session_start();
-define("UPLOAD_DIR", "./upload/");
+define("UPLOAD_DIR", "resources/");
 require_once("utils/functions.php");
 require_once("db/database.php");
 $dbh = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);

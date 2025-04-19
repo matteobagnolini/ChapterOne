@@ -36,9 +36,21 @@ class BestSellersTest extends BaseTest {
 
         // Verifica l'ordine dei bestseller
         $this->assertCount(3, $bestSellers, "Dovrebbero esserci 3 bestseller.");
-        $this->assertEquals($book2Id, $bestSellers[0]['Book_id'], "Book 2 dovrebbe essere il bestseller più venduto.");
-        $this->assertEquals($book1Id, $bestSellers[1]['Book_id'], "Book 1 dovrebbe essere il secondo bestseller.");
-        $this->assertEquals($book3Id, $bestSellers[2]['Book_id'], "Book 3 dovrebbe essere il terzo bestseller.");
+        
+        // Verifica che i dati completi dei libri siano presenti
+        $this->assertEquals($book2Id, $bestSellers[0]['Id'], "Book 2 dovrebbe essere il bestseller più venduto.");
+        $this->assertEquals('Book 2', $bestSellers[0]['Title'], "Il titolo dovrebbe essere 'Book 2'");
+        $this->assertEquals(30.00, $bestSellers[0]['Price'], "Il prezzo dovrebbe essere 30.00");
+        $this->assertEquals('cover2.jpg', $bestSellers[0]['Cover'], "La copertina dovrebbe essere 'cover2.jpg'");
+        $this->assertEquals(3, $bestSellers[0]['Purchase_count'], "Il conteggio acquisti dovrebbe essere 3");
+        
+        $this->assertEquals($book1Id, $bestSellers[1]['Id'], "Book 1 dovrebbe essere il secondo bestseller.");
+        $this->assertEquals('Book 1', $bestSellers[1]['Title'], "Il titolo dovrebbe essere 'Book 1'");
+        $this->assertEquals(2, $bestSellers[1]['Purchase_count'], "Il conteggio acquisti dovrebbe essere 2");
+        
+        $this->assertEquals($book3Id, $bestSellers[2]['Id'], "Book 3 dovrebbe essere il terzo bestseller.");
+        $this->assertEquals('Book 3', $bestSellers[2]['Title'], "Il titolo dovrebbe essere 'Book 3'");
+        $this->assertEquals(1, $bestSellers[2]['Purchase_count'], "Il conteggio acquisti dovrebbe essere 1");
     }
 
     public function testBestSellerRemovedWhenBookDeleted(): void {
@@ -59,7 +71,9 @@ class BestSellersTest extends BaseTest {
         // Verifica che il libro sia nei bestseller
         $bestSellers = $this->db->getBestSellers(10);
         $this->assertCount(1, $bestSellers, "Dovrebbe esserci 1 bestseller.");
-        $this->assertEquals($bookId, $bestSellers[0]['Book_id'], "Il libro dovrebbe essere nei bestseller.");
+        $this->assertEquals($bookId, $bestSellers[0]['Id'], "Il libro dovrebbe essere nei bestseller.");
+        $this->assertEquals('Book 1', $bestSellers[0]['Title'], "Il titolo dovrebbe essere 'Book 1'");
+        $this->assertEquals(1, $bestSellers[0]['Purchase_count'], "Il conteggio acquisti dovrebbe essere 1");
 
         // Elimina il libro
         $this->db->deleteBook($bookId);

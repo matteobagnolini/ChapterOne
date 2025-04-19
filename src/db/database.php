@@ -786,7 +786,7 @@ class MySqlDatabase implements
     
     public function getBestSellers($numberOfBooks) {
         $stmt = $this->db->prepare("
-            SELECT b.Id AS Book_id, b.Title, bs.Purchase_count
+            SELECT b.*, bs.Purchase_count
             FROM BEST_SELLER bs
             JOIN BOOK b ON bs.Book_id = b.Id
             ORDER BY bs.Purchase_count DESC

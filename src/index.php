@@ -8,6 +8,7 @@ $templateParams["nome"] = "homepage.php";
 //Home Template
 // $templateParams["articoli"] = $dbh->getPosts(2);
 
+$templateParams["bestsellers"] = $dbh->getbestSellers(10);
 require 'template/base.php';
 
 ?>
