@@ -13,7 +13,7 @@
     <title><?php echo $templateParams["titolo"]; ?></title>
 
 
-    <style>
+    <!-- <style>
         /* Sticky footer styles */
         html, body {
             height: 100%;
@@ -25,7 +25,7 @@
         main {
             flex: 1;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
@@ -62,11 +62,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
-                                // Recupera le categorie dal database
-                                $categories = $dbh->getCategories();
-
-                                // Itera sulle categorie e crea gli elementi del menu
-                                foreach ($categories as $category) {
+                                foreach ($templateParams["categorie"] as $category) {
                                     echo '<li><a class="dropdown-item" href="category.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>';
                                 }
                                 ?>
