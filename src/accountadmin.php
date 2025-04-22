@@ -1,8 +1,8 @@
 <?php
 require_once 'bootstrap.php';
 
-$templateParams["titolo"] = "ChapterOne - About Us";
-$templateParams["nome"] = "aboutuspage.php";
+$templateParams["titolo"] = "ChapterOne - Account Admin";
+$templateParams["nome"] = "accountadminpage.php";
 // $templateParams["categorie"] = $dbh->getCategories();
 // $templateParams["articolicasuali"] = $dbh->getRandomPosts(2);
 //Home Template

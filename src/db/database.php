@@ -16,7 +16,8 @@ class MySqlDatabase implements
     OrderManager, 
     OrderDetailManager, 
     DiscountCodeUsageManager, 
-    OrderNotificationManager
+    OrderNotificationManager,
+    BusinessLogic
 {
     public $db;
 
@@ -474,14 +475,14 @@ class MySqlDatabase implements
 
     public function insertDiscountCode($code, $type, $value, $startDate, $endDate, $singleUse, $active) {
         $stmt = $this->db->prepare("INSERT INTO DISCOUNT_CODE (Code, Type, Value, Start_date, End_date, Single_use, Active) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssdsiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active);
+        $stmt->bind_param('ssdssii', $code, $type, $value, $startDate, $endDate, $singleUse, $active);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
     public function updateDiscountCode($id, $code, $type, $value, $startDate, $endDate, $singleUse, $active) {
         $stmt = $this->db->prepare("UPDATE DISCOUNT_CODE SET Code = ?, Type = ?, Value = ?, Start_date = ?, End_date = ?, Single_use = ?, Active = ? WHERE Id = ?");
-        $stmt->bind_param('ssdsiiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active, $id);
+        $stmt->bind_param('ssdssiii', $code, $type, $value, $startDate, $endDate, $singleUse, $active, $id);
         return $stmt->execute();
     }
 
@@ -521,12 +522,57 @@ class MySqlDatabase implements
             if ($cart['Item_count'] == 0) {
                 throw new Exception("Il carrello è vuoto, impossibile completare l'ordine.");
             }
+            $discountUsed = false;
+            // Calcola il totale con lo sconto, se applicabile
+            if ($discountCodeId !== null) {
+                $discount = $this->getDiscountCodeById($discountCodeId);
+    
+                if ($discount) {
+                    $currentDate = date('Y-m-d'); // Ottieni la data corrente
+                
+                    if ($discount['Active'] && $currentDate >= $discount['Start_date'] && $currentDate <= $discount['End_date']) {
+                        if ($discount['Type'] === 'percentage') {
+                            // Applica lo sconto percentuale
+                            $total -= ($total * ($discount['Value'] / 100));
+                        } elseif ($discount['Type'] === 'fixed') {
+                            // Applica lo sconto fisso
+                            $total -= $discount['Value'];
+                        }
+                
+                        // Assicurati che il totale non sia negativo
+                        if ($total < 0) {
+                            $total = 0;
+                        }
+
+                        if ($discount['Single_use']) {
+                            // Imposta il codice sconto come non più utilizzabile
+                            $this->updateDiscountCode($discountCodeId, $discount['Code'], $discount['Type'], $discount['Value'], $discount['Start_date'], $discount['End_date'], false, $discount['Active']);
+                        }
+                        $discountUsed = true;
+                     
+                    } else {
+                        throw new Exception("Codice sconto non valido o non applicabile.");
+                    }
+                } else {
+                    throw new Exception("Codice sconto non valido.");
+                }
+            }
     
             // Inserisci l'ordine
             $stmt = $this->db->prepare("INSERT INTO `ORDER` (Date, Total, Customer_id, Discount_code_id) VALUES (?, ?, ?, ?)");
             $stmt->bind_param('sdii', $date, $total, $customerId, $discountCodeId);
             $stmt->execute();
             $orderId = $stmt->insert_id;
+
+            if ($discountUsed){
+                // Registra l'utilizzo del codice sconto
+                $this->insertDiscountCodeUsage(
+                    date('Y-m-d H:i:s'), // Data di utilizzo
+                    $discountCodeId,     // ID del codice sconto
+                    $customerId,         // ID del cliente
+                    $orderId                // L'ID dell'ordine sarà aggiunto dopo
+                );
+             }
     
             // Recupera i libri nel carrello
             $booksInCart = $this->getBooksInCart($cartId);
@@ -736,5 +782,21 @@ class MySqlDatabase implements
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    
+    public function getBestSellers($numberOfBooks) {
+        $stmt = $this->db->prepare("
+            SELECT b.*, bs.Purchase_count
+            FROM BEST_SELLER bs
+            JOIN BOOK b ON bs.Book_id = b.Id
+            ORDER BY bs.Purchase_count DESC
+            LIMIT ?
+        ");
+        $stmt->bind_param('i', $numberOfBooks);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 ?>

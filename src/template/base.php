@@ -33,12 +33,14 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
-                <div class="d-flex align-items-center order-lg-2">
-                    <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart"></i>Cart</a>
-                    <a class="nav-link me-2" href="account.php"><i class="bi bi-person"></i>Account</a>
+                    <div class="d-flex align-items-center order-lg-2">
+                    <a class="nav-link me-2" href="notifiche.php"><i class="bi bi-bell me-1"></i> Notifiche</a>
+                    <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart me-1"></i> Carrello</a>
+                    <a class="nav-link me-2" href="account.php"><i class="bi bi-person me-1"></i> Account</a>
+                    <a class="nav-link me-2" href="accountadmin.php"><i class="bi bi-shield-lock me-1"></i> Admin</a>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
-                        <button class="btn" type="submit">Search</button>
+                        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
                     </form>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

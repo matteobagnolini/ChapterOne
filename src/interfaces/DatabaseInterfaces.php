@@ -121,4 +121,8 @@ interface OrderNotificationManager {
     public function deleteOrderNotification($id);
     public function SetSeenNotification($id);
 }
+
+interface BusinessLogic {
+    public function getbestSellers($numberOfBooks);
+}
 ?>

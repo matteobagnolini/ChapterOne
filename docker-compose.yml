@@ -1,30 +1,59 @@
 services:
   php-apache:
-    image: whatsm97/sito:latest  # Usa l'immagine salvata del container PHP
+    image: whatsm97/sito:latest
     container_name: sito
-    command: apache2-foreground 
+    command: >
+      /bin/bash -c "
+        echo 'Initializing database with populateDB.php...'
+        php /var/www/html/populateDB.php
+        echo 'Database population completed, starting Apache...'
+        apache2-foreground
+      "
     ports:
-      - "8080:80"  # Mappa la porta 8080 del tuo host alla porta 80 del container
+      - "8080:80"
     volumes:
-      - ./src:/var/www/html  # Monta la cartella corrente nel container
+      - ./src:/var/www/html
     networks:
       - my_networkSQL
-
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+  
   mysql:
-    image: whatsm97/database:latest  # Usa l'immagine ufficiale di MySQL
+    image: whatsm97/database:latest
     container_name: database
     environment:
-      MYSQL_ROOT_PASSWORD: mypassword  # Imposta la password di root
+      MYSQL_ROOT_PASSWORD: mypassword
     ports:
-      - "3306:3306"  # Mappa la porta 3306 del tuo host alla porta 3306 del container
+      - "3306:3306"
     networks:
       - my_networkSQL
     volumes:
-      - mysql_data:/var/lib/mysql  # Usa il volume per salvare i dati del database
+      - mysql_data:/var/lib/mysql
+      - ./ChapterOne.sql:/docker-entrypoint-initdb.d/ChapterOne.sql  # Copia il tuo script SQL
+  
+  db-init:
+    image: mysql:latest
+    container_name: db-init
+    command: >
+      /bin/bash -c "
+        echo 'Waiting for MySQL to start...'
+        while ! mysql -h database -u root -pmypassword -e 'SELECT 1' >/dev/null 2>&1; do
+          sleep 1
+        done
+        echo 'MySQL started, executing initialization script...'
+ 
+        echo 'Initialization completed'
+      "
+    volumes:
+      - ./db.ChapterOne.sql:/ChapterOne.sql  # Monta il tuo script SQL
+    networks:
+      - my_networkSQL
+    depends_on:
+      - mysql
 
 networks:
   my_networkSQL:
     driver: bridge
-
 volumes:
-  mysql_data:  # Definisce il volume persistente per i dati del database
+  mysql_data:

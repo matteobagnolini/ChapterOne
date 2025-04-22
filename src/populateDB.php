@@ -4,14 +4,16 @@ require_once __DIR__ . '/db/database.php';
 $db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
 
 try {
-
+    // Eliminazione di tutti i dati esistenti
     $db->db->query("DELETE FROM BOOK_IN_CART");
     $db->db->query("DELETE FROM CART");
     $db->db->query("DELETE FROM REVIEW");
-    $db->db->query("DELETE FROM `ORDER`");
     $db->db->query("DELETE FROM ORDER_DETAIL");
+    $db->db->query("DELETE FROM `ORDER`");
     $db->db->query("DELETE FROM DISCOUNT_CODE_USAGE");
     $db->db->query("DELETE FROM DISCOUNT_CODE");
+    $db->db->query("DELETE FROM ORDER_NOTIFICATION");
+    $db->db->query("DELETE FROM BEST_SELLER");
     $db->db->query("DELETE FROM POST");
     $db->db->query("DELETE FROM BOOK");
     $db->db->query("DELETE FROM CATEGORY");
@@ -28,6 +30,8 @@ try {
     $db->db->query("ALTER TABLE ORDER_DETAIL AUTO_INCREMENT = 1");
     $db->db->query("ALTER TABLE DISCOUNT_CODE_USAGE AUTO_INCREMENT = 1");
     $db->db->query("ALTER TABLE DISCOUNT_CODE AUTO_INCREMENT = 1");
+    $db->db->query("ALTER TABLE ORDER_NOTIFICATION AUTO_INCREMENT = 1");
+    $db->db->query("ALTER TABLE BEST_SELLER AUTO_INCREMENT = 1");
     $db->db->query("ALTER TABLE POST AUTO_INCREMENT = 1");
     $db->db->query("ALTER TABLE BOOK AUTO_INCREMENT = 1");
     $db->db->query("ALTER TABLE CATEGORY AUTO_INCREMENT = 1");
@@ -36,39 +40,83 @@ try {
     $db->db->query("ALTER TABLE CUSTOMER AUTO_INCREMENT = 1");
     $db->db->query("ALTER TABLE ADMIN AUTO_INCREMENT = 1");
     
-
-
     // Popola la tabella CUSTOMER
     $customerId1 = $db->insertCustomer('Mario', 'Rossi', 'mario.rossi@example.com', 'password123', 'Via Roma 1', '1234567890');
     $customerId2 = $db->insertCustomer('Luigi', 'Verdi', 'luigi.verdi@example.com', 'password123', 'Via Milano 2', '0987654321');
+    $customerId3 = $db->insertCustomer('Anna', 'Bianchi', 'anna.bianchi@example.com', 'password123', 'Via Napoli 3', '3456789012');
+
+    // Popola la tabella ADMIN
+    $adminId = $db->insertAdmin('Admin', 'User', 'admin@example.com', 'admin123');
 
     // Popola la tabella AUTHOR
     $authorId1 = $db->insertAuthor('Giovanni', 'Bianchi');
     $authorId2 = $db->insertAuthor('Anna', 'Neri');
+    $authorId3 = $db->insertAuthor('Marco', 'Verdi');
+    $authorId4 = $db->insertAuthor('Laura', 'Rossi');
+    $authorId5 = $db->insertAuthor('Paolo', 'Gialli');
 
     // Popola la tabella CATEGORY
     $categoryId1 = $db->insertCategory('Romanzo');
     $categoryId2 = $db->insertCategory('Fantascienza');
+    $categoryId3 = $db->insertCategory('Giallo');
+    $categoryId4 = $db->insertCategory('Fantasy');
+    $categoryId5 = $db->insertCategory('Biografia');
 
     // Popola la tabella PUBLISHER
     $publisherId1 = $db->insertPublisher('Mondadori');
     $publisherId2 = $db->insertPublisher('Feltrinelli');
+    $publisherId3 = $db->insertPublisher('Einaudi');
+    $publisherId4 = $db->insertPublisher('Rizzoli');
 
-    // Popola la tabella BOOK
-    $bookId1 = $db->insertBook('Il Grande Romanzo', 'Un romanzo epico', 19.99, '/resources/shining.jpg', $categoryId1, $publisherId1, $authorId1);
-    $bookId2 = $db->insertBook('Viaggio nello Spazio', 'Un racconto di fantascienza', 15.99, '/resources/deepwork.jpg', $categoryId2, $publisherId2, $authorId2);
+    // Popola la tabella BOOK con 9 libri
+    $bookId1 = $db->insertBook('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, '1.jpg', $categoryId1, $publisherId1, $authorId1);
+    $bookId2 = $db->insertBook('Viaggio nello Spazio', 'Un racconto di fantascienza ambientato nel 2150', 15.99, '2.jpg', $categoryId2, $publisherId2, $authorId2);
+    $bookId3 = $db->insertBook('Il Mistero del Lago', 'Un giallo avvincente ambientato in un piccolo villaggio di montagna', 18.50, '3.jpg', $categoryId3, $publisherId3, $authorId3);
+    $bookId4 = $db->insertBook('La Terra di Mezzo', 'Un fantasy epico con draghi, elfi e antiche magie', 22.00, '4.jpg', $categoryId4, $publisherId1, $authorId4);
+    $bookId5 = $db->insertBook('Vita di Einstein', 'La biografia del famoso scienziato', 24.99, '5.jpg', $categoryId5, $publisherId4, $authorId5);
+    $bookId6 = $db->insertBook('Il Ritorno', 'Sequel del Grande Romanzo, continua la saga familiare', 21.50, '6.jpg', $categoryId1, $publisherId1, $authorId1);
+    $bookId7 = $db->insertBook('Mondi Paralleli', 'Un viaggio tra dimensioni alternative', 17.99, '7.jpg', $categoryId2, $publisherId2, $authorId2);
+    $bookId8 = $db->insertBook('Il Codice Segreto', 'Un mistero da risolvere in una corsa contro il tempo', 16.50, '8.jpg', $categoryId3, $publisherId3, $authorId3);
+    $bookId9 = $db->insertBook('Le Cronache del Regno', 'Una saga fantasy di avventura e magia', 23.99, '9.jpg', $categoryId4, $publisherId4, $authorId4);
 
-    // Popola la tabella CART
+    // Popola la tabella CART (i carrelli vengono creati automaticamente dal trigger after_insert_customer)
     $cart1 = $db->getCartByCustomerId($customerId1);
     $cart2 = $db->getCartByCustomerId($customerId2);
+    $cart3 = $db->getCartByCustomerId($customerId3);
 
     // Popola la tabella BOOK_IN_CART
     $db->insertBookInCart($cart1['Id'], $bookId1, 1);
-    $db->insertBookInCart($cart2['Id'], $bookId2, 2);
+    $db->insertBookInCart($cart1['Id'], $bookId4, 2);
+    $db->insertBookInCart($cart2['Id'], $bookId2, 1);
+    $db->insertBookInCart($cart2['Id'], $bookId5, 1);
+    $db->insertBookInCart($cart3['Id'], $bookId3, 3);
 
+    // Popola la tabella DISCOUNT_CODE
+    $discountCodeId1 = $db->insertDiscountCode('WELCOME10', 'percentage', 10.00, '2024-01-01', '2025-12-31', false, true);
+    $discountCodeId2 = $db->insertDiscountCode('SUMMER25', 'percentage', 25.00, '2025-06-01', '2025-08-31', false, true);
+    $discountCodeId3 = $db->insertDiscountCode('FIXED15', 'fixed', 15.00, '2024-01-01', '2025-12-31', false, true);
+    
+    // Crea alcuni ordini
+    $orderId1 = $db->insertOrder('2025-03-15 10:30:00', 19.99, $customerId1, null);
+    $orderId2 = $db->insertOrder('2025-03-20 14:45:00', 12.00, $customerId2, $discountCodeId1);
+    $orderId3 = $db->insertOrder('2025-03-25 09:15:00', 18.50, $customerId3, null);
+    
+    
+    // Popola la tabella REVIEW
+    $db->insertReview('Libro fantastico, lo consiglio vivamente!', 5, $bookId1, $customerId1);
+    $db->insertReview('Una buona lettura ma la trama è prevedibile.', 3, $bookId2, $customerId2);
+    $db->insertReview('Mi ha tenuto sveglio tutta la notte. Eccellente!', 5, $bookId3, $customerId3);
+    
+    // Popola la tabella POST
+    $db->insertPost('Nuovo romanzo di Giovanni Bianchi disponibile ora!', '2025-03-01 12:00:00', $authorId1, $bookId1);
+    $db->insertPost('Incontro con l\'autore Anna Neri presso la libreria centrale', '2025-03-10 12:00:00', $authorId2, $bookId2);
+    
+    // Popola la tabella ORDER_NOTIFICATION
+    $db->insertOrderNotification($orderId1, 'Il tuo ordine è stato spedito', 'sent');
+    $db->insertOrderNotification($orderId2, 'Il tuo ordine è in elaborazione', 'pending');
+    $db->insertOrderNotification($orderId3, 'Il tuo ordine è stato consegnato', 'arrived');
 
-
-    echo "Database popolato con successo!";
+    echo "Database popolato con successo con 9 libri e relativi dati!";
 } catch (Exception $e) {
     echo "Errore durante il popolamento del database: " . $e->getMessage();
 }
