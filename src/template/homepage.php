@@ -9,7 +9,6 @@
     </div>
 </section>
 
-<!-- Elenco di libri bestseller -->
 <section>
     <div class="container">
         <div class="row">
@@ -18,49 +17,23 @@
             </div>
         </div>
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
-            <?php foreach($templateParams["libri"] as $book) ?>
+            <?php foreach($templateParams["libri"] as $book): ?>
             <li class="col">
                 <div class="card mb-4">
                     <div class="card-img-container">
-                        <img src="<?php book["cover"] ?>" class="card-img-top" alt="Copertina Libro 1">
+                        <img src="<?php echo UPLOAD_DIR . book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?php book["titolo"] ?></h5>
-                        <p class="card-text"><?php book["autore"] ?></p>
-                        <p class="card-text"><?php book["prezzo"] ?></p>
+                        <h5 class="card-title"><?php echo book["Title"] ?></h5>
+                        <p class="card-text"><?php echo book["Author_name"] ?></p>
+                        <p class="card-text"><?php echo book["Price"] ?></p>
                     </div>
                 </div>
             </li>
-            <?php endforeach ?>
-            <li class="col">
-                <div class="card mb-4">
-                    <div class="card-img-container">
-                        <img src="stevejobs.jpg" class="card-img-top" alt="Copertina Libro 2">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Titolo Libro 2</h5>
-                        <p class="card-text">Autore Libro 2</p>
-                        <p class="card-text">Prezzo: €15.00</p>
-                    </div>
-                </div>
-            </li>
-            <li class="col">
-                <div class="card mb-4">
-                    <div class="card-img-container">
-                        <img src="shining.jpg" class="card-img-top" alt="Copertina Libro 3">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Titolo Libro 3</h5>
-                        <p class="card-text">Autore Libro 3</p>
-                        <p class="card-text">Prezzo: €20.00</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+            <?php endforeach; ?>
     </div>
 </section>
 
-<!-- Elenco di libri novità -->
 <section>
     <div class="container">
         <div class="row">
@@ -69,42 +42,19 @@
             </div>
         </div>
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
+            <?php foreach($templateParams["novità"] as $book): ?>
             <li class="col">
                 <div class="card mb-4">
                     <div class="card-img-container">
-                        <img src="deepwork.jpg" class="card-img-top" alt="Copertina Libro 4">
+                        <img src="<?php echo UPLOAD_DIR . book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Titolo Libro 4</h5>
-                        <p class="card-text">Autore Libro 4</p>
-                        <p class="card-text">Prezzo: €25.00</p>
+                        <h5 class="card-title"><?php echo book["Title"] ?></h5>
+                        <p class="card-text"><?php echo book["Author_name"] ?></p>
+                        <p class="card-text"><?php echo book["Price"] ?></p>
                     </div>
                 </div>
             </li>
-            <li class="col">
-                <div class="card mb-4">
-                    <div class="card-img-container">
-                        <img src="stevejobs.jpg" class="card-img-top" alt="Copertina Libro 5">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Titolo Libro 5</h5>
-                        <p class="card-text">Autore Libro 5</p>
-                        <p class="card-text">Prezzo: €30.00</p>
-                    </div>
-                </div>
-            </li>
-            <li class="col">
-                <div class="card mb-4">
-                    <div class="card-img-container">
-                        <img src="shining.jpg" class="card-img-top" alt="Copertina Libro 6">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Titolo Libro 6</h5>
-                        <p class="card-text">Autore Libro 6</p>
-                        <p class="card-text">Prezzo: €35.00</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+            <?php endforeach; ?>
     </div>
 </section>

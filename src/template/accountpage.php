@@ -1,5 +1,3 @@
-
-    <main>
         <div class="container py-4">
             <div class="row">
                     <div class="card mb-4">
@@ -25,27 +23,27 @@
                                             
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Nome</label>
-                                                <input type="text" id="name" name="name" value="Mario Rossi" readonly class="form-control">
+                                                <input type="text" id="name" name="name" value="<?php echo $templateParams["accountInfo"][0]["name"]; ?>" readonly class="form-control">
                                             </div>
                                             
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">Username</label>
-                                                <input type="text" id="username" name="username" value="mario.rossi" readonly class="form-control">
+                                                <input type="text" id="username" name="username" value="<?php echo $templateParams["accountInfo"][0]["username"]; ?>" readonly class="form-control">
                                             </div>
                                             
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" id="email" name="email" value="mario.rossi@gmail.com" readonly class="form-control">
+                                                <input type="email" id="email" name="email" value="<?php echo $templateParams["accountInfo"][0]["email"]; ?>" readonly class="form-control">
                                             </div>
                                             
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" id="password" name="password" value="password123" readonly class="form-control">
+                                                <input type="password" id="password" name="password" value="<?php echo $templateParams["accountInfo"][0]["password"]; ?>" readonly class="form-control">
                                             </div>
                                             
                                             <div class="mb-3">
                                                 <label for="card-number" class="form-label">Numero della Carta</label>
-                                                <input type="text" id="card-number" name="card-number" value="1234 5678 9012 3456" readonly class="form-control">
+                                                <input type="text" id="card-number" name="card-number" value="<?php echo $templateParams["accountInfo"][0]["cardNumber"]; ?>" readonly class="form-control">
                                             </div>
                                         </fieldset>
                                         
@@ -60,6 +58,3 @@
                     </div>
             </div>
         </div>
-       
-    </main>
-

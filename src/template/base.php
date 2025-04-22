@@ -63,11 +63,9 @@
                                 Categories
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <?php
-                                foreach ($templateParams["categorie"] as $category) {
-                                    echo '<li><a class="dropdown-item" href="category.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>';
-                                }
-                                ?>
+                                <?php foreach ($templateParams["categorie"] as $category): ?>
+                                    <?php echo '<li><a class="dropdown-item" href="category.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>'; ?>
+                                <?php endforeach; ?>
                             </ul>
                         </li>
                         <li class="nav-item">

@@ -1,41 +1,19 @@
 
-   
-<main>
-    <section class="container my-5">
+<section class="container my-5">
         <h1 class="mb-4">I tuoi ordini</h1>
         <p class="text-muted mb-4">Visualizza lo storico dei tuoi acquisti</p>
-        <div class="list-group mb-4">
-            <div class="list-group-item list-group-item-action">
+        <ul class="list-group mb-4">
+            <?php foreach($templateParams["ordini"] as $ordine): ?>
+            <li class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Ordine #12345</h5>
-                    <span class="badge bg-success rounded-pill">Consegnato</span>
+                    <h5 class="mb-1">Ordine #<?php echo $ordine["Id"]; ?></h5>
+                    <small class="text-success"><?php echo $ordine["Status"]; ?></small>
                 </div>
-                <p class="mb-1">Data ordine: 15/04/2023</p>
-                <p class="mb-1">Totale: €45,90</p>
-                <small><a href="../orderdetails.php" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a></small>
-            </div>
-            
-            <div class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Ordine #12346</h5>
-                    <span class="badge bg-primary rounded-pill">In transito</span>
-                </div>
-                <p class="mb-1">Data ordine: 23/05/2023</p>
-                <p class="mb-1">Totale: €78,50</p>
-                <small><a href="../orderdetails.php" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a></small>
-            </div>
-            
-            <div class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Ordine #12347</h5>
-                    <span class="badge bg-warning text-dark rounded-pill">In preparazione</span>
-                </div>
-                <p class="mb-1">Data ordine: 07/06/2023</p>
-                <p class="mb-1">Totale: €32,20</p>
-                <small><a href="../orderdetails.php" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a></small>
-            </div>
-        </div>
-
-        
-    </main>
-
+                <p class="mb-1">Data ordine: <?php echo $ordine["Date"]; ?></p>
+                <p class="mb-1">Totale: € <?php echo $ordine["Total"] ?></p>
+                <small>
+                    <a href="orderdetails.php?id_order=<?php echo $ordine["Id"]; ?>" class="btn btn-sm btn-outline-primary mt-2">Dettagli ordine</a>
+                </small>
+            </li>
+            <?php endforeach; ?>
+</section>

@@ -1,6 +1,4 @@
-<main>
-
-    <div class="container-fluid py-4"></div>
+<div class="container-fluid py-4"></div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -17,31 +15,33 @@
                                     <label for="autore" class="form-label">Autore:</label>
                                     <select class="form-select" id="autore" name="autore">
                                         <option selected>Seleziona un autore</option>
-                                        <option value="1">J.K. Rowling</option>
-                                        <option value="2">Stephen King</option>
-                                        <option value="3">Haruki Murakami</option>
-                                        <option value="4">Elena Ferrante</option>
-                                        <option value="5">Dan Brown</option>
+                                        <?php foreach ($templateParams["autori"] as $autore): ?>
+                                            <option value="<?php echo $autore["Id"]; ?>">
+                                                <?php echo $autore["First_name"] . $autore["Last_name"]; ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </li>
                                 <li class="mb-3">
                                     <label for="casaeditrice" class="form-label">Casa Editrice:</label>
                                     <select class="form-select" id="casaeditrice" name="casaeditrice">
                                         <option selected>Seleziona una casa editrice</option>
-                                        <option value="1">Mondadori</option>
-                                        <option value="2">Bompiani</option>
-                                        <option value="3">Adelphi</option>
-                                        <option value="4">Piemme</option>
+                                        <?php foreach ($templateParams["case_editrici"] as $casa): ?>
+                                            <option value="<?php echo $casa['Id']; ?>">
+                                                <?php echo $casa['Name']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>                                
                                 </li>
                                 <li class="mb-3">
                                     <label for="categoria" class="form-label">Categoria:</label>
                                     <select class="form-select" id="categoria" name="categoria">
                                         <option selected>Seleziona una categoria</option>
-                                        <option value="1">Fantasy</option>
-                                        <option value="2">Gialli</option>
-                                        <option value="3">Saggi</option>
-                                        <option value="4">Narrativa</option>
+                                        <?php foreach ($templateParams["categorie"] as $categoria): ?>
+                                            <option value="<?php echo $categoria['Id']; ?>">
+                                                <?php echo $categoria['Name']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>                                
                                 </li>
                                 <li class="mb-3">
@@ -72,6 +72,4 @@
                 </div>
             </div>
         </div>
-    </div>        
-
-    </main>
+    </div>

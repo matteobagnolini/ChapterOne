@@ -37,22 +37,24 @@
 - [ ] aggiungere carrello alla creazione di un utente
 - [ ] Eliminare carrello, dettaglio ordini e recensioni alla rimozione dell'utente
 
-## TODO HTML
-
-- [x] Pagina admin: modificare, aggiungere, eliminare libri
-- [x] Pagina admin: modificare, aggiungere, eliminare autori
-- [x] Pagina admin: modificare, aggiungere, eliminare case editrice
-- [x] Pagina home: libri bestsellers, ultimi arrivati e categorie
-- [x] Pagina utente: login, modifica informazioni
-- [x] Pagina libro: aggiungere sezione per le recensioni
-
 ## TODO JavaScript
 
 - [ ] Aggiungere notifiche lette e non lette
 - [ ] Pagina utente (account): rendere modificabile il form
+
+## TODO Frontend
+- [x] Homepage
+- [ ] Pagina libro
+- [ ] Carrello
+- [ ] Ordini
+- [ ] Notifiche
+- [ ] Pagina libro
+- [ ] Gestisci autore (inserimento dei dati + data nascita e biografia con db)
+- [ ] Gestisci casa editrice (inserimento dei dati + data nascita e biografia con db)
 
 
 ## Queries
 
 - [ ] Bestsellers
 - [ ] New releases
+- [ ] Account info from account (account.php)

@@ -1,12 +1,17 @@
 <?php
 require_once 'bootstrap.php';
 
+if(!isUserLoggedIn()){
+    header("location: login.php");
+}
+
 $templateParams["titolo"] = "ChapterOne - Cart";
 $templateParams["nome"] = "cartpage.php";
-// $templateParams["categorie"] = $dbh->getCategories();
-// $templateParams["articolicasuali"] = $dbh->getRandomPosts(2);
-//Home Template
-// $templateParams["articoli"] = $dbh->getPosts(2);
+$templateParams["categorie"] = $dbh->getCategories();
+
+$templateParams["cartItems"] = $dbh->getCartItems($_SESSION["username"]);  # Cart items from current user ID
+$templateParams["cartPrice"] = $dbh->getCartPrice();
+$templateParams["cartNumber"] = $dbh->getCartItemsNumber();
 
 require 'template/base.php';
 

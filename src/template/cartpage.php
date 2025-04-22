@@ -1,5 +1,3 @@
-
-    <main>
         <div class="container my-4">
             <section>
                 <h1 class="mb-4">Carrello</h1>
@@ -8,72 +6,32 @@
                     <h2 class="mb-3">Articoli</h2>
                     
                     <ul class="list-unstyled">
+                        <?php foreach($templateParams["cartItems"] as $item): ?>
                         <li class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-2">
                                     <figure class="m-3">
-                                        <img src="deepwork.jpg" alt="Copertina libro 1" class="img-fluid rounded">
+                                        <img src="<?php echo UPLOAD_DIR . $item["Cover"] ?>" alt="Copertina libro" class="img-fluid rounded">
                                     </figure>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="card-body">
-                                        <h3 class="card-title">Il Nome del Vento</h3>
-                                        <p class="card-text">Autore: Patrick Rothfuss</p>
-                                        <p class="card-text">Quantità: 1</p>
-                                        <p class="card-text">Prezzo: 18,50€</p>
+                                        <h3 class="card-title"><?php echo $item["Title"]; ?></h3>
+                                        <p class="card-text"><?php echo $item["First_name"] . " " . $item["Last_name"]; ?></p>
+                                        <p class="card-text"><?php echo $item["Price"]; ?></p>
                                         <button class="btn btn-danger btn-sm">Rimuovi</button>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        
-                        <li class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-2">
-                                    <figure class="m-3">
-                                        <img src="stevejobs.jpg" alt="Copertina libro 2" class="img-fluid rounded">
-                                    </figure>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body">
-                                        <h3 class="card-title">1984</h3>
-                                        <p class="card-text">Autore: George Orwell</p>
-                                        <p class="card-text">Quantità: 2</p>
-                                        <p class="card-text">Prezzo: 29,00€</p>
-                                        <button class="btn btn-danger btn-sm">Rimuovi</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
-                        <li class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-2">
-                                    <figure class="m-3">
-                                        <img src="deepwork.jpg" alt="Copertina libro 1" class="img-fluid rounded">
-                                    </figure>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Il Nome del Vento</h3>
-                                        <p class="card-text">Autore: Patrick Rothfuss</p>
-                                        <p class="card-text">Quantità: 1</p>
-                                        <p class="card-text">Prezzo: 18,50€</p>
-                                        <button class="btn btn-danger btn-sm">Rimuovi</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-    
+                        <?php endforeach; ?>
                 </section>
                 
                 <section class="card p-4 bg-light">
                     <h2 class="mb-3">Riepilogo</h2>
-                    <p class="fw-bold">Totale articoli: 4</p>
-                    <p class="fw-bold">Prezzo totale: 72,50€</p>
+                    <p class="fw-bold">Totale articoli: <?php echo $templateParams["cartNumber"]; ?></p>
+                    <p class="fw-bold">Prezzo totale: <?php echo $templateParams["cartPrice"]; ?>€</p>
                     <button class="btn btn-primary mt-2">Procedi all'acquisto</button>
                 </section>
             </section>
         </div>
-    </main>

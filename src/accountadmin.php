@@ -3,10 +3,9 @@ require_once 'bootstrap.php';
 
 $templateParams["titolo"] = "ChapterOne - Account Admin";
 $templateParams["nome"] = "accountadminpage.php";
-// $templateParams["categorie"] = $dbh->getCategories();
-// $templateParams["articolicasuali"] = $dbh->getRandomPosts(2);
-//Home Template
-// $templateParams["articoli"] = $dbh->getPosts(2);
+$templateParams["categorie"] = $dbh->getCategories();
+
+# Add upload of new books from this page
 
 require 'template/base.php';
 

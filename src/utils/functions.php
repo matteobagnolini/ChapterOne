@@ -5,5 +5,9 @@ function isActive($pagename){
     }
 }
 
+function isAdminLoggedIn()  # TODO:
+{
+    return isset($_SESSION["logged"]) && isset($_SESSION["admin"]) && $_SESSION["logged"] && $_SESSION["admin"];
+}
 
 ?>
