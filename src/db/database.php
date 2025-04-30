@@ -858,17 +858,42 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    
     public function checkLogin($email, $password) {
-        $stmt = $this->db->prepare("SELECT * FROM CUSTOMER WHERE Email = ? AND Password = ?");
+        // Prima controlla nella tabella CUSTOMER
+        $stmt = $this->db->prepare("SELECT Id, Email, First_name, Last_name FROM CUSTOMER WHERE Email = ? AND Password = ?");
         $stmt->bind_param('ss', $email, $password);
         $stmt->execute();
         $result = $stmt->get_result();
         
         if ($result->num_rows > 0) {
-            return true;
-        } else {
-            return false;
+            $user = $result->fetch_assoc();
+            return [
+                'id' => $user['Id'],
+                'username' => $user['Email'],
+                'name' => $user['First_name'] . ' ' . $user['Last_name'],
+                'admin' => false
+            ];
         }
+        
+        // Se non trovato, controlla nella tabella ADMIN
+        $stmt = $this->db->prepare("SELECT Id, Email, First_name, Last_name FROM ADMIN WHERE Email = ? AND Password = ?");
+        $stmt->bind_param('ss', $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            return [
+                'id' => $user['Id'],
+                'username' => $user['Email'],
+                'name' => $user['First_name'] . ' ' . $user['Last_name'],
+                'admin' => true
+            ];
+        }
+        
+        // Se non trovato in nessuna tabella
+        return null;
     }
 
 }

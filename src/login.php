@@ -9,18 +9,19 @@ if(!isUserLoggedIn() && !isAdminLoggedIn()) {
             $templateParams["errorelogin"] = "Errore! Controllare username o password!";
         }
         else{
-            registerLoggedUser($login_result[0]);
+         
+            registerLoggedUser($login_result);
         }
     }
 
     if(isAdminLoggedIn()){
         $templateParams["titolo"] = "Blog TW - Admin";
-        $templateParams["nome"] = "adminpage.php";
+        $templateParams["nome"] = "accountadmin.php";
         # TODO: add info about admin page e.g. links to manage books, authors and publishers
     }
     else if(isUserLoggedIn()){
         $templateParams["titolo"] = "ChapterOne - Home";
-        $templateParams["nome"] = "index.php";
+        $templateParams["nome"] = "account.php";
         $templateParams["categorie"] = $dbh->getCategories();
         $templateParams["novità"] = $dbh->getNewBooks(10);
         $templateParams["bestsellers"] = $dbh->getbestSellers(10);
@@ -30,7 +31,12 @@ if(!isUserLoggedIn() && !isAdminLoggedIn()) {
     }
     
 } else{
-    header("location: account.php");
+    if (isAdminLoggedIn()){
+        header("location: accountadmin.php");
+    } else if (isUserLoggedIn()){
+            header("location: account.php");
+    }
+  
 }
 
 require 'template/base.php';
