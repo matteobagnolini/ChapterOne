@@ -131,6 +131,7 @@ interface BusinessLogic {
     public function getOrderDetailsWithAllInformation($orderId);
     public function checkLogin($username, $password);
     public function getAccountInfo($email);
+    public function getCartBooksWithInfo($cartId);
 
 } // get detailsorder con book
   // checklogin

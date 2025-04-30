@@ -921,5 +921,18 @@ class MySqlDatabase implements
         return null;
     }
 
+    public function getCartBooksWithInfo($cartId) {
+        $stmt = $this->db->prepare("
+            SELECT b.cover, b.Title, b.Price, a.First_name AS Author_First_name, a.Last_name AS Author_Last_name
+            FROM BOOK_IN_CART bic
+            JOIN BOOK b ON bic.Book_id = b.Id
+            LEFT JOIN AUTHOR a ON b.Author_id = a.Id
+            WHERE bic.Cart_id = ?
+        ");
+        $stmt->bind_param('i', $cartId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 ?>

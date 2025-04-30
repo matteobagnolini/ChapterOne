@@ -12,13 +12,13 @@
                             <div class="row g-0">
                                 <div class="col-md-2">
                                     <figure class="m-3">
-                                        <img src="<?php echo UPLOAD_DIR . $item["Cover"] ?>" alt="Copertina libro" class="img-fluid rounded">
+                                        <img src="<?php echo UPLOAD_DIR . $item["cover"] ?>" alt="Copertina libro" class="img-fluid rounded">
                                     </figure>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="card-body">
                                         <h3 class="card-title"><?php echo $item["Title"]; ?></h3>
-                                        <p class="card-text"><?php echo $item["First_name"] . " " . $item["Last_name"]; ?></p>
+                                        <p class="card-text"><?php echo $item["Author_First_name"] . " " . $item["Author_Last_name"]; ?></p>
                                         <p class="card-text"><?php echo $item["Price"]; ?></p>
                                         <button class="btn btn-danger btn-sm">Rimuovi</button>
                                     </div>

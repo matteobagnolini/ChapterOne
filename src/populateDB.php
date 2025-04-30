@@ -116,6 +116,14 @@ try {
     $db->insertOrderNotification($orderId2, 'Il tuo ordine è in elaborazione', 'pending');
     $db->insertOrderNotification($orderId3, 'Il tuo ordine è stato consegnato', 'arrived');
 
+
+    // Popola la tabella BOOK_IN_CART
+    $db->insertBookInCart($cart1['Id'], $bookId1, 1);
+    $db->insertBookInCart($cart1['Id'], $bookId4, 2);
+    $db->insertBookInCart($cart2['Id'], $bookId2, 1);
+    $db->insertBookInCart($cart2['Id'], $bookId5, 1);
+    $db->insertBookInCart($cart3['Id'], $bookId3, 3);
+
     echo "Database popolato con successo con 9 libri e relativi dati!";
 } catch (Exception $e) {
     echo "Errore durante il popolamento del database: " . $e->getMessage();

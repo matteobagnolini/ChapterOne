@@ -10,9 +10,9 @@ $templateParams["nome"] = "cartpage.php";
 
 $customer = $dbh->getCustomerByUsername($_SESSION["username"]);
 $templateParams["carrello"] = $dbh->getCartByCustomerId($customer["Id"]); #
-$templateParams["libricarrello"] = $dbh->getBooksInCart($templateParams["carrello"]["Id"]);
-var_dump($templateParams["carrello"]);
-var_dump($templateParams["libricarrello"]);
+$templateParams["libricarrello"] = $dbh->getCartBooksWithInfo($templateParams["carrello"]["Id"]);
+
+
 require 'template/base.php';
 
 ?>
