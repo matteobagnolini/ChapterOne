@@ -168,5 +168,71 @@ class CartTest extends BaseTest {
         $this->assertEquals(65.00, $cart['Subtotal']); // (25.00 * 2) + 15.00
     }
 
+    public function testBooksNumber(): void{
+        $this->tearDown();
+        // Popola la tabella CUSTOMER
+        $customerId1 = $this->db->insertCustomer('Mario', 'Rossi', 'mario.rossi@example.com', 'password123', 'Via Roma 1', '1234567890');
+        $customerId2 = $this->db->insertCustomer('Luigi', 'Verdi', 'luigi.verdi@example.com', 'password123', 'Via Milano 2', '0987654321');
+        $customerId3 = $this->db->insertCustomer('Anna', 'Bianchi', 'anna.bianchi@example.com', 'password123', 'Via Napoli 3', '3456789012');
+
+        // Popola la tabella ADMIN
+        $adminId = $this->db->insertAdmin('Admin', 'User', 'admin@example.com', 'admin123');
+
+        // Popola la tabella AUTHOR
+        $authorId1 = $this->db->insertAuthor('Giovanni', 'Bianchi');
+        $authorId2 = $this->db->insertAuthor('Anna', 'Neri');
+        $authorId3 = $this->db->insertAuthor('Marco', 'Verdi');
+        $authorId4 = $this->db->insertAuthor('Laura', 'Rossi');
+        $authorId5 = $this->db->insertAuthor('Paolo', 'Gialli');
+
+        // Popola la tabella CATEGORY
+        $categoryId1 = $this->db->insertCategory('Romanzo');
+        $categoryId2 = $this->db->insertCategory('Fantascienza');
+        $categoryId3 = $this->db->insertCategory('Giallo');
+        $categoryId4 = $this->db->insertCategory('Fantasy');
+        $categoryId5 = $this->db->insertCategory('Biografia');
+
+        // Popola la tabella PUBLISHER
+        $publisherId1 = $this->db->insertPublisher('Mondadori');
+        $publisherId2 = $this->db->insertPublisher('Feltrinelli');
+        $publisherId3 = $this->db->insertPublisher('Einaudi');
+        $publisherId4 = $this->db->insertPublisher('Rizzoli');
+
+        // Popola la tabella BOOK con 9 libri
+        $bookId1 = $this->db->insertBook('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, '1.jpg', $categoryId1, $publisherId1, $authorId1);
+        $bookId2 = $this->db->insertBook('Viaggio nello Spazio', 'Un racconto di fantascienza ambientato nel 2150', 15.99, '2.jpg', $categoryId2, $publisherId2, $authorId2);
+        $bookId3 = $this->db->insertBook('Il Mistero del Lago', 'Un giallo avvincente ambientato in un piccolo villaggio di montagna', 18.50, '3.jpg', $categoryId3, $publisherId3, $authorId3);
+        $bookId4 = $this->db->insertBook('La Terra di Mezzo', 'Un fantasy epico con draghi, elfi e antiche magie', 22.00, '4.jpg', $categoryId4, $publisherId1, $authorId4);
+        $bookId5 = $this->db->insertBook('Vita di Einstein', 'La biografia del famoso scienziato', 24.99, '5.jpg', $categoryId5, $publisherId4, $authorId5);
+        $bookId6 = $this->db->insertBook('Il Ritorno', 'Sequel del Grande Romanzo, continua la saga familiare', 21.50, '6.jpg', $categoryId1, $publisherId1, $authorId1);
+        $bookId7 = $this->db->insertBook('Mondi Paralleli', 'Un viaggio tra dimensioni alternative', 17.99, '7.jpg', $categoryId2, $publisherId2, $authorId2);
+        $bookId8 = $this->db->insertBook('Il Codice Segreto', 'Un mistero da risolvere in una corsa contro il tempo', 16.50, '8.jpg', $categoryId3, $publisherId3, $authorId3);
+        $bookId9 = $this->db->insertBook('Le Cronache del Regno', 'Una saga fantasy di avventura e magia', 23.99, '9.jpg', $categoryId4, $publisherId4, $authorId4);
+
+        // Popola la tabella CART (i carrelli vengono creati automaticamente dal trigger after_insert_customer)
+        $cart1 = $this->db->getCartByCustomerId($customerId1);
+        $cart2 = $this->db->getCartByCustomerId($customerId2);
+        $cart3 = $this->db->getCartByCustomerId($customerId3);
+
+        // Popola la tabella BOOK_IN_CART
+        $this->db->insertBookInCart($cart1['Id'], $bookId1, 1);
+        $this->db->insertBookInCart($cart1['Id'], $bookId4, 2);
+        $this->db->insertBookInCart($cart2['Id'], $bookId2, 1);
+        $this->db->insertBookInCart($cart2['Id'], $bookId5, 1);
+        $this->db->insertBookInCart($cart3['Id'], $bookId3, 3);
+
+        // fai i vari controlli
+        $cart1 = $this->db->getCartByCustomerId($customerId1);
+        $this->assertEquals(3, $cart1['Item_count']);
+        $this->assertEquals(63.99, $cart1['Subtotal']);
+        $cart2 =$this->db->getCartByCustomerId($customerId2);
+        $this->assertEquals(2, $cart2['Item_count']);
+        $this->assertEquals(40.98, $cart2['Subtotal']);
+        $cart3 = $this->db->getCartByCustomerId($customerId3);
+        $this->assertEquals(3, $cart3['Item_count']);
+        $this->assertEquals(55.50, $cart3['Subtotal']);
+
+    }
+
     
 }

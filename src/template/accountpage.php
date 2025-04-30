@@ -4,8 +4,9 @@
                         <div class="card-body">
                             <h2 class="card-title text-center mb-4">Il tuo Account</h2>
                             <div class="d-grid gap-3 mb-4">
-                                <a href="../cart.php" class="btn btn-outline-primary">
+                                <a href="cart.php" class="btn btn-outline-primary">
                                     <i class="bi bi-cart"></i> Vai al Carrello
+                                    
                                 </a>
                                 <a href="../orders.php" class="btn btn-outline-secondary">
                                     <i class="bi bi-clock-history"></i> Cronologia acquisti

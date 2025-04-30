@@ -7,12 +7,12 @@ if(!isUserLoggedIn()){
 
 $templateParams["titolo"] = "ChapterOne - Cart";
 $templateParams["nome"] = "cartpage.php";
-$templateParams["categorie"] = $dbh->getCategories();
 
-$templateParams["cartItems"] = $dbh->getCartItems($_SESSION["username"]);  # Cart items from current user ID
-$templateParams["cartPrice"] = $dbh->getCartPrice();
-$templateParams["cartNumber"] = $dbh->getCartItemsNumber();
-
+$customer = $dbh->getCustomerByUsername($_SESSION["username"]);
+$templateParams["carrello"] = $dbh->getCartByCustomerId($customer["Id"]); #
+$templateParams["libricarrello"] = $dbh->getBooksInCart($templateParams["carrello"]["Id"]);
+var_dump($templateParams["carrello"]);
+var_dump($templateParams["libricarrello"]);
 require 'template/base.php';
 
 ?>

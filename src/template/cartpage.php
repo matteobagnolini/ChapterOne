@@ -6,7 +6,8 @@
                     <h2 class="mb-3">Articoli</h2>
                     
                     <ul class="list-unstyled">
-                        <?php foreach($templateParams["cartItems"] as $item): ?>
+                        <?php foreach($templateParams["libricarrello"] as $item):   ;?>
+                          
                         <li class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-2">
@@ -29,8 +30,8 @@
                 
                 <section class="card p-4 bg-light">
                     <h2 class="mb-3">Riepilogo</h2>
-                    <p class="fw-bold">Totale articoli: <?php echo $templateParams["cartNumber"]; ?></p>
-                    <p class="fw-bold">Prezzo totale: <?php echo $templateParams["cartPrice"]; ?>€</p>
+                    <p class="fw-bold">Totale articoli: <?php echo $templateParams["carrello"]["Item_count"]; ?></p>
+                    <p class="fw-bold">Prezzo totale: <?php echo $templateParams["carrello"]["Subtotal"];  ?>€</p>
                     <button class="btn btn-primary mt-2">Procedi all'acquisto</button>
                 </section>
             </section>
