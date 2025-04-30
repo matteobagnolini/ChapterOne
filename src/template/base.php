@@ -13,7 +13,7 @@
     <title><?php echo $templateParams["titolo"]; ?></title>
 
 
-    <!-- <style>
+     <style>
         /* Sticky footer styles */
         html, body {
             height: 100%;
@@ -25,7 +25,7 @@
         main {
             flex: 1;
         }
-    </style> -->
+    </style> 
 </head>
 
 <body>
@@ -55,9 +55,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="catalog.php">Catalog</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="releases.php">New Releases</a>
-                        </li>
+                      
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="categories.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Categories

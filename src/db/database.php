@@ -807,9 +807,14 @@ class MySqlDatabase implements
     
     public function getBestSellers($numberOfBooks) {
         $stmt = $this->db->prepare("
-            SELECT b.*, bs.Purchase_count
+            SELECT b.*, 
+                   bs.Purchase_count,
+                   a.First_name as Author_First_name, 
+                   a.Last_name as Author_Last_name,
+                   CONCAT(a.First_name, ' ', a.Last_name) as Author_name
             FROM BEST_SELLER bs
             JOIN BOOK b ON bs.Book_id = b.Id
+            LEFT JOIN AUTHOR a ON b.Author_id = a.Id
             ORDER BY bs.Purchase_count DESC
             LIMIT ?
         ");
@@ -819,12 +824,18 @@ class MySqlDatabase implements
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+   
     public function getNewBooks($numberOfBooks) {
         $stmt = $this->db->prepare("
-            SELECT b.*, bs.Purchase_count
+            SELECT b.*, 
+                IFNULL(bs.Purchase_count, 0) as Purchase_count,
+                a.First_name as Author_First_name, 
+                a.Last_name as Author_Last_name,
+                CONCAT(a.First_name, ' ', a.Last_name) as Author_name
             FROM BOOK b
-            JOIN BEST_SELLER bs ON b.Id = bs.Book_id
-            ORDER BY b.Publication_date DESC
+            LEFT JOIN BEST_SELLER bs ON b.Id = bs.Book_id
+            LEFT JOIN AUTHOR a ON b.Author_id = a.Id
+            ORDER BY b.Id DESC  -- Ordina per ID decrescente (più recenti prima)
             LIMIT ?
         ");
         $stmt->bind_param('i', $numberOfBooks);

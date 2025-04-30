@@ -130,6 +130,7 @@ interface BusinessLogic {
     public function getNewBooks($numberOfBooks);
     public function getOrderDetailsWithAllInformation($orderId);
     public function checkLogin($username, $password);
+    
 
 } // get detailsorder con book
   // checklogin
