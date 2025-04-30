@@ -10,4 +10,5 @@ $templateParams["accountInfo"] = $dbh->getAccountInfo($_SESSION["username"]); # 
 
 require 'template/base.php';
 
+
 ?>
