@@ -10,7 +10,7 @@ $templateParams["nome"] = "orderspage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
 $user = $dbh->getCustomerByUsername($_SESSION["username"]);
-$templateParams["ordini"] = $dbh->getOrderByCustomerId($user["id"]);
+$templateParams["ordini"] = $dbh->getOrderByCustomerId($user["Id"]);
 
 require 'template/base.php';
 
