@@ -798,5 +798,9 @@ class MySqlDatabase implements
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function checkLogin($username, $password) {
+        # return an array with "username", "admin"
+    }
+
 }
 ?>
