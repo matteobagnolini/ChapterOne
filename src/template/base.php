@@ -34,8 +34,11 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
                     <div class="d-flex align-items-center order-lg-2">
-                    <a class="nav-link me-2" href="notifiche.php"><i class="bi bi-bell me-1"></i> Notifiche</a>
-                    <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart me-1"></i> Carrello</a>
+                    
+                    <?php if(!isset($_SESSION['admin']) || (isset($_SESSION['admin']) && !$_SESSION['admin'])): ?>
+                        <a class="nav-link me-2" href="notifiche.php"><i class="bi bi-bell me-1"></i> Notifiche</a>
+                        <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart me-1"></i> Carrello</a>
+                    <?php endif; ?>
                     <?php if(!isset($_SESSION['username'])): ?>
                         <a class="nav-link me-2" href="login.php"><i class="bi bi-box-arrow-in-right me-1"></i> Login</a>
                     <?php elseif(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
