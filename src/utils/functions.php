@@ -16,7 +16,7 @@ function isAdminLoggedIn(){
 function registerLoggedUser($user){
     $_SESSION["username"] = $user["username"];
     $_SESSION["admin"] = $user["admin"];            # $_SESSION["admin"] = 1 if user is admin, 0 otherwise
-    $_SESSION["logged"] = 1                         # $_SESSION["logged"] = 1 if user is logged
+    $_SESSION["logged"] = 1;                         # $_SESSION["logged"] = 1 if user is logged
 }
 
 function uploadImage($path, $image){
