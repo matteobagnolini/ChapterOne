@@ -896,5 +896,30 @@ class MySqlDatabase implements
         return null;
     }
 
+    public function getAccountInfo($email){
+        // Prima controlla nella tabella CUSTOMER
+        $stmt = $this->db->prepare("SELECT * FROM CUSTOMER WHERE Email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        
+        // Se non trovato, controlla nella tabella ADMIN
+        $stmt = $this->db->prepare("SELECT + FROM ADMIN WHERE Email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        
+        // Se non trovato in nessuna tabella
+        return null;
+    }
+
 }
 ?>

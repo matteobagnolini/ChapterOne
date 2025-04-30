@@ -22,28 +22,30 @@
                                             <legend class="fw-bold mb-3">Dettagli Account</legend>
                                             
                                             <div class="mb-3">
-                                                <label for="name" class="form-label">Nome</label>
-                                                <input type="text" id="name" name="name" value="<?php echo $templateParams["accountInfo"][0]["name"]; ?>" readonly class="form-control">
+                                                <label for="name" class="form-label">Nome Completo</label>
+                                                <input type="text" id="name" name="name" value="<?php echo $templateParams["accountInfo"]["First_name"] ; ?>" readonly class="form-control">
                                             </div>
-                                            
-                                            <div class="mb-3">
-                                                <label for="username" class="form-label">Username</label>
-                                                <input type="text" id="username" name="username" value="<?php echo $templateParams["accountInfo"][0]["username"]; ?>" readonly class="form-control">
-                                            </div>
-                                            
+
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" id="email" name="email" value="<?php echo $templateParams["accountInfo"][0]["email"]; ?>" readonly class="form-control">
+                                                <input type="email" id="email" name="email" value="<?php echo $templateParams["accountInfo"]["Email"]; ?>" readonly class="form-control">
                                             </div>
-                                            
+
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" id="password" name="password" value="<?php echo $templateParams["accountInfo"][0]["password"]; ?>" readonly class="form-control">
+                                                <input type="password" id="password" name="password" value="<?php echo $templateParams["accountInfo"]["Password"]; ?>" readonly class="form-control">
                                             </div>
-                                            
+
+                                            <!-- Campo Address aggiunto -->
                                             <div class="mb-3">
-                                                <label for="card-number" class="form-label">Numero della Carta</label>
-                                                <input type="text" id="card-number" name="card-number" value="<?php echo $templateParams["accountInfo"][0]["cardNumber"]; ?>" readonly class="form-control">
+                                                <label for="address" class="form-label">Indirizzo</label>
+                                                <input type="text" id="address" name="address" value="<?php echo $templateParams["accountInfo"]["Address"]; ?>" readonly class="form-control">
+                                            </div>
+
+                                            <!-- Campo Phone aggiunto -->
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Telefono</label>
+                                                <input type="tel" id="phone" name="phone" value="<?php echo $templateParams["accountInfo"]["Phone"]; ?>" readonly class="form-control">
                                             </div>
                                         </fieldset>
                                         
