@@ -9,7 +9,8 @@ $templateParams["titolo"] = "ChapterOne - Orders";
 $templateParams["nome"] = "orderspage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
-$templateParams["ordini"] = $dbh->getOrders($_SESSION["username"]);
+$user = $dbh->getCustomerByUsername($_SESSION["username"]);
+$templateParams["ordini"] = $dbh->getOrderByCustomerId($user["id"]);
 
 require 'template/base.php';
 

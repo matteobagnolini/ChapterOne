@@ -44,6 +44,14 @@ class MySqlDatabase implements
         return $result->fetch_assoc();
     }
 
+    public function getCustomerByUsername($username) {
+        $stmt = $this->db->prepare("SELECT * FROM CUSTOMER WHERE Email = ?");
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     public function insertCustomer($firstName, $lastName, $email, $password, $address, $phone) {
         $stmt = $this->db->prepare("INSERT INTO CUSTOMER (First_name, Last_name, Email, Password, Address, Phone) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssssss', $firstName, $lastName, $email, $password, $address, $phone);
@@ -507,8 +515,14 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getOrderByCustomerId($customerId) {
+        $stmt = $this->db->prepare("SELECT * FROM `ORDER` WHERE Customer_id = ?");
+        $stmt->bind_param('i', $customerId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 
- 
+
     public function insertOrder($date, $total, $customerId, $discountCodeId) {
         // Inizio transazione
         $this->db->begin_transaction();
@@ -684,6 +698,13 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getOrderDetailsByOrderId($orderId) {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_DETAIL WHERE Order_id = ?");
+        $stmt->bind_param('i', $orderId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function insertOrderDetail($quantity, $subtotal, $orderId, $bookId) {
         $stmt = $this->db->prepare("INSERT INTO ORDER_DETAIL (Quantity, Subtotal, Order_id, Book_id) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('idii', $quantity, $subtotal, $orderId, $bookId);
@@ -796,6 +817,47 @@ class MySqlDatabase implements
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getNewBooks($numberOfBooks) {
+        $stmt = $this->db->prepare("
+            SELECT b.*, bs.Purchase_count
+            FROM BOOK b
+            JOIN BEST_SELLER bs ON b.Id = bs.Book_id
+            ORDER BY b.Publication_date DESC
+            LIMIT ?
+        ");
+        $stmt->bind_param('i', $numberOfBooks);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function  getOrderDetailsWithAllInformation($orderId){
+        $stmt = $this->db->prepare("
+            SELECT od.*, b.Title, b.Price, c.First_name AS CustomerFirstName, c.Last_name AS CustomerLastName
+            FROM ORDER_DETAIL od
+            JOIN BOOK b ON od.Book_id = b.Id
+            JOIN `ORDER` o ON od.Order_id = o.Id
+            JOIN CUSTOMER c ON o.Customer_id = c.Id
+            WHERE od.Order_id = ?
+        ");
+        $stmt->bind_param('i', $orderId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function checkLogin($email, $password) {
+        $stmt = $this->db->prepare("SELECT * FROM CUSTOMER WHERE Email = ? AND Password = ?");
+        $stmt->bind_param('ss', $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

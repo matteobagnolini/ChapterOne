@@ -3,6 +3,7 @@
 interface CustomerManager {
     public function getCustomers();
     public function getCustomerById($id);
+    public function getCustomerByUsername($username);
     public function insertCustomer($firstName, $lastName, $email, $password, $address, $phone);
     public function updateCustomer($id, $firstName, $lastName, $email, $password, $address, $phone);
     public function deleteCustomer($id);
@@ -90,6 +91,7 @@ interface DiscountCodeManager {
 interface OrderManager {
     public function getOrders();
     public function getOrderById($id);
+    public function getOrderByCustomerId($customerId);
     public function insertOrder($date, $total, $customerId, $discountCodeId);
     public function updateOrder($id, $date, $total, $customerId, $discountCodeId);
     public function deleteOrder($id);
@@ -100,6 +102,7 @@ interface OrderManager {
 interface OrderDetailManager {
     public function getOrderDetails();
     public function getOrderDetailById($id);
+    public function getOrderDetailsByOrderId($orderId);
     public function insertOrderDetail($quantity, $subtotal, $orderId, $bookId);
     public function updateOrderDetail($id, $quantity, $subtotal, $orderId, $bookId);
     public function deleteOrderDetail($id);
@@ -124,5 +127,14 @@ interface OrderNotificationManager {
 
 interface BusinessLogic {
     public function getbestSellers($numberOfBooks);
-}
+    public function getNewBooks($numberOfBooks);
+    public function getOrderDetailsWithAllInformation($orderId);
+    public function checkLogin($username, $password);
+
+} // get detailsorder con book
+  // checklogin
+  // GetNewBooks
+  // GetAccountInfo
+  // getRandomPost
+  // GetPost
 ?>
