@@ -4,13 +4,13 @@
 
 - [ ] Riempimento DB con dati fake
 - [ ] ricerca titoli o libri
-- [ ] aggiungi carrello
+- [x] aggiungi carrello
 - [ ] scarica estratto
 - [ ] suggeriti, stesso autore
 - [ ] screenshot dettagli ordine prezzi libri --vediamo
 
 - [ ] simulare spedizione e arrivo notifiche
-- [ ] numeri carrello e login
+- [x] numeri carrello e login
 - [ ] codice sconto
 
 ---
@@ -18,7 +18,7 @@
 - [ ] POST: extras
 
 
-## TODO PHP
+## TODO SITO
 - [ ] Gestore Libri, creazione, modifica, eliminazione, query e lettura recensioni
 - [ ] Gestore Case editrici, creazione, modifica, eliminazione
 - [ ] Gestore Case editrici, creazione, modifica, eliminazione
@@ -34,8 +34,8 @@
 
 
 # TODO SQL
-- [ ] aggiungere carrello alla creazione di un utente
-- [ ] Eliminare carrello, dettaglio ordini e recensioni alla rimozione dell'utente
+- [x] aggiungere carrello alla creazione di un utente
+- [x] Eliminare carrello, dettaglio ordini e recensioni alla rimozione dell'utente
 
 ## TODO JavaScript
 
@@ -55,6 +55,6 @@
 
 ## Queries
 
-- [ ] Bestsellers
-- [ ] New releases
-- [ ] Account info from account (account.php)
+- [x] Bestsellers
+- [x] New releases
+- [x] Account info from account (account.php)
