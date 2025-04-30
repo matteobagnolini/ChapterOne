@@ -9,7 +9,7 @@ $templateParams["titolo"] = "ChapterOne - Notifiche";
 $templateParams["nome"] = "notifichepage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
-$templateParams["notifiche"] = $dbh->getNotificationsById($_SESSION["username"]);
+$templateParams["notifiche"] = $dbh->getOrderNotificationByCustomerId($_SESSION["username"]);
 
 require 'template/base.php';
 

@@ -119,6 +119,7 @@ interface DiscountCodeUsageManager {
 interface OrderNotificationManager {
     public function getOrderNotifications();
     public function getOrderNotificationById($id);
+    public function getOrderNOtificationByOrderId($orderId);    
     public function insertOrderNotification($orderId, $message, $status);
     public function updateOrderNotification($id, $orderId, $message, $status);
     public function deleteOrderNotification($id);

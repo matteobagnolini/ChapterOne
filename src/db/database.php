@@ -771,6 +771,13 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getOrderNotificationByOrderId($orderId) {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION WHERE Order_id = ?");
+        $stmt->bind_param('i', $orderId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function insertOrderNotification($orderId, $message, $status) {
         $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Message, Status) VALUES (?, ?, ?)");
         $stmt->bind_param('iss', $orderId, $message, $status);
