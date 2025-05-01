@@ -99,7 +99,7 @@ try {
     // Crea alcuni ordini
     $orderId1 = $db->insertOrder('2025-03-15 10:30:00', 19.99, $customerId1, null);
     $orderId2 = $db->insertOrder('2025-03-20 14:45:00', 12.00, $customerId2, $discountCodeId1);
-    $orderId3 = $db->insertOrder('2025-03-25 09:15:00', 18.50, $customerId3, null);
+    $orderId3 = $db->insertOrder('2025-03-25 09:15:00', 55.50, $customerId3, null);
     
     
     // Popola la tabella REVIEW
