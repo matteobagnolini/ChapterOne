@@ -29,10 +29,6 @@
                             </div>
                         </div>
                         
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember">
-                            <label class="form-check-label" for="remember">Ricordami</label>
-                        </div>
                         
                         <div class="d-grid gap-2">
                             <button type="submit" name="submit" class="btn btn-primary btn-lg">
