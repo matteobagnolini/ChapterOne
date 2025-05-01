@@ -1,25 +1,25 @@
 <?php
-// filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\template\Orderdetailspage.php
-
-// Rimosso il blocco di estrazione variabili
 ?>
 <div class="container my-4">
     <section>
-        <?php if ($templateParams["ordineInfo"]): // Usa direttamente $templateParams ?>
-            <h1 class="mb-4">Dettagli Ordine #<?php echo htmlspecialchars($templateParams["ordineInfo"]['Id']); ?></h1>
+        <?php if ($templateParams["ordineInfo"]): ?>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="mb-0">Dettagli Ordine #<?php echo htmlspecialchars($templateParams["ordineInfo"]['Id']); ?></h1>
+                <a href="orders.php" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i> Torna agli ordini
+                </a>
+            </div>
 
             <section class="mb-5">
                 <h2 class="mb-3">Articoli Acquistati</h2>
-                <?php if (!empty($templateParams["dettagliordine"]) && !empty($templateParams["libriOrdine"])): // Usa direttamente $templateParams ?>
+                <?php if (!empty($templateParams["dettagliordine"]) && !empty($templateParams["libriOrdine"])): ?>
                     <ul class="list-unstyled">
-                        <?php foreach($templateParams["dettagliordine"] as $detail): // Usa direttamente $templateParams ?>
+                        <?php foreach($templateParams["dettagliordine"] as $detail): ?>
                             <?php
-                                // Trova le informazioni del libro corrispondente usando l'ID
-                                $bookId = $detail['Book_id']; // Assicurati che la chiave sia corretta
-                                // Usa direttamente $templateParams["libriOrdine"]
+                                $bookId = $detail['Book_id'];
                                 $bookInfo = $templateParams["libriOrdine"][$bookId] ?? null;
                             ?>
-                            <?php if ($bookInfo): // Mostra solo se abbiamo trovato le info del libro ?>
+                            <?php if ($bookInfo): ?>
                                 <li class="card mb-3">
                                     <div class="row g-0">
                                         <div class="col-md-2 d-flex align-items-center justify-content-center">
@@ -37,8 +37,7 @@
                                                     Quantità: <?php echo htmlspecialchars($detail["Quantity"]); ?>
                                                 </p>
                                                 <p class="card-text fw-bold">
-                                                    <!-- Mostra il subtotale della riga d'ordine -->
-                                                    Subtotale: <?php echo number_format($bookInfo["Price"], 2, ',', '.'); ?> €
+                                                    Subtotale: <?php echo number_format($detail["Subtotal"], 2, ',', '.'); ?> €
                                                 </p>
                                             </div>
                                         </div>
@@ -52,27 +51,31 @@
                 <?php endif; ?>
             </section>
 
-            <section class="card p-4 bg-light">
+            <section class="card p-4 bg-light mb-4"> {/* Aggiunto mb-4 per spaziatura */}
                 <h2 class="mb-3">Riepilogo Ordine</h2>
+                <p class="fw-bold">Totale articoli: <?php echo $templateParams["totaleArticoli"]; ?></p>
                 <p class="fw-bold">Data di acquisto:
                     <?php
-                        // Usa direttamente $templateParams["ordineInfo"]
                         $date = new DateTime($templateParams["ordineInfo"]["Date"]);
                         echo $date->format('d/m/Y H:i');
                     ?>
                 </p>
-                <p class="fw-bold fs-5">Prezzo totale: <?php echo $templateParams["dettagliordine"][0]['Subtotal']  ?> €</p>
+                <p class="fw-bold fs-5">Prezzo totale: <?php echo number_format($templateParams["ordineInfo"]["Total"], 2, ',', '.'); ?> €</p>
                 <p class="fw-bold">Stato: <span class="badge bg-<?php
-                    // Usa direttamente $templateParams["ordineInfo"]
                     switch ($templateParams["ordineInfo"]['Status']) {
                         case 'pending': echo 'warning text-dark'; break;
                         case 'sent': echo 'info text-dark'; break;
                         case 'arrived': echo 'success'; break;
                         default: echo 'secondary'; break;
                     }
-                ?>"><?php echo ucfirst(htmlspecialchars($templateParams["ordineInfo"]['Status'])); // Usa direttamente $templateParams ?></span></p>
-                 <!-- Aggiungi qui altre info se necessario, es. indirizzo spedizione, codice sconto usato -->
+                ?>"><?php echo ucfirst(htmlspecialchars($templateParams["ordineInfo"]['Status'])); ?></span></p>
             </section>
+
+            <div class="text-center">
+                 <a href="orders.php" class="btn btn-secondary">
+                     <i class="bi bi-arrow-left me-1"></i> Torna agli ordini
+                 </a>
+            </div>
 
         <?php else: ?>
             <h1 class="mb-4">Ordine non trovato</h1>
