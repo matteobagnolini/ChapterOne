@@ -1,12 +1,16 @@
         <div class="container py-4">
             <div class="row">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h2 class="card-title text-center mb-4">Il tuo Account</h2>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="card-title mb-0">Il tuo Account</h2>
+                            <a href="logout.php" class="btn btn-danger">
+                                <i class="bi bi-box-arrow-right me-1"></i> Logout
+                            </a>
+                            </div>
                             <div class="d-grid gap-3 mb-4">
                                 <a href="cart.php" class="btn btn-outline-primary">
                                     <i class="bi bi-cart"></i> Vai al Carrello
-                                    
                                 </a>
                                 <a href="../orders.php" class="btn btn-outline-secondary">
                                     <i class="bi bi-clock-history"></i> Cronologia acquisti

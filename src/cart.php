@@ -7,6 +7,7 @@ if(!isUserLoggedIn()){
 
 $templateParams["titolo"] = "ChapterOne - Cart";
 $templateParams["nome"] = "cartpage.php";
+$templateParams["categorie"] = $dbh->getCategories();
 
 $customer = $dbh->getCustomerByUsername($_SESSION["username"]);
 $templateParams["carrello"] = $dbh->getCartByCustomerId($customer["Id"]); #

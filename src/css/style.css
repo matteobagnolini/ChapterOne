@@ -63,6 +63,7 @@ button, .btn {
     cursor: pointer;
 }
 
+
 .btn:hover {
     background-color: rgb(69, 90, 100); /* Blu scuro */
 }
@@ -95,5 +96,10 @@ footer {
     font-family: 'Poppins', sans-serif; /* Font per la navbar */
 }
 
+
+.btn-danger {
+    background-color: #dc3545 !important; /* Rosso Bootstrap */
+    color: white !important;
+}
 
 

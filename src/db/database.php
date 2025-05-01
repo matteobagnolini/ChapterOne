@@ -915,7 +915,7 @@ class MySqlDatabase implements
         }
         
         // Se non trovato, controlla nella tabella ADMIN
-        $stmt = $this->db->prepare("SELECT + FROM ADMIN WHERE Email = ?");
+        $stmt = $this->db->prepare("SELECT * FROM ADMIN WHERE Email = ?");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();

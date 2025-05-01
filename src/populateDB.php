@@ -41,7 +41,7 @@ try {
     $db->db->query("ALTER TABLE ADMIN AUTO_INCREMENT = 1");
     
     // Popola la tabella CUSTOMER
-    $customerId1 = $db->insertCustomer('Mario', 'Rossi', 'mario.rossi@example.com', 'password123', 'Via Roma 1', '1234567890');
+    $customerId1 = $db->insertCustomer('Mario', 'Rossi', 'prova@example.com', 'password123', 'Via Roma 1', '1234567890');
     $customerId2 = $db->insertCustomer('Luigi', 'Verdi', 'luigi.verdi@example.com', 'password123', 'Via Milano 2', '0987654321');
     $customerId3 = $db->insertCustomer('Anna', 'Bianchi', 'anna.bianchi@example.com', 'password123', 'Via Napoli 3', '3456789012');
 
