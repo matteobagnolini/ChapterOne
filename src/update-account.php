@@ -35,6 +35,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_account') {
         if ($result) {
             $_SESSION['update_message'] = 'Profilo aggiornato con successo!';
             $_SESSION['update_message_type'] = 'success';
+            $_SESSION['username'] = $email; 
         } else {
             $_SESSION['update_message'] = 'Nessuna modifica rilevata.';
             $_SESSION['update_message_type'] = 'info';
