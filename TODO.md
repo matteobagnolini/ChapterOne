@@ -18,43 +18,13 @@
 - [ ] POST: extras
 
 
-## TODO SITO
-- [ ] Gestore Libri, creazione, modifica, eliminazione, query e lettura recensioni
-- [ ] Gestore Case editrici, creazione, modifica, eliminazione
-- [ ] Gestore Case editrici, creazione, modifica, eliminazione
-- [ ] Gestore Leggi dati ordine, legge anche i dettagli
-- [ ] Gestore Account personale
-- [ ] Gestore Blog, creazione, modifica, eliminazione
-- [ ] Notifiche?
-- [ ] Gestore sconti
-- [ ] Lettore suggeriti e best seller.
-- [ ] Gestore estratti
-- [ ] Ricerca libri o autori
-- [ ] Simulatore spedizione con notifiche
-
-
-# TODO SQL
-- [x] aggiungere carrello alla creazione di un utente
-- [x] Eliminare carrello, dettaglio ordini e recensioni alla rimozione dell'utente
-
 ## TODO JavaScript
 
 - [ ] Aggiungere notifiche lette e non lette
 - [ ] Pagina utente (account): rendere modificabile il form
 
 ## TODO Frontend
-- [x] Homepage
-- [ ] Pagina libro
-- [ ] Carrello
-- [ ] Ordini
-- [ ] Notifiche
-- [ ] Pagina libro
-- [ ] Gestisci autore (inserimento dei dati + data nascita e biografia con db)
-- [ ] Gestisci casa editrice (inserimento dei dati + data nascita e biografia con db)
-
-
-## Queries
-
-- [x] Bestsellers
-- [x] New releases
-- [x] Account info from account (account.php)
+- [ ] Aggiungere pulsante per logout da Admin
+- [ ] Aggiungere i link nelle schede dei libri
+- [ ] I link nelle pagine admin non portano alle pagine corrette
+- [ ] Rendere le card dei libri più grandi quando si è in hover
