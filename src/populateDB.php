@@ -69,15 +69,15 @@ try {
     $publisherId4 = $db->insertPublisher('Rizzoli');
 
     // Popola la tabella BOOK con 9 libri
-    $bookId1 = $db->insertBook('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, '1.jpg', $categoryId1, $publisherId1, $authorId1);
-    $bookId2 = $db->insertBook('Viaggio nello Spazio', 'Un racconto di fantascienza ambientato nel 2150', 15.99, '2.jpg', $categoryId2, $publisherId2, $authorId2);
-    $bookId3 = $db->insertBook('Il Mistero del Lago', 'Un giallo avvincente ambientato in un piccolo villaggio di montagna', 18.50, '3.jpg', $categoryId3, $publisherId3, $authorId3);
-    $bookId4 = $db->insertBook('La Terra di Mezzo', 'Un fantasy epico con draghi, elfi e antiche magie', 22.00, '4.jpg', $categoryId4, $publisherId1, $authorId4);
+    $bookId1 = $db->insertBook('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, 'deepwork.jpg', $categoryId1, $publisherId1, $authorId1);
+    $bookId2 = $db->insertBook('Viaggio nello Spazio', 'Un racconto di fantascienza ambientato nel 2150', 15.99, 'shining.jpg', $categoryId2, $publisherId2, $authorId2);
+    $bookId3 = $db->insertBook('Il Mistero del Lago', 'Un giallo avvincente ambientato in un piccolo villaggio di montagna', 18.50, 'stevejobs.jpg', $categoryId3, $publisherId3, $authorId3);
+    $bookId4 = $db->insertBook('La Terra di Mezzo', 'Un fantasy epico con draghi, elfi e antiche magie', 22.00, 'shining.jpg', $categoryId4, $publisherId1, $authorId4);
     $bookId5 = $db->insertBook('Vita di Einstein', 'La biografia del famoso scienziato', 24.99, '5.jpg', $categoryId5, $publisherId4, $authorId5);
-    $bookId6 = $db->insertBook('Il Ritorno', 'Sequel del Grande Romanzo, continua la saga familiare', 21.50, '6.jpg', $categoryId1, $publisherId1, $authorId1);
-    $bookId7 = $db->insertBook('Mondi Paralleli', 'Un viaggio tra dimensioni alternative', 17.99, '7.jpg', $categoryId2, $publisherId2, $authorId2);
+    $bookId6 = $db->insertBook('Il Ritorno', 'Sequel del Grande Romanzo, continua la saga familiare', 21.50, 'stevejobs.jpg', $categoryId1, $publisherId1, $authorId1);
+    $bookId7 = $db->insertBook('Mondi Paralleli', 'Un viaggio tra dimensioni alternative', 17.99, 'deepwork.jpg', $categoryId2, $publisherId2, $authorId2);
     $bookId8 = $db->insertBook('Il Codice Segreto', 'Un mistero da risolvere in una corsa contro il tempo', 16.50, '8.jpg', $categoryId3, $publisherId3, $authorId3);
-    $bookId9 = $db->insertBook('Le Cronache del Regno', 'Una saga fantasy di avventura e magia', 23.99, '9.jpg', $categoryId4, $publisherId4, $authorId4);
+    $bookId9 = $db->insertBook('Le Cronache del Regno', 'Una saga fantasy di avventura e magia', 23.99, 'deepwork.jpg', $categoryId4, $publisherId4, $authorId4);
 
     // Popola la tabella CART (i carrelli vengono creati automaticamente dal trigger after_insert_customer)
     $cart1 = $db->getCartByCustomerId($customerId1);
