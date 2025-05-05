@@ -941,5 +941,34 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getBookDetailsById($bookId) {
+        $stmt = $this->db->prepare("
+            SELECT b.*, 
+                c.Name AS Category_name,
+                p.Name AS Publisher_name,
+                a.First_name AS Author_First_name, 
+                a.Last_name AS Author_Last_name,
+                CONCAT(a.First_name, ' ', a.Last_name) AS Author_full_name,
+                IFNULL(AVG(r.Rating), 0) AS Average_rating,
+                COUNT(r.Id) AS Review_count
+            FROM BOOK b
+            LEFT JOIN CATEGORY c ON b.Category_id = c.Id
+            LEFT JOIN PUBLISHER p ON b.Publisher_id = p.Id
+            LEFT JOIN AUTHOR a ON b.Author_id = a.Id
+            LEFT JOIN REVIEW r ON b.Id = r.Book_id
+            WHERE b.Id = ?
+            GROUP BY b.Id
+        ");
+        $stmt->bind_param('i', $bookId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows === 0) {
+            return null;
+        }
+        
+        return $result->fetch_assoc();
+    }
+
 }
 ?>
