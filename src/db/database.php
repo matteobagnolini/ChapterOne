@@ -970,5 +970,57 @@ class MySqlDatabase implements
         return $result->fetch_assoc();
     }
 
+    public function getBookReviews($bookId) {
+        $stmt = $this->db->prepare("
+            SELECT r.*, 
+                   c.First_name AS Customer_First_name, 
+                   c.Last_name AS Customer_Last_name,
+                   CONCAT(c.First_name, ' ', c.Last_name) AS Customer_full_name
+            FROM REVIEW r
+            JOIN CUSTOMER c ON r.Customer_id = c.Id
+            WHERE r.Book_id = ?
+            ORDER BY r.Id DESC
+        ");
+        $stmt->bind_param('i', $bookId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function GetRelatedBooks($bookId, $limit = 5) {
+        // Ottieni l'autore del libro corrente
+        $stmt = $this->db->prepare("
+            SELECT Author_id 
+            FROM BOOK 
+            WHERE Id = ?
+        ");
+        $stmt->bind_param('i', $bookId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows === 0) {
+            return [];
+        }
+        
+        $authorId = $result->fetch_assoc()['Author_id'];
+        
+        // Trova altri libri dello stesso autore, escludendo il libro corrente
+        $stmt = $this->db->prepare("
+            SELECT b.*, 
+                   a.First_name AS Author_First_name, 
+                   a.Last_name AS Author_Last_name,
+                   CONCAT(a.First_name, ' ', a.Last_name) AS Author_name,
+                   c.Name AS Category_name
+            FROM BOOK b
+            JOIN AUTHOR a ON b.Author_id = a.Id
+            LEFT JOIN CATEGORY c ON b.Category_id = c.Id
+            WHERE b.Author_id = ? AND b.Id != ?
+            ORDER BY b.Id DESC
+            LIMIT ?
+        ");
+        $stmt->bind_param('iii', $authorId, $bookId, $limit);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
 ?>
