@@ -39,17 +39,49 @@ p {
     width: 100%; /* Assicura che l'immagine occupi tutta la larghezza del contenitore */
 }
 
-.card {
+section li a .card {
     background-color: rgb(255, 255, 255); /* Bianco puro */
     border: 1px solid rgb(176, 190, 197); /* Grigio medio */
     border-radius: 5px;
     /* padding: 15px; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Aggiungi una transizione fluida */
+    height: 450px; /* Altezza fissa per tutte le card */
+    display: flex;
+    flex-direction: column;
 }
 
-.card-title {
+/* Aggiungi effetto hover per le schede dei libri */
+section li a .card:hover {
+    transform: scale(1.05); /* Aumenta le dimensioni del 5% */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Ombra più pronunciata */
+}
+
+section li a .card-body {
+    flex-grow: 1; /* Fa sì che il corpo della card occupi lo spazio disponibile */
+    display: flex;
+    flex-direction: column;
+    padding: 15px; /* Assicura un padding consistente */
+}
+
+section li a .card-title {
     color: rgb(38, 50, 56); /* Blu scuro */
     font-weight: bold;
+    font-size: 1rem; /* Dimensione del testo fissa */
+    height: 3rem; /* Altezza fissa per il titolo (~2 righe) */
+    overflow: hidden; /* Nasconde il testo in eccesso */
+    text-overflow: ellipsis; /* Aggiunge i puntini di sospensione */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita il testo a 2 righe */
+    -webkit-box-orient: vertical;
+    margin-bottom: 0.5rem;
+}
+
+section li a .card-text {
+    margin-bottom: 0.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Impedisce il testo di andare a capo */
 }
 
 .card-author, .card-price {
