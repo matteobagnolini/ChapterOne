@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $book["Title"] ?></h5>
                             <p class="card-text"><?php echo $book["Author_name"] ?></p>
-                            <p class="card-text"><?php echo $book["Price"] ?></p>
+                            <p class="card-text"><?php echo $book["Price"] ?> €</p>
                         </div>
                     </div>
                 </a>
@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $book["Title"] ?></h5>
                             <p class="card-text"><?php echo $book["Author_name"] ?></p>
-                            <p class="card-text"><?php echo $book["Price"] ?></p>
+                            <p class="card-text"><?php echo $book["Price"] ?> €</p>
                         </div>
                     </div>
                 </a>
