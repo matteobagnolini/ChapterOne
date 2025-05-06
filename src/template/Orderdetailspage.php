@@ -1,4 +1,5 @@
 <?php
+// filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\template\Orderdetailspage.php
 ?>
 <div class="container my-4">
     <section>
@@ -20,29 +21,32 @@
                                 $bookInfo = $templateParams["libriOrdine"][$bookId] ?? null;
                             ?>
                             <?php if ($bookInfo): ?>
-                                <li class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                            <figure class="m-3" style="max-width: 100px;">
-                                                <img src="<?php echo UPLOAD_DIR . htmlspecialchars($bookInfo["Cover"]); ?>" alt="Copertina <?php echo htmlspecialchars($bookInfo["Title"]); ?>" class="img-fluid rounded">
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="card-body">
-                                                <h3 class="card-title h5"><?php echo htmlspecialchars($bookInfo["Title"]); ?></h3>
-                                                <p class="card-text mb-1">
-                                                    Autore: <?php echo htmlspecialchars(($bookInfo["Author_First_name"] ?? '') . ' ' . ($bookInfo["Author_Last_name"] ?? 'N/D')); ?>
-                                                </p>
-                                                <p class="card-text mb-1">
-                                                    Quantità: <?php echo htmlspecialchars($detail["Quantity"]); ?>
-                                                </p>
-                                                <p class="card-text fw-bold">
-                                                    Subtotale: <?php echo number_format($detail["Subtotal"], 2, ',', '.'); ?> €
-                                                </p>
+                               
+                                <a href="book.php?id=<?php echo htmlspecialchars($bookId); ?>" class="text-decoration-none text-dark d-block">
+                                    <li class="card mb-3">
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <figure class="m-3" style="max-width: 100px;">
+                                                    <img src="<?php echo UPLOAD_DIR . htmlspecialchars($bookInfo["Cover"]); ?>" alt="Copertina <?php echo htmlspecialchars($bookInfo["Title"]); ?>" class="img-fluid rounded">
+                                                </figure>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="card-body">
+                                                    <h3 class="card-title h5"><?php echo htmlspecialchars($bookInfo["Title"]); ?></h3>
+                                                    <p class="card-text mb-1">
+                                                        Autore: <?php echo htmlspecialchars(($bookInfo["Author_First_name"] ?? '') . ' ' . ($bookInfo["Author_Last_name"] ?? 'N/D')); ?>
+                                                    </p>
+                                                    <p class="card-text mb-1">
+                                                        Quantità: <?php echo htmlspecialchars($detail["Quantity"]); ?>
+                                                    </p>
+                                                    <p class="card-text fw-bold">
+                                                        Subtotale: <?php echo number_format($detail["Subtotal"], 2, ',', '.'); ?> €
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </a> 
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
@@ -51,7 +55,8 @@
                 <?php endif; ?>
             </section>
 
-            <section class="card p-4 bg-light mb-4"> {/* Aggiunto mb-4 per spaziatura */}
+           
+            <section class="card p-4 bg-light mb-4">
                 <h2 class="mb-3">Riepilogo Ordine</h2>
                 <p class="fw-bold">Totale articoli: <?php echo $templateParams["totaleArticoli"]; ?></p>
                 <p class="fw-bold">Data di acquisto:

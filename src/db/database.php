@@ -930,7 +930,7 @@ class MySqlDatabase implements
 
     public function getCartBooksWithInfo($cartId) {
         $stmt = $this->db->prepare("
-            SELECT b.cover, b.Title, b.Price, a.First_name AS Author_First_name, a.Last_name AS Author_Last_name
+            SELECT b.Id ,b.cover, b.Title, b.Price, a.First_name AS Author_First_name, a.Last_name AS Author_Last_name
             FROM BOOK_IN_CART bic
             JOIN BOOK b ON bic.Book_id = b.Id
             LEFT JOIN AUTHOR a ON b.Author_id = a.Id
