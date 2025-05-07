@@ -32,8 +32,8 @@
                         <a class="nav-link me-2" href="account.php"><i class="bi bi-person me-1"></i> Account</a>
                     <?php endif; ?>
 
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
+                    <form class="d-flex" method="GET" action="cerca.php">
+                        <input class="form-control me-2" name="query" type="search" placeholder="Cerca" aria-label="Search">
                         <button class="btn" type="submit"><i class="bi bi-search"></i></button>
                     </form>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

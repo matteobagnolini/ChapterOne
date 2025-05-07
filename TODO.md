@@ -3,7 +3,7 @@
 - [x] Pagina Catalogo
 - [x] Pagina Categoria
 - [ ] Pagina per gestione con lista libri / categorie / autori
-- [ ] Pagina di Ricerca
+- [x] Pagina di Ricerca
 - [x] Pagina About Us
 - [ ] Pagina Registra Account
 
