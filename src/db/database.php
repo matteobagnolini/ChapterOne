@@ -73,7 +73,7 @@ class MySqlDatabase implements
 
     // BOOK methods
     public function getBooks() {
-        $stmt = $this->db->prepare("SELECT * FROM BOOK");
+        $stmt = $this->db->prepare("SELECT * FROM BOOK ORDER BY Title");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
