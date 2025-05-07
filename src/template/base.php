@@ -11,21 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <title><?php echo $templateParams["titolo"]; ?></title>
-
-     <style>
-        /* Sticky footer styles */
-        html, body {
-            height: 100%;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-        main {
-            flex: 1;
-        }
-    </style> 
-
 </head>
 
 <body>
@@ -70,7 +55,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php foreach ($templateParams["categorie"] as $category): ?>
-                                    <?php echo '<li><a class="dropdown-item" href="category.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>'; ?>
+                                    <?php echo '<li><a class="dropdown-item" href="categoria.php?id=' . $category['Id'] . '">' . $category['Name'] . '</a></li>'; ?>
                                 <?php endforeach; ?>
                             </ul>
                         </li>
