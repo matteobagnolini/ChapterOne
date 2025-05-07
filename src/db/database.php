@@ -96,8 +96,8 @@ class MySqlDatabase implements
 
 
     public function insertBookWithExceptr($title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId) {
-        $stmt = $this->db->prepare("INSERT INTO BOOK (Title, Description, Price, Cover, Excepter, Category_id, Publisher_id, Author_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssdsiii', $title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId);
+        $stmt = $this->db->prepare("INSERT INTO BOOK (Title, Description, Price, Cover,  Exceptr, Category_id, Publisher_id, Author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssdssiii', $title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId);
         $stmt->execute();
         return $stmt->insert_id;
     }
@@ -930,7 +930,7 @@ class MySqlDatabase implements
 
     public function getCartBooksWithInfo($cartId) {
         $stmt = $this->db->prepare("
-            SELECT b.Id ,b.cover, b.Title, b.Price, a.First_name AS Author_First_name, a.Last_name AS Author_Last_name
+            SELECT bic.*, b.*, a.First_name AS Author_First_name, a.Last_name AS Author_Last_name
             FROM BOOK_IN_CART bic
             JOIN BOOK b ON bic.Book_id = b.Id
             LEFT JOIN AUTHOR a ON b.Author_id = a.Id

@@ -6,21 +6,23 @@
                     <h2 class="mb-3">Articoli</h2>
                     
                     <ul class="list-unstyled">
-                        <?php foreach($templateParams["libricarrello"] as $item):   ;?>
+                        <?php foreach($templateParams["libricarrello"] as $item): ?>
                      
                         <a href="book.php?id=<?php echo htmlspecialchars($item["Id"]); ?>" class="text-decoration-none text-dark d-block">
                             <li class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-2">
                                         <figure class="m-3">
-                                            <img src="<?php echo UPLOAD_DIR . $item["cover"] ?>" alt="Copertina libro" class="img-fluid rounded">
+                                            <img src="<?php echo UPLOAD_DIR . $item["Cover"] ?>" alt="Copertina libro" class="img-fluid rounded">
                                         </figure>
                                     </div>
                                     <div class="col-md-10">
                                         <div class="card-body">
                                             <h3 class="card-title"><?php echo $item["Title"]; ?></h3>
                                             <p class="card-text"><?php echo $item["Author_First_name"] . " " . $item["Author_Last_name"]; ?></p>
+                                            <p class="card-text">Quantità: <?php echo $item["Quantity"]; ?></p>
                                             <p class="card-text"><?php echo $item["Price"]; ?></p>
+                                            <p class="card-text fw-bold">Subtotale: <?php echo $item["Price"] * $item["Quantity"] ; ?>€</p>
                                             <button class="btn btn-danger btn-sm">Rimuovi</button>
                                         </div>
                                     </div>

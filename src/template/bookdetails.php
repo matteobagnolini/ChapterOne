@@ -5,14 +5,37 @@
                 </div>
                 <div class="col-md-8 d-flex flex-column justify-content-between">
                     <div>
-                        <h1><?php $book["Title"] ?></h1>
-                        <p><strong>Autore:</strong> <?php echo $templateParams["libro"]["Author_full_name"]; ?></p>
-                        <p><strong>Casa Editrice:</strong> <?php echo $templateParams["libro"]["Publisher_name"]; ?></p>
-                        <p><strong>Prezzo:</strong> € <?php echo $templateParams["libro"]["Price"]; ?></p>
+                        <h1><?php echo htmlspecialchars($templateParams["libro"]["Title"]); ?></h1>
+                        <p><strong>Autore:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Author_full_name"]); ?></p>
+                        <p><strong>Casa Editrice:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Publisher_name"]); ?></p>
+                        <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
                     </div>
                     <div>
-                        <button class="btn btn-primary me-2"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
-                        <button class="btn btn-outline-secondary"><i class="bi bi-file-earmark-arrow-down"></i> Scarica estratto</button>
+                        <?php
+                            $bookDetails = $templateParams["libro"];
+                            $excerptFilename = $bookDetails["Exceptr"] ?? null; // Assicurati che 'Excerpt_filename' sia la chiave corretta
+                            $bookId = $bookDetails["Id"] ?? null;
+
+                            // Definisci il percorso base per gli estratti.
+                            // Assicurati che questa directory esista e contenga i file.
+                            $baseExcerptPath = UPLOAD_DIR;
+                        
+                        ?>
+
+                        <form action="cart_actions.php" method="POST" style="display: inline-block; margin-right: 0.5rem;">
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($bookId); ?>">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                        </form>
+
+                        <?php if ($excerptFilename && $bookId):?>
+                            <a href="<?php echo htmlspecialchars($baseExcerptPath . $excerptFilename); ?>" class="btn btn-outline-secondary" download="<?php echo htmlspecialchars($bookDetails["Title"] . "_Preview" . ".txt"); ?>">
+                                <i class="bi bi-file-earmark-arrow-down"></i> Scarica estratto
+                            </a>
+                        <?php else: ?>
+                            <button class="btn btn-outline-secondary" disabled><i class="bi bi-file-earmark-arrow-down"></i> Estratto non disponibile</button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </section>
