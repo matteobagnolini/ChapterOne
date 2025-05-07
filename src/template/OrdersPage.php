@@ -1,6 +1,11 @@
 
 <section class="container my-5">
-        <h1 class="mb-4">I tuoi ordini</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">I tuoi ordini</h1>
+            <a href="account.php" class="btn btn-outline-secondary">
+                <i class="bi bi-person me-1"></i> Torna ad account
+            </a>
+        </div>
         <p class="text-muted mb-4">Visualizza lo storico dei tuoi acquisti</p>
         <ul class="list-group mb-4">
             <?php foreach($templateParams["ordini"] as $ordine): ?>

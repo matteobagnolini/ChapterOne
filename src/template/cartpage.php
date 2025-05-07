@@ -1,6 +1,11 @@
 <div class="container my-4">
     <section>
-        <h1 class="mb-4">Carrello</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Carrello</h1>
+            <a href="account.php" class="btn btn-outline-secondary">
+                <i class="bi bi-person me-1"></i> Torna ad account
+            </a>
+        </div>
 
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger" role="alert">
