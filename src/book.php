@@ -17,6 +17,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
     } else {
         $templateParams["nome"] = "bookdetails.php";
         $templateParams["libro"] = $book;
+        $templateParams["titolo"] = "ChapterOne - " . $book["Title"];
         $templateParams["recensioni"] = $dbh->getBookReviews($bookId);
         $templateParams["librisimili"] = $dbh->getRelatedBooks($bookId);
     }
