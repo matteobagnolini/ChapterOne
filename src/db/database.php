@@ -1022,5 +1022,19 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function GetBooksFromCategoryId($categoryId) {
+        $stmt = $this->db->prepare("
+            SELECT b.*, a.First_name AS Author_First_name, 
+                   a.Last_name AS Author_Last_name,
+                   CONCAT(a.First_name, ' ', a.Last_name) AS Author_name
+            FROM BOOK AS b, AUTHOR AS a
+            WHERE b.Category_id = ? AND b.Author_id = a.Id
+        ");
+        $stmt->bind_param('i', $categoryId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    }
+
 }
 ?>
