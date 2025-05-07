@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Sezione Categoria: <?php echo $templateParams["categoria"]["Name"]; ?></h2>
-                <p>Esplora la nostra selezione di libri per la categoria <b><?php echo $templateParams["categoria"]["Name"]; ?></b>. Trova nuove avventure e lasciati ispirare dalle storie che abbiamo scelto per te.</p>
+                <h1><?php echo $templateParams["intestazione"]; ?></h2>
+                <p><?php echo $templateParams["testo"]; ?></p>
             </div>
         </div>
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">

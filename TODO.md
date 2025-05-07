@@ -1,7 +1,7 @@
 # To-Do List
 
 - [ ] Pagina Catalogo
-- [ ] Pagina Categoria
+- [x] Pagina Categoria
 - [ ] Pagina per gestione con lista libri / categorie / autori
 - [ ] Pagina di Ricerca
 - [ ] Pagina About Us
