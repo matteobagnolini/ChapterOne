@@ -73,7 +73,13 @@ class MySqlDatabase implements
 
     // BOOK methods
     public function getBooks() {
-        $stmt = $this->db->prepare("SELECT * FROM BOOK ORDER BY Title");
+        $stmt = $this->db->prepare("
+            SELECT b.*, a.First_name AS Author_First_name, 
+                   a.Last_name AS Author_Last_name,
+                   CONCAT(a.First_name, ' ', a.Last_name) AS Author_name
+            FROM BOOK AS b, AUTHOR AS a
+            WHERE b.Author_id = a.Id
+        ");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

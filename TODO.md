@@ -2,7 +2,8 @@
 
 - [x] Pagina Catalogo
 - [x] Pagina Categoria
-- [ ] Pagina per gestione con lista libri / categorie / autori
+- [x] Pagina per gestione con lista libri / categorie / autori
+- [ ] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori)
 - [x] Pagina di Ricerca
 - [x] Pagina About Us
 - [ ] Pagina Registra Account

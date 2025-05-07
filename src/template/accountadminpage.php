@@ -7,15 +7,15 @@
                      <nav>
                      <ul class="list-group list-group-flush">
                           <li class="list-group-item border-0">
-                          <a href="../gestisci-libri.php" class="fw-bold text-decoration-none">Gestisci Libri</a>
+                          <a href="lista-libri.php" class="fw-bold text-decoration-none">Gestisci Libri</a>
                           <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi libri dal catalogo.</p>
                           </li>
                           <li class="list-group-item border-0">
-                          <a href="../gestisci-autori.php" class="fw-bold text-decoration-none">Gestisci Autori</a>
+                          <a href="lista-autori.php" class="fw-bold text-decoration-none">Gestisci Autori</a>
                           <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi autori dal database.</p>
                           </li>
                           <li class="list-group-item border-0">
-                          <a href="../gestisci-case-editrici.php" class="fw-bold text-decoration-none">Gestisci Case Editrici</a>
+                          <a href="lista-case-editrici.php" class="fw-bold text-decoration-none">Gestisci Case Editrici</a>
                           <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi case editrici.</p>
                           </li>
                           <li class="list-group-item border-0">
