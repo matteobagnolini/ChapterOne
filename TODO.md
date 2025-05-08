@@ -9,3 +9,6 @@
 - [ ] Pagina Registra Account
 
 - [ ] Aggiunta gestione notifiche e sconti in Pagina Account
+- [ ] Gestione Ordini, fare notifiche per admin?
+- [ ] Logout admin nel posto giusto, navigazione pagine admin con back
+- [ ] Admin elimina accounts??
