@@ -43,11 +43,6 @@
             </section>
             
             <section class="mb-4">
-                <h2>Descrizione</h2>
-                <p><?php echo $templateParams["libro"]["Description"]; ?></p>
-            </section>
-
-            <section class="mb-4">
                 <h2>Recensioni</h2>
                 <ul class="list-group"></ul>
                 <?php foreach($templateParams["recensioni"] as $recensione): ?>
