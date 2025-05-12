@@ -38,7 +38,7 @@
                         <a class="nav-link me-2" href="account.php" aria-label="Account Utente"><i class="bi bi-person me-1"></i><span class="d-none d-md-inline"> Account</span></a>
                     <?php endif; ?>
 
-                    <form class="d-flex" method="GET" action="./utils/find.php">
+                    <form class="d-flex" method="GET" action="./ricerca.php">
                         <input class="form-control me-2" name="query" type="search" placeholder="Cerca" aria-label="Search">
                         <button class="btn" type="submit"><i class="bi bi-search"></i></button>
                     </form>

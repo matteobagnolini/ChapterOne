@@ -1118,9 +1118,42 @@ class MySqlDatabase implements
             FROM BOOK AS b, AUTHOR AS a
             WHERE b.Title = ? AND b.Author_id = a.Id
         ");
-    $stmt->bind_param('s', $title);
-    $stmt->execute();
-    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->bind_param('s', $title);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function searchBooks($searchTerm) {
+         $param = "%" . $searchTerm . "%";
+        $query = "SELECT b.*, 
+                        a.First_name AS Author_First_name, 
+                        a.Last_name AS Author_Last_name,
+                        c.Name AS Category_name
+                FROM BOOK b
+                LEFT JOIN AUTHOR a ON b.Author_id = a.Id
+                LEFT JOIN CATEGORY c ON b.Category_id = c.Id
+                WHERE b.Title LIKE ? 
+                    OR b.Description LIKE ?
+                    OR a.First_name LIKE ?
+                    OR a.Last_name LIKE ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssss', $param, $param, $param, $param);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }  
+
+    public function searchAuthors($searchTerm) {
+        $param = "%" . $searchTerm . "%";
+        $query = "SELECT * FROM AUTHOR 
+                WHERE First_name LIKE ? 
+                    OR Last_name LIKE ?";
+        $stmt = $this->db->prepare($query);
+        // Devi legare il parametro per ogni placeholder '?'
+        $stmt->bind_param('ss', $param, $param);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
 }
