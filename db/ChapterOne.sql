@@ -168,6 +168,23 @@ BEGIN
     WHERE Id = NEW.Cart_id;
 END;
 
+CREATE TRIGGER after_update_book_in_cart
+AFTER UPDATE ON BOOK_IN_CART
+FOR EACH ROW
+BEGIN
+    DECLARE quantity_diff INT;
+    DECLARE price_val DECIMAL(10, 2);
+
+    SET quantity_diff = NEW.Quantity - OLD.Quantity;
+    SELECT Price INTO price_val FROM BOOK WHERE Id = NEW.Book_id;
+
+    UPDATE CART 
+    SET Item_count = Item_count + quantity_diff, 
+        Subtotal = Subtotal + (quantity_diff * price_val),
+        Last_modified = CURRENT_TIMESTAMP
+    WHERE Id = NEW.Cart_id;
+END;
+
 CREATE TRIGGER after_delete_book_in_cart
 AFTER DELETE ON BOOK_IN_CART
 FOR EACH ROW
