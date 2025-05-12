@@ -777,6 +777,19 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getOrderNotificationByCustomerId($customerId) {
+        $stmt = $this->db->prepare("
+            SELECT `on`.* 
+            FROM ORDER_NOTIFICATION `on`
+            JOIN `ORDER` o ON `on`.Order_id = o.Id
+            WHERE o.Customer_id = ?
+            ORDER BY `on`.Date DESC
+        ");
+        $stmt->bind_param('i', $customerId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getOrderNotificationByOrderId($orderId) {
         $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION WHERE Order_id = ?");
         $stmt->bind_param('i', $orderId);
