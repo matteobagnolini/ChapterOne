@@ -7,13 +7,14 @@ if(!isAdminLoggedIn() && !isUserLoggedIn()){
     header("location: index.php");
 }
 
-$templateParams["titolo"] = "ChapterOne - Gestione Autori";
-$templateParams["nome"] = "lista-codiciscontopage.php";
-$templateParams["categorie"] = $dbh->getCategories();
-$templateParams["novità"] = $dbh->getNewBooks(10);
-$templateParams["bestsellers"] = $dbh->getbestSellers(10);
-$templateParams["autori"] = $dbh->getAuthors();
+$templateParams["titolo"] = "ChapterOne - Gestione Codici Sconto";
+$templateParams["nome"] = "lista-codiciscontopage.php"; 
+$templateParams["categorie"] = $dbh->getCategories(); 
+
+$templateParams["codicisconto"] = $dbh->getDiscountCodes(); 
+
 
 require 'template/base.php';
+?>
 
 ?>
