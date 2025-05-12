@@ -805,9 +805,28 @@ class MySqlDatabase implements
     }
 
     public function updateOrderNotification($id, $orderId, $preview, $message, $status) {
-        $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Preview = ?,Message = ?, Status = ? WHERE Id = ?");
-        $stmt->bind_param('isss', $orderId, $preview, $message, $status, $id);
-        return $stmt->execute();
+        $this->db->begin_transaction(); 
+
+        try {
+          
+            $stmtNotification = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Preview = ?, Message = ?, Status = ?, Date = CURRENT_TIMESTAMP WHERE Id = ?");
+            $stmtNotification->bind_param('isssi', $orderId, $preview, $message, $status, $id);
+            
+            if (!$stmtNotification->execute()) {
+                $this->db->rollback();
+                error_log("Errore durante l'aggiornamento della notifica ID $id: " . $stmtNotification->error);
+                return false;
+            }
+
+            $this->updateOrderStatus($orderId, $status); 
+            $this->db->commit(); 
+            return true;
+
+        } catch (Exception $e) {
+            $this->db->rollback(); 
+            error_log("Errore in updateOrderNotification per notifica ID $id e ordine ID $orderId: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function SetSeenNotification($id) {

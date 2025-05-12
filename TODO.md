@@ -7,7 +7,10 @@
 - [x] Pagina di Ricerca
 - [x] Pagina About Us
 - [ ] Pagina Registra Account
-
+- [x] Pagina notifiche
+- [ ] pulsante Aggiungi libro a carrello
+- [ ] pulsante rimuovi dal carrello, oppure, cambia quantità
+- [ ] Altri estratti
 - [ ] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts??
 - [ ] Ricerca libri e autore

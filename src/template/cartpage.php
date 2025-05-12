@@ -46,7 +46,7 @@
                                         <p class="card-text">Prezzo: <?php echo number_format($item["Price"], 2, ',', '.'); ?> €</p>
                                         <p class="card-text fw-bold">Subtotale: <?php echo number_format($item["Price"] * $item["Quantity"], 2, ',', '.'); ?> €</p>
                                         
-                                        <form action="cart_actions.php" method="POST">
+                                        <form action="utils/cart_actions.php" method="POST">
                                             <input type="hidden" name="action" value="remove">
                                             <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($item["Id"]); ?>">
                                             <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($templateParams["carrello"]["Id"]); ?>">
