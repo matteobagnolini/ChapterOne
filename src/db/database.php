@@ -454,10 +454,39 @@ class MySqlDatabase implements
     }
 
     public function insertBookInCart($cartId, $bookId, $quantity) {
-        $stmt = $this->db->prepare("INSERT INTO BOOK_IN_CART (Cart_id, Book_id, Quantity) VALUES (?, ?, ?)");
-        $stmt->bind_param('iii', $cartId, $bookId, $quantity);
-        $stmt->execute();
-        return $stmt->insert_id;
+        // Controlla se il libro è già nel carrello
+        $stmt_check = $this->db->prepare("SELECT Id, Quantity FROM BOOK_IN_CART WHERE Cart_id = ? AND Book_id = ?");
+        $stmt_check->bind_param('ii', $cartId, $bookId);
+        $stmt_check->execute();
+        $result_check = $stmt_check->get_result();
+
+        if ($result_check->num_rows > 0) {
+            // Il libro è già nel carrello, aggiorna la quantità
+            $row = $result_check->fetch_assoc();
+            $existing_quantity = $row['Quantity'];
+            $new_quantity = $existing_quantity + $quantity;
+            
+            $stmt_update = $this->db->prepare("UPDATE BOOK_IN_CART SET Quantity = ? WHERE Cart_id = ? AND Book_id = ?");
+            $stmt_update->bind_param('iii', $new_quantity, $cartId, $bookId);
+            if ($stmt_update->execute()) {
+                return $row['Id']; // Restituisce l'ID della riga esistente
+            } else {
+                // Gestisci l'errore di aggiornamento, se necessario
+                error_log("Errore durante l'aggiornamento della quantità per il libro $bookId nel carrello $cartId: " . $stmt_update->error);
+                return false; 
+            }
+        } else {
+              // Il libro non è nel carrello, inseriscilo
+            $stmt_insert = $this->db->prepare("INSERT INTO BOOK_IN_CART (Cart_id, Book_id, Quantity) VALUES (?, ?, ?)");
+            $stmt_insert->bind_param('iii', $cartId, $bookId, $quantity);
+            if ($stmt_insert->execute()) {
+                return $stmt_insert->insert_id; // Restituisce l'ID della nuova riga inserita
+            } else {
+                // Gestisci l'errore di inserimento, se necessario
+                error_log("Errore durante l'inserimento del libro $bookId nel carrello $cartId: " . $stmt_insert->error);
+                return false;
+            }
+        }
     }
 
     public function updateBookInCart($cartId, $bookId, $quantity) {

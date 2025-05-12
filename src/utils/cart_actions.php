@@ -9,7 +9,8 @@ if (!isUserLoggedIn()) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
-        $cartId = isset($_POST['cart_id']) ? (int)$_POST['cart_id'] : null;
+        $user = $dbh->getCustomerByUsername($_SESSION["username"]);
+        $cartId = $dbh->getCartByCustomerId($user['Id'])['Id'];
         $bookId = isset($_POST['book_id']) ? (int)$_POST['book_id'] : null;
         $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1; // Default a 1 se non specificato
 

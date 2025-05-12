@@ -22,7 +22,7 @@
                         
                         ?>
 
-                        <form action="cart_actions.php" method="POST" style="display: inline-block; margin-right: 0.5rem;">
+                        <form action="utils/cart_actions.php" method="POST" style="display: inline-block; margin-right: 0.5rem;">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($bookId); ?>">
                             <input type="hidden" name="quantity" value="1">
