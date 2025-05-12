@@ -3,12 +3,11 @@
 - [x] Pagina Catalogo
 - [x] Pagina Categoria
 - [x] Pagina per gestione con lista libri / categorie / autori
-- [ ] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori)
+- [ ] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori, codici sconto)
 - [x] Pagina di Ricerca
 - [x] Pagina About Us
 - [ ] Pagina Registra Account
 
-- [ ] Aggiunta gestione notifiche e sconti in Pagina Account
-- [ ] Gestione Ordini, fare notifiche per admin?
-- [ ] Logout admin nel posto giusto, navigazione pagine admin con back
+- [ ] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts??
+- [ ] Ricerca libri e autore

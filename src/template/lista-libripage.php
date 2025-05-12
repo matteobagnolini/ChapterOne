@@ -1,5 +1,10 @@
 <section class="container my-4">
-            <h1 class="mb-3">Gestione Libri</h1>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="mb-0">Gestione Libri</h1>
+                <a href="accountadmin.php" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Torna al Pannello Admin
+                </a>
+            </div>
             <p class="mb-4">Seleziona un libro per modificarlo o eliminarlo, oppure crea un nuovo libro.</p>
             
             <ul class="list-unstyled">
