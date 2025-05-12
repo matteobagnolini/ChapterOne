@@ -826,6 +826,13 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getOrdersNotificationByStatus($status) {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION WHERE Status = ?");
+        $stmt->bind_param('s', $status);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function insertOrderNotification($orderId, $preview, $message, $status) {
         $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Preview, Message, Status) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('isss', $orderId, $preview, $message, $status);

@@ -19,16 +19,23 @@
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
                     <div class="d-flex align-items-center order-lg-2">
                     
-                    <?php if(!isset($_SESSION['admin']) || (isset($_SESSION['admin']) && !$_SESSION['admin'])): ?>
-                        <a class="nav-link me-2" href="notifiche.php"><i class="bi bi-bell me-1"></i> Notifiche</a>
-                        <a class="nav-link me-2" href="cart.php"><i class="bi bi-cart me-1"></i> Carrello</a>
+                    <?php  ?>
+                    <?php if(isset($_SESSION['username'])): ?>
+                        <a class="nav-link me-2" href="notifiche.php" aria-label="Notifiche"><i class="bi bi-bell me-1"></i><span class="d-none d-md-inline"> Notifiche</span></a>
                     <?php endif; ?>
+
+                    <?php ?>
+                    <?php if(isset($_SESSION['username']) && (!isset($_SESSION['admin']) || !$_SESSION['admin'])): ?>
+                        <a class="nav-link me-2" href="cart.php" aria-label="Carrello"><i class="bi bi-cart me-1"></i><span class="d-none d-md-inline"> Carrello</span></a>
+                    <?php endif; ?>
+                    
+                    <?php ?>
                     <?php if(!isset($_SESSION['username'])): ?>
-                        <a class="nav-link me-2" href="login.php"><i class="bi bi-box-arrow-in-right me-1"></i> Login</a>
+                        <a class="nav-link me-2" href="login.php" aria-label="Login"><i class="bi bi-box-arrow-in-right me-1"></i><span class="d-none d-md-inline"> Login</span></a>
                     <?php elseif(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
-                        <a class="nav-link me-2" href="accountadmin.php"><i class="bi bi-shield-lock me-1"></i> Admin</a>
+                        <a class="nav-link me-2" href="accountadmin.php" aria-label="Pannello Admin"><i class="bi bi-shield-lock me-1"></i><span class="d-none d-md-inline"> Admin</span></a>
                     <?php else: ?>
-                        <a class="nav-link me-2" href="account.php"><i class="bi bi-person me-1"></i> Account</a>
+                        <a class="nav-link me-2" href="account.php" aria-label="Account Utente"><i class="bi bi-person me-1"></i><span class="d-none d-md-inline"> Account</span></a>
                     <?php endif; ?>
 
                     <form class="d-flex" method="GET" action="./utils/find.php">

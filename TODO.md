@@ -16,3 +16,6 @@
 - [ ] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts??
 - [ ] Ricerca libri e autore
+- [ ] Notifica ordine per admin quando ho un acquisto
+- [ ] spuntare come lette le notifiche, o poterle eliminare
+- [ ] utilizzo di Ajax, salare password
