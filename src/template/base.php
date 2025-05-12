@@ -7,13 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
-    <title><?php echo $templateParams["titolo"]; ?></title>
+    <title><?php echo isset($templateParams["titolo"]) ? htmlspecialchars($templateParams["titolo"]) : "ChapterOne Shop"; ?></title>
 </head>
 
-<body>
+<body  class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
@@ -32,7 +31,7 @@
                         <a class="nav-link me-2" href="account.php"><i class="bi bi-person me-1"></i> Account</a>
                     <?php endif; ?>
 
-                    <form class="d-flex" method="GET" action="cerca.php">
+                    <form class="d-flex" method="GET" action="./utils/find.php">
                         <input class="form-control me-2" name="query" type="search" placeholder="Cerca" aria-label="Search">
                         <button class="btn" type="submit"><i class="bi bi-search"></i></button>
                     </form>
@@ -67,7 +66,7 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main class="container py-4 flex-grow-1">
 
     <?php
     if(isset($templateParams["nome"])){
@@ -76,7 +75,7 @@
     ?>
     
     </main>
-    <footer class="bg-light text-center text-lg-start">
+    <footer class="bg-light text-white text-center py3 mt-auto">
         <div class="text-center p-3 bg-dark text-white">
             © 2023 ChapterOne Shop. All rights reserved.
         </div>
