@@ -8,8 +8,10 @@
 - [x] Pagina About Us
 - [ ] Pagina Registra Account
 - [x] Pagina notifiche
-- [ ] pulsante Aggiungi libro a carrello
-- [ ] pulsante rimuovi dal carrello, oppure, cambia quantità
+- [x] pulsante Aggiungi libro a carrello
+- [x] pulsante rimuovi dal carrello
+- [ ] pulsante cambia quantità in carrello
+- [ ] acquista in quantità
 - [ ] Altri estratti
 - [ ] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts??
