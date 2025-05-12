@@ -1,40 +1,27 @@
 <?php
 require_once 'bootstrap.php';
 
-
-$templateParams["titolo"] = "ChapterOne - Risultati Ricerca";
-$templateParams["nome"] = "risultati-ricercapage.php"; // Template per visualizzare i risultati
-$templateParams["categorie"] = $dbh->getCategories(); // Per la navbar
-
-$templateParams["risultatiLibri"] = [];
-$templateParams["risultatiAutori"] = [];
-$templateParams["termineRicerca"] = "";
-$templateParams["tipoRisultato"] = ""; // 'libri', 'autori', o 'nessuno'
-
-if (isset($_GET['query']) && !empty(trim($_GET['query']))) {
-    $searchTerm = trim($_GET['query']);
-    $templateParams["termineRicerca"] = htmlspecialchars($searchTerm);
-
-    // 1. Cerca nei libri
-    $risultatiLibri = $dbh->searchBooks($searchTerm);
-
-    if (!empty($risultatiLibri)) {
-        $templateParams["risultatiLibri"] = $risultatiLibri;
-        $templateParams["tipoRisultato"] = "libri";
-    } else {
-        // 2. Se non trovi nulla nei libri, cerca negli autori
-        $risultatiAutori = $dbh->searchAuthors($searchTerm);
-        if (!empty($risultatiAutori)) {
-            $templateParams["risultatiAutori"] = $risultatiAutori;
-            $templateParams["tipoRisultato"] = "autori";
-        } else {
-            $templateParams["tipoRisultato"] = "nessuno";
-        }
-    }
+if (!isset($_GET['query']) || empty($_GET['query'])) {
+    $templateParams["titolo"] = "ChapterOne - Errore";
+    $templateParams["nome"] = "404.php";
+    $templateParams["errore"] = "Nessuna ricerca specifica. Assicurati di aver inserito una ricerca e riprova.";
 } else {
-    // Nessun termine di ricerca fornito o query vuota
-    $templateParams["tipoRisultato"] = "query_mancante";
+    $templateParams["nome"] = "carosello-libri.php";
+    $templateParams["titolo"] = "ChapterOne - Ricerca Libro";
+    $templateParams["intestazione"] = "Cerca Libro per Nome";
+    $query = $_GET["query"];
+
+    $book = $dbh->getBookByTitle($query);
+    $templateParams["libri"] = $book;
+    
+    if ($book === null || count($book) === 0) {
+        $templateParams["testo"] = "Spiacenti, la ricerca di '<b>" . $query . "</b>' non ha prodotto nessun risultato. Riprova con un altro libro.";
+    } else {
+        $templateParams["testo"] =  "Risultati per la ricerca di '<b>" . $query . "</b>' :"; 
+    }
 }
+
+$templateParams["categorie"] = $dbh->getCategories();
 
 require 'template/base.php';
 
