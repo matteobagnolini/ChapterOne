@@ -9,6 +9,8 @@
                         <p><strong>Autore:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Author_full_name"]); ?></p>
                         <p><strong>Casa Editrice:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Publisher_name"]); ?></p>
                         <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
+                        <h2>Descrizione</h2>
+                        <p><?php echo $templateParams["libro"]["Description"]; ?></p>
                     </div>
                     <div>
                         <?php
