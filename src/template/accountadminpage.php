@@ -25,11 +25,11 @@
                                 <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi case editrici.</p>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="lista-case-editrici.php" class="fw-bold text-decoration-none">Gestisci Ordini</a>
+                                <a href="lista-ordini.php" class="fw-bold text-decoration-none">Gestisci Ordini</a>
                                 <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi ordini.</p>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="lista-case-editrici.php" class="fw-bold text-decoration-none">Gestisci Codice Sconto</a>
+                                <a href="lista-codicisconto.php" class="fw-bold text-decoration-none">Gestisci Codice Sconto</a>
                                 <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi codici sconto.</p>
                             </li>
                         </ul>
