@@ -315,16 +315,16 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function insertPublisher($name) {
-        $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name) VALUES (?)");
-        $stmt->bind_param('s', $name);
+    public function insertPublisher($name, $address) {
+        $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name, Address) VALUES (?, ?)");
+        $stmt->bind_param('ss', $name, $address);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
-    public function updatePublisher($id, $name) {
-        $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ? WHERE Id = ?");
-        $stmt->bind_param('si', $name, $id);
+    public function updatePublisher($id, $name, $address) {
+        $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ?, Address = ? WHERE Id = ?");
+        $stmt->bind_param('ssi', $name, $address, $id);
         return $stmt->execute();
     }
 
@@ -676,9 +676,9 @@ class MySqlDatabase implements
     
         // Crea notifiche in base al nuovo stato
         if ($status === 'sent') {
-            $this->insertOrderNotification($id, "Il tuo ordine è stato spedito!", $status);
+            $this->insertOrderNotification($id,"Ordine spedito" ,"Il tuo ordine è stato spedito!", $status);
         } elseif ($status === 'arrived') {
-            $this->insertOrderNotification($id, "Il tuo ordine è arrivato!", $status);
+            $this->insertOrderNotification($id,"Ordine arrivato" ,"Il tuo ordine è arrivato!", $status);
         }
     
         return true;
@@ -784,22 +784,23 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertOrderNotification($orderId, $message, $status) {
-        $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Message, Status) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $orderId, $message, $status);
+    public function insertOrderNotification($orderId, $preview, $message, $status) {
+        $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Preview, Message, Status) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('isss', $orderId, $preview, $message, $status);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
-    public function updateOrderNotification($id, $orderId, $message, $status) {
-        $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Message = ?, Status = ? WHERE Id = ?");
-        $stmt->bind_param('iss', $orderId, $message, $status, $id);
+    public function updateOrderNotification($id, $orderId, $preview, $message, $status) {
+        $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Preview = ?,Message = ?, Status = ? WHERE Id = ?");
+        $stmt->bind_param('isss', $orderId, $preview, $message, $status, $id);
         return $stmt->execute();
     }
 
     public function SetSeenNotification($id) {
         $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Seen = ? WHERE Id = ?");
         $seen = true;
+
         $stmt->bind_param('ii', $seen, $id);
         $stmt->execute();
     

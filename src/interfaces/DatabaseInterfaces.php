@@ -36,8 +36,8 @@ interface CategoryManager {
 interface PublisherManager {
     public function getPublishers();
     public function getPublisherById($id);
-    public function insertPublisher($name);
-    public function updatePublisher($id, $name);
+    public function insertPublisher($name, $address);
+    public function updatePublisher($id, $name, $address);
     public function deletePublisher($id);
 }
 
@@ -120,8 +120,8 @@ interface OrderNotificationManager {
     public function getOrderNotifications();
     public function getOrderNotificationById($id);
     public function getOrderNOtificationByOrderId($orderId);    
-    public function insertOrderNotification($orderId, $message, $status);
-    public function updateOrderNotification($id, $orderId, $message, $status);
+    public function insertOrderNotification($orderId, $preview, $message, $status);
+    public function updateOrderNotification($id, $orderId, $preview, $message, $status);
     public function deleteOrderNotification($id);
     public function SetSeenNotification($id);
 }
