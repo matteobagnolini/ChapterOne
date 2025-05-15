@@ -32,7 +32,7 @@
                             <a href="../gestisci-casa-editrice.php?id=<?php echo $publisher["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Casa Editrice">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
                             </a>
-                            <a href="elimina-casa-editrice.php?id=<?php echo $publisher["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questa casa editrice? L\'eliminazione potrebbe influenzare i libri associati.');" title="Elimina Casa Editrice">
+                            <a href="utils/delete-casa-editrice.php?id=<?php echo $publisher["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questa casa editrice? L\'eliminazione potrebbe influenzare i libri associati.');" title="Elimina Casa Editrice">
                                 <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                         </td>
