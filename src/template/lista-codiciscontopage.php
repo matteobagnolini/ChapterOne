@@ -71,7 +71,7 @@
                             <a href="gestisci-codice-sconto.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Codice Sconto">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
                             </a>
-                            <a href="elimina-codice-sconto.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo codice sconto?');" title="Elimina Codice Sconto">
+                            <a href="utils/delete-discountcode.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo codice sconto?');" title="Elimina Codice Sconto">
                                 <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                             <a href="utils/toggle-discountcode.php?id=<?php echo $discountCode["Id"]; ?>&current_status=<?php echo $discountCode["Active"] ? '1' : '0'; ?>" class="btn btn-<?php echo $discountCode["Active"] ? 'warning' : 'success'; ?> btn-sm mb-1" title="<?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?>">
