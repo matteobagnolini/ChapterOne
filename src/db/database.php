@@ -322,7 +322,16 @@ class MySqlDatabase implements
         return $stmt->insert_id;
     }
 
+
     public function updatePublisher($id, $name, $address) {
+        $stmt = $this->db->prepare("SELECT Id FROM PUBLISHER WHERE Name = ? AND Id != ?");
+        $stmt->bind_param('si', $name, $id);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            return false;
+        }
+        $stmt->close();
         $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ?, Address = ? WHERE Id = ?");
         $stmt->bind_param('ssi', $name, $address, $id);
         return $stmt->execute();
