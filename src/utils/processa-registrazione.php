@@ -1,5 +1,5 @@
 <?php
-require_once 'bootstrap.php';
+require_once '../bootstrap.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nomeCompleto = trim($_POST["nomeCompleto"]);
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = $dbh->registerUser($nomeCompleto, $email, $password, $indirizzo, $telefono);
 
     if ($result) {
-        header("Location: login.php");
+        header("Location: ../login.php");
         exit;
     } else {
         die("Errore: Registrazione fallita. Riprova più tardi.");

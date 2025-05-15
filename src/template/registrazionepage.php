@@ -4,7 +4,7 @@
             <div class="card shadow p-5">
                 <h2 class="text-center mb-4">Registrazione Utente</h2>
                 
-                <form action="processa-registrazione.php" method="POST">
+                <form action="utils/processa-registrazione.php" method="POST">
                     <fieldset>
                         <legend class="visually-hidden">Informazioni Utente</legend>
                         
