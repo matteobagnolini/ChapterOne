@@ -5,7 +5,7 @@ require_once '../bootstrap.php';
 
 if (!isAdminLoggedIn()) {
   
-    header("location: login.php");
+    header("location: ../login.php");
     exit;
 }
 
