@@ -1036,5 +1036,19 @@ class MySqlDatabase implements
 
     }
 
+    public function registerUser($nomeCompleto, $email, $password, $indirizzo, $telefono) {
+        $nomeArray = explode(' ', $nomeCompleto, 2);
+        $firstName = $nomeArray[0];
+        $lastName = isset($nomeArray[1]) ? $nomeArray[1] : '';
+    
+        $stmt = $this->db->prepare("
+            INSERT INTO CUSTOMER (First_name, Last_name, Email, Password, Address, Phone) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        ");
+        $stmt->bind_param('ssssss', $firstName, $lastName, $email, $password, $indirizzo, $telefono);
+    
+        return $stmt->execute();    // True if user is created correctly, false otherwise
+    }
+
 }
 ?>

@@ -41,7 +41,7 @@
                     
                     <div class="text-center">
                         <p class="mb-0">Non hai un account?</p>
-                        <a href="register.php" class="btn btn-outline-secondary mt-2">
+                        <a href="registrazione.php" class="btn btn-outline-secondary mt-2">
                             <i class="bi bi-person-plus me-2"></i>Registrati
                         </a>
                     </div>
