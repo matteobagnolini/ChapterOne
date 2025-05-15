@@ -1170,5 +1170,31 @@ class MySqlDatabase implements
         return $stmt->execute();    // True if user is created correctly, false otherwise
     }
 
+    public function hasUserPurchaseBookId($userId, $bookId) {
+        $stmt = $this->db->prepare("
+            SELECT COUNT(*) as count
+            FROM ORDER_DETAIL od
+            JOIN `ORDER` o ON od.Order_id = o.Id
+            WHERE o.Customer_id = ? AND od.Book_id = ?
+        ");
+        $stmt->bind_param('ii', $userId, $bookId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['count'] > 0; // Restituisce true se l'utente ha acquistato il libro, altrimenti false
+    }
+
+    public function addReview($text, $rating, $bookId, $userId) {
+        // Controlla se il cliente ha acquistato il libro
+        $canUserReview = $this->hasUserPurchaseBookId($userId, $bookId);
+        if(!$canUserReview){
+            throw new Exception("Il cliente non ha acquistato questo libro e non può lasciare una recensione.");
+        }
+
+        $stmt = $this->db->prepare("INSERT INTO REVIEW (Text, Rating, Book_id, Customer_id) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('siii', $text, $rating, $bookId, $userId);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+
 }
 ?>

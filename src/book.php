@@ -20,6 +20,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
         $templateParams["titolo"] = "ChapterOne - " . $book["Title"];
         $templateParams["recensioni"] = $dbh->getBookReviews($bookId);
         $templateParams["librisimili"] = $dbh->getRelatedBooks($bookId);
+        $templateParams["abilitarecensione"] = isUserLoggedIn() && $dbh->hasUserPurchaseBookId($_SESSION["id"], $bookId);
     }
 }
 

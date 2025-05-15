@@ -15,6 +15,7 @@ function isAdminLoggedIn(){
 
 function registerLoggedUser($user){
     $_SESSION["username"] = $user["username"];
+    $_SESSION["id"] = $user["id"];
     $_SESSION["admin"] = $user["admin"];            # $_SESSION["admin"] = 1 if user is admin, 0 otherwise
     $_SESSION["logged"] = 1;                         # $_SESSION["logged"] = 1 if user is logged
 }
