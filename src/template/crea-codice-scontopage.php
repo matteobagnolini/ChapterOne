@@ -1,7 +1,6 @@
 <?php
-$isEditing = isset($templateParams["codicesconto"]) && !empty($templateParams["codicesconto"]);
-$pageTitle = $isEditing ? "Modifica Codice Sconto" : "Crea Nuovo Codice Sconto";
-$submitButtonText = $isEditing ? "Salva Modifiche" : "Crea Codice Sconto";
+$pageTitle = "Crea Nuovo Codice Sconto";
+$submitButtonText = "Crea Codice Sconto";
 
 $defaultCode = "";
 $defaultType = "percentage";
@@ -11,13 +10,13 @@ $defaultEndDate = date('Y-m-d', strtotime('+1 month'));
 $defaultSingleUse = false;
 $defaultActive = true;
 
-if ($isEditing) {
+if (isset($templateParams["codicesconto"])) {
     $codice = $templateParams["codicesconto"];
     $defaultCode = htmlspecialchars($codice["Code"]);
     $defaultType = htmlspecialchars($codice["Type"]);
     $defaultValue = htmlspecialchars($codice["Value"]);
-    $defaultStartDate = htmlspecialchars(date('Y-m-d', strtotime($codice["Start_date"])));
-    $defaultEndDate = htmlspecialchars(date('Y-m-d', strtotime($codice["End_date"])));
+    $defaultStartDate = htmlspecialchars($codice["Start_date"]);
+    $defaultEndDate = htmlspecialchars($codice["End_date"]);
     $defaultSingleUse = (bool)$codice["Single_use"];
     $defaultActive = (bool)$codice["Active"];
 }
@@ -27,15 +26,12 @@ if ($isEditing) {
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <form action="gestisci-codice-sconto.php<?php echo $isEditing ? '?id=' . htmlspecialchars($codice["Id"]) : ''; ?>" method="POST">
+                    <form action="crea-codice-sconto.php" method="POST">
                         <h2 class="card-title mb-4"><?php echo $pageTitle; ?></h2>
                         <?php if (isset($_SESSION['form_error_message'])): ?>
                             <div class="alert alert-danger" role="alert">
-                                <?php echo htmlspecialchars($_SESSION['form_error_message']); unset($_SESSION['form_error_message']); ?>
+                                <?php echo $_SESSION['form_error_message']; unset($_SESSION['form_error_message']); ?>
                             </div>
-                        <?php endif; ?>
-                        <?php if ($isEditing): ?>
-                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($codice["Id"]); ?>" />
                         <?php endif; ?>
                         <ul class="list-unstyled">
                             <li class="mb-3">
@@ -74,7 +70,7 @@ if ($isEditing) {
                             </li>
                             <li class="mt-4">
                                 <input type="submit" name="submit" value="<?php echo $submitButtonText; ?>" class="btn btn-primary me-2" />
-                                <a href="../lista-codicisconto.php" class="btn btn-secondary">Annulla</a>
+                                <a href="lista-codicisconto.php" class="btn btn-secondary">Annulla</a>
                             </li>
                         </ul>
                     </form>
