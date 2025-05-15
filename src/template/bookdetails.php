@@ -9,6 +9,8 @@
                         <p><strong>Autore:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Author_full_name"]); ?></p>
                         <p><strong>Casa Editrice:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Publisher_name"]); ?></p>
                         <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
+                        <h2>Descrizione</h2>
+                        <p><?php echo $templateParams["libro"]["Description"]; ?></p>
                     </div>
                     <div>
                         <?php
@@ -21,13 +23,16 @@
                             $baseExcerptPath = UPLOAD_DIR;
                         
                         ?>
-
-                        <form action="cart_actions.php" method="POST" style="display: inline-block; margin-right: 0.5rem;">
+                         <?php if (isUserLoggedIn()): ?>
+                        <form action="utils/cart_actions.php" method="POST" style="display: inline-block; margin-right: 0.5rem;">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($bookId); ?>">
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
                         </form>
+                        <?php else: ?>
+                            <button class="btn btn-outline-secondary" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                        <?php endif; ?>
 
                         <?php if ($excerptFilename && $bookId):?>
                             <a href="<?php echo htmlspecialchars($baseExcerptPath . $excerptFilename); ?>" class="btn btn-outline-secondary" download="<?php echo htmlspecialchars($bookDetails["Title"] . "_Preview" . ".txt"); ?>">
@@ -40,11 +45,6 @@
                 </div>
             </section>
             
-            <section class="mb-4">
-                <h2>Descrizione</h2>
-                <p><?php echo $templateParams["libro"]["Description"]; ?></p>
-            </section>
-
             <section class="mb-4">
                 <h2>Recensioni</h2>
                 <ul class="list-group"></ul>

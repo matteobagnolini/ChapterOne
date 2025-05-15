@@ -6,6 +6,7 @@
                 <p><?php echo $templateParams["testo"]; ?></p>
             </div>
         </div>
+        <?php if($templateParams["libri"] === null || count($templateParams["libri"]) != 0): ?>
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
             <?php foreach($templateParams["libri"] as $book): ?>
             <li class="col">
@@ -24,5 +25,6 @@
             </li>
             <?php endforeach; ?>
         </ul>
+        <?php endif; ?>
     </div>
 </section>

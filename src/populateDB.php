@@ -63,10 +63,10 @@ try {
     $categoryId5 = $db->insertCategory('Biografia');
 
     // Popola la tabella PUBLISHER
-    $publisherId1 = $db->insertPublisher('Mondadori');
-    $publisherId2 = $db->insertPublisher('Feltrinelli');
-    $publisherId3 = $db->insertPublisher('Einaudi');
-    $publisherId4 = $db->insertPublisher('Rizzoli');
+    $publisherId1 = $db->insertPublisher('Mondadori', 'Via della Libertà 10');
+    $publisherId2 = $db->insertPublisher('Feltrinelli', 'Corso Italia 20');
+    $publisherId3 = $db->insertPublisher('Einaudi', 'Piazza della Repubblica 30');
+    $publisherId4 = $db->insertPublisher('Rizzoli', 'Via Roma 40');
 
     // Popola la tabella BOOK con 9 libri
     $bookId1 = $db->insertBookWithExceptr('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, 'images/deepwork.jpg', 'exceptr/text.txt', $categoryId1, $publisherId1, $authorId1);
@@ -112,9 +112,9 @@ try {
     $db->insertPost('Incontro con l\'autore Anna Neri presso la libreria centrale', '2025-03-10 12:00:00', $authorId2, $bookId2);
     
     // Popola la tabella ORDER_NOTIFICATION
-    $db->insertOrderNotification($orderId1, 'Il tuo ordine è stato spedito', 'sent');
-    $db->insertOrderNotification($orderId2, 'Il tuo ordine è in elaborazione', 'pending');
-    $db->insertOrderNotification($orderId3, 'Il tuo ordine è stato consegnato', 'arrived');
+    $db->insertOrderNotification($orderId1,'Ordine spedito','Il tuo ordine è stato spedito', 'sent');
+    $db->insertOrderNotification($orderId2,'Ordine in elaborazione', 'Il tuo ordine è in elaborazione', 'pending');
+    $db->insertOrderNotification($orderId3,'Ordine consegnato', 'Il tuo ordine è stato consegnato', 'arrived');
 
 
     // Popola la tabella BOOK_IN_CART

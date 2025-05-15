@@ -23,6 +23,7 @@ interface AuthorManager {
     public function insertAuthor($firstName, $lastName);
     public function updateAuthor($id, $firstName, $lastName);
     public function deleteAuthor($id);
+    public function searchAuthors($searchTerm);
 }
 
 interface CategoryManager {
@@ -36,8 +37,8 @@ interface CategoryManager {
 interface PublisherManager {
     public function getPublishers();
     public function getPublisherById($id);
-    public function insertPublisher($name);
-    public function updatePublisher($id, $name);
+    public function insertPublisher($name, $address);
+    public function updatePublisher($id, $name, $address);
     public function deletePublisher($id);
 }
 
@@ -48,6 +49,7 @@ interface BookManager {
     public function insertBookWithExceptr($title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId);
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId);
     public function deleteBook($id);
+    public function searchBooks($searchTerm);
 }
 
 interface PostManager {
@@ -119,9 +121,11 @@ interface DiscountCodeUsageManager {
 interface OrderNotificationManager {
     public function getOrderNotifications();
     public function getOrderNotificationById($id);
-    public function getOrderNOtificationByOrderId($orderId);    
-    public function insertOrderNotification($orderId, $message, $status);
-    public function updateOrderNotification($id, $orderId, $message, $status);
+    public function getOrderNotificationByCustomerId($id);
+    public function getOrderNOtificationByOrderId($orderId);
+    public function getordersNotificationByStatus($status);    
+    public function insertOrderNotification($orderId, $preview, $message, $status);
+    public function updateOrderNotification($id, $orderId, $preview, $message, $status);
     public function deleteOrderNotification($id);
     public function SetSeenNotification($id);
 }

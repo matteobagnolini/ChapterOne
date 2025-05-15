@@ -73,7 +73,13 @@ class MySqlDatabase implements
 
     // BOOK methods
     public function getBooks() {
-        $stmt = $this->db->prepare("SELECT * FROM BOOK ORDER BY Title");
+        $stmt = $this->db->prepare("
+            SELECT b.*, a.First_name AS Author_First_name, 
+                   a.Last_name AS Author_Last_name,
+                   CONCAT(a.First_name, ' ', a.Last_name) AS Author_name
+            FROM BOOK AS b, AUTHOR AS a
+            WHERE b.Author_id = a.Id
+        ");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -309,16 +315,16 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function insertPublisher($name) {
-        $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name) VALUES (?)");
-        $stmt->bind_param('s', $name);
+    public function insertPublisher($name, $address) {
+        $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name, Address) VALUES (?, ?)");
+        $stmt->bind_param('ss', $name, $address);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
-    public function updatePublisher($id, $name) {
-        $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ? WHERE Id = ?");
-        $stmt->bind_param('si', $name, $id);
+    public function updatePublisher($id, $name, $address) {
+        $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ?, Address = ? WHERE Id = ?");
+        $stmt->bind_param('ssi', $name, $address, $id);
         return $stmt->execute();
     }
 
@@ -448,10 +454,39 @@ class MySqlDatabase implements
     }
 
     public function insertBookInCart($cartId, $bookId, $quantity) {
-        $stmt = $this->db->prepare("INSERT INTO BOOK_IN_CART (Cart_id, Book_id, Quantity) VALUES (?, ?, ?)");
-        $stmt->bind_param('iii', $cartId, $bookId, $quantity);
-        $stmt->execute();
-        return $stmt->insert_id;
+        // Controlla se il libro è già nel carrello
+        $stmt_check = $this->db->prepare("SELECT Id, Quantity FROM BOOK_IN_CART WHERE Cart_id = ? AND Book_id = ?");
+        $stmt_check->bind_param('ii', $cartId, $bookId);
+        $stmt_check->execute();
+        $result_check = $stmt_check->get_result();
+
+        if ($result_check->num_rows > 0) {
+            // Il libro è già nel carrello, aggiorna la quantità
+            $row = $result_check->fetch_assoc();
+            $existing_quantity = $row['Quantity'];
+            $new_quantity = $existing_quantity + $quantity;
+            
+            $stmt_update = $this->db->prepare("UPDATE BOOK_IN_CART SET Quantity = ? WHERE Cart_id = ? AND Book_id = ?");
+            $stmt_update->bind_param('iii', $new_quantity, $cartId, $bookId);
+            if ($stmt_update->execute()) {
+                return $row['Id']; // Restituisce l'ID della riga esistente
+            } else {
+                // Gestisci l'errore di aggiornamento, se necessario
+                error_log("Errore durante l'aggiornamento della quantità per il libro $bookId nel carrello $cartId: " . $stmt_update->error);
+                return false; 
+            }
+        } else {
+              // Il libro non è nel carrello, inseriscilo
+            $stmt_insert = $this->db->prepare("INSERT INTO BOOK_IN_CART (Cart_id, Book_id, Quantity) VALUES (?, ?, ?)");
+            $stmt_insert->bind_param('iii', $cartId, $bookId, $quantity);
+            if ($stmt_insert->execute()) {
+                return $stmt_insert->insert_id; // Restituisce l'ID della nuova riga inserita
+            } else {
+                // Gestisci l'errore di inserimento, se necessario
+                error_log("Errore durante l'inserimento del libro $bookId nel carrello $cartId: " . $stmt_insert->error);
+                return false;
+            }
+        }
     }
 
     public function updateBookInCart($cartId, $bookId, $quantity) {
@@ -670,9 +705,9 @@ class MySqlDatabase implements
     
         // Crea notifiche in base al nuovo stato
         if ($status === 'sent') {
-            $this->insertOrderNotification($id, "Il tuo ordine è stato spedito!", $status);
+            $this->insertOrderNotification($id,"Ordine spedito" ,"Il tuo ordine è stato spedito!", $status);
         } elseif ($status === 'arrived') {
-            $this->insertOrderNotification($id, "Il tuo ordine è arrivato!", $status);
+            $this->insertOrderNotification($id,"Ordine arrivato" ,"Il tuo ordine è arrivato!", $status);
         }
     
         return true;
@@ -771,6 +806,19 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getOrderNotificationByCustomerId($customerId) {
+        $stmt = $this->db->prepare("
+            SELECT `on`.* 
+            FROM ORDER_NOTIFICATION `on`
+            JOIN `ORDER` o ON `on`.Order_id = o.Id
+            WHERE o.Customer_id = ?
+            ORDER BY `on`.Date DESC
+        ");
+        $stmt->bind_param('i', $customerId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getOrderNotificationByOrderId($orderId) {
         $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION WHERE Order_id = ?");
         $stmt->bind_param('i', $orderId);
@@ -778,22 +826,49 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertOrderNotification($orderId, $message, $status) {
-        $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Message, Status) VALUES (?, ?, ?)");
-        $stmt->bind_param('iss', $orderId, $message, $status);
+    public function getOrdersNotificationByStatus($status) {
+        $stmt = $this->db->prepare("SELECT * FROM ORDER_NOTIFICATION WHERE Status = ?");
+        $stmt->bind_param('s', $status);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function insertOrderNotification($orderId, $preview, $message, $status) {
+        $stmt = $this->db->prepare("INSERT INTO ORDER_NOTIFICATION (Order_id, Preview, Message, Status) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('isss', $orderId, $preview, $message, $status);
         $stmt->execute();
         return $stmt->insert_id;
     }
 
-    public function updateOrderNotification($id, $orderId, $message, $status) {
-        $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Message = ?, Status = ? WHERE Id = ?");
-        $stmt->bind_param('iss', $orderId, $message, $status, $id);
-        return $stmt->execute();
+    public function updateOrderNotification($id, $orderId, $preview, $message, $status) {
+        $this->db->begin_transaction(); 
+
+        try {
+          
+            $stmtNotification = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Order_id = ?, Preview = ?, Message = ?, Status = ?, Date = CURRENT_TIMESTAMP WHERE Id = ?");
+            $stmtNotification->bind_param('isssi', $orderId, $preview, $message, $status, $id);
+            
+            if (!$stmtNotification->execute()) {
+                $this->db->rollback();
+                error_log("Errore durante l'aggiornamento della notifica ID $id: " . $stmtNotification->error);
+                return false;
+            }
+
+            $this->updateOrderStatus($orderId, $status); 
+            $this->db->commit(); 
+            return true;
+
+        } catch (Exception $e) {
+            $this->db->rollback(); 
+            error_log("Errore in updateOrderNotification per notifica ID $id e ordine ID $orderId: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function SetSeenNotification($id) {
         $stmt = $this->db->prepare("UPDATE ORDER_NOTIFICATION SET Seen = ? WHERE Id = ?");
         $seen = true;
+
         $stmt->bind_param('ii', $seen, $id);
         $stmt->execute();
     
@@ -1033,7 +1108,52 @@ class MySqlDatabase implements
         $stmt->bind_param('i', $categoryId);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 
+    public function getBookByTitle($title) {
+        $stmt = $this->db->prepare("
+            SELECT b.*, a.First_name AS Author_First_name, 
+                   a.Last_name AS Author_Last_name,
+                   CONCAT(a.First_name, ' ', a.Last_name) AS Author_name
+            FROM BOOK AS b, AUTHOR AS a
+            WHERE b.Title = ? AND b.Author_id = a.Id
+        ");
+        $stmt->bind_param('s', $title);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function searchBooks($searchTerm) {
+         $param = "%" . $searchTerm . "%";
+        $query = "SELECT b.*, 
+                        a.First_name AS Author_First_name, 
+                        a.Last_name AS Author_Last_name,
+                        c.Name AS Category_name
+                FROM BOOK b
+                LEFT JOIN AUTHOR a ON b.Author_id = a.Id
+                LEFT JOIN CATEGORY c ON b.Category_id = c.Id
+                WHERE b.Title LIKE ? 
+                    OR b.Description LIKE ?
+                    OR a.First_name LIKE ?
+                    OR a.Last_name LIKE ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssss', $param, $param, $param, $param);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }  
+
+    public function searchAuthors($searchTerm) {
+        $param = "%" . $searchTerm . "%";
+        $query = "SELECT * FROM AUTHOR 
+                WHERE First_name LIKE ? 
+                    OR Last_name LIKE ?";
+        $stmt = $this->db->prepare($query);
+        // Devi legare il parametro per ogni placeholder '?'
+        $stmt->bind_param('ss', $param, $param);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function registerUser($nomeCompleto, $email, $password, $indirizzo, $telefono) {

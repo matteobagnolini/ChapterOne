@@ -5,7 +5,9 @@ $templateParams["titolo"] = "ChapterOne - Account Admin";
 $templateParams["nome"] = "accountadminpage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
-# Add upload of new books from this page
+if(!isAdminLoggedIn()){
+    header("location: login.php");
+}
 
 require 'template/base.php';
 

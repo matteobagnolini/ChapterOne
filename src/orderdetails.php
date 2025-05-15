@@ -2,7 +2,7 @@
 // filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\orderdetails.php
 require_once 'bootstrap.php';
 
-if (!isUserLoggedIn()) {
+if (!isUserLoggedIn() && !isAdminLoggedIn()) {
     header("location: login.php");
     exit;
 }
@@ -14,6 +14,7 @@ $templateParams["ordineInfo"] = null;
 $templateParams["dettagliordine"] = [];
 $templateParams["libriOrdine"] = [];
 $templateParams["totaleArticoli"] = 0;   
+$templateParams["isAdminView"] = isAdminLoggedIn(); // Imposta il flag qui
 
 if (isset($_GET["id_order"])) {
     $orderId = $_GET["id_order"];

@@ -1,6 +1,4 @@
 <?php
-
-
 require_once __DIR__ . '/BaseTest.php';
 
 class CartTest extends BaseTest {
@@ -193,10 +191,10 @@ class CartTest extends BaseTest {
         $categoryId5 = $this->db->insertCategory('Biografia');
 
         // Popola la tabella PUBLISHER
-        $publisherId1 = $this->db->insertPublisher('Mondadori');
-        $publisherId2 = $this->db->insertPublisher('Feltrinelli');
-        $publisherId3 = $this->db->insertPublisher('Einaudi');
-        $publisherId4 = $this->db->insertPublisher('Rizzoli');
+        $publisherId1 = $this->db->insertPublisher('Mondadori', 'Via Mondadori 1');
+        $publisherId2 = $this->db->insertPublisher('Feltrinelli', 'Via Feltrinelli 2');
+        $publisherId3 = $this->db->insertPublisher('Einaudi', 'Via Einaudi 3');
+        $publisherId4 = $this->db->insertPublisher('Rizzoli', 'Via Rizzoli 4');
 
         // Popola la tabella BOOK con 9 libri
         $bookId1 = $this->db->insertBook('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, '1.jpg', $categoryId1, $publisherId1, $authorId1);

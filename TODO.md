@@ -2,9 +2,20 @@
 
 - [x] Pagina Catalogo
 - [x] Pagina Categoria
-- [ ] Pagina per gestione con lista libri / categorie / autori
-- [ ] Pagina di Ricerca
+- [x] Pagina per gestione con lista libri / categorie / autori
+- [ ] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori, codici sconto)
+- [x] Pagina di Ricerca
 - [x] Pagina About Us
 - [ ] Pagina Registra Account
-
-- [ ] Aggiunta gestione notifiche e sconti in Pagina Account
+- [x] Pagina notifiche
+- [x] pulsante Aggiungi libro a carrello
+- [x] pulsante rimuovi dal carrello
+- [ ] pulsante cambia quantità in carrello
+- [ ] acquista in quantità
+- [ ] Altri estratti
+- [ ] Gestione Ordini, admin cambia notifiche
+- [ ] Admin elimina accounts??
+- [ ] Ricerca libri e autore
+- [ ] Notifica ordine per admin quando ho un acquisto
+- [ ] spuntare come lette le notifiche, o poterle eliminare
+- [ ] utilizzo di Ajax, salare password

@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/BaseTest.php';
 
 class NotificationTest extends BaseTest {
@@ -28,7 +27,7 @@ class NotificationTest extends BaseTest {
         $this->db->updateOrderStatus($orderId, 'sent');
     
         // Verifica notifica per 'sent'
-        $notifications = $this->db->getOrderNotifications($orderId);
+        $notifications = $this->db->getOrderNotificationByOrderId($orderId);
         $this->assertCount(1, $notifications);
         $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[0]['Message']);
         $this->assertEquals("sent", $notifications[0]['Status']);
@@ -37,7 +36,7 @@ class NotificationTest extends BaseTest {
         $this->db->updateOrderStatus($orderId, 'arrived');
     
         // Verifica notifica per 'arrived'
-        $notifications = $this->db->getOrderNotifications($orderId);
+        $notifications = $this->db->getOrderNotificationByOrderId($orderId);
         $this->assertCount(2, $notifications);
         $this->assertEquals("Il tuo ordine è arrivato!", $notifications[1]['Message']);
         $this->assertEquals("arrived", $notifications[1]['Status']);
@@ -67,7 +66,7 @@ class NotificationTest extends BaseTest {
         $this->db->updateOrderStatus($orderId, 'sent');
     
         // Verifica notifica per 'sent'
-        $notifications = $this->db->getOrderNotifications($orderId);
+        $notifications = $this->db->getOrderNotificationByOrderId($orderId);
         $this->assertCount(1, $notifications);
         $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[0]['Message']);
         $this->assertEquals("sent", $notifications[0]['Status']);
@@ -84,7 +83,7 @@ class NotificationTest extends BaseTest {
         $this->db->updateOrderStatus($orderId, 'arrived');
     
         // Verifica notifica per 'arrived'
-        $notifications = $this->db->getOrderNotifications($orderId);
+        $notifications = $this->db->getOrderNotificationByOrderId($orderId);
         $this->assertCount(2, $notifications);
         $this->assertEquals("Il tuo ordine è arrivato!", $notifications[1]['Message']);
         $this->assertEquals("arrived", $notifications[1]['Status']);

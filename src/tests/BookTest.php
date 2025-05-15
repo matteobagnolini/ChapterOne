@@ -8,7 +8,7 @@ class BookTest extends BaseTest {
         $this->tearDown();
 
         $categoryId = $this->db->insertCategory('Fiction');
-        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $publisherId = $this->db->insertPublisher('Penguin Books', '123 Publisher St');
         $authorId = $this->db->insertAuthor('John', 'Doe');
 
         $bookId = $this->db->insertBook(
@@ -60,7 +60,7 @@ class BookTest extends BaseTest {
         $this->tearDown();
 
         $categoryId = $this->db->insertCategory('Fiction');
-        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $publisherId = $this->db->insertPublisher('Penguin Books', '123 Publisher St');
         $authorId = $this->db->insertAuthor('John', 'Doe');
 
         $this->expectException(mysqli_sql_exception::class);
@@ -79,7 +79,7 @@ class BookTest extends BaseTest {
         $this->tearDown();
 
         $categoryId = $this->db->insertCategory('Fiction');
-        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $publisherId = $this->db->insertPublisher('Penguin Books', '123 Publisher St');
         $authorId = $this->db->insertAuthor('John', 'Doe');
 
 
@@ -103,7 +103,7 @@ class BookTest extends BaseTest {
         $this->tearDown();
 
         $categoryId = $this->db->insertCategory('Fiction');
-        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $publisherId = $this->db->insertPublisher('Penguin Books', '123 Publisher St');
         $authorId = $this->db->insertAuthor('John', 'Doe');
 
 
@@ -128,7 +128,7 @@ class BookTest extends BaseTest {
 
 
         $categoryId = $this->db->insertCategory('Fiction');
-        $publisherId = $this->db->insertPublisher('Penguin Books');
+        $publisherId = $this->db->insertPublisher('Penguin Books', '123 Publisher St');
         $authorId = $this->db->insertAuthor('John', 'Doe');
 
 
