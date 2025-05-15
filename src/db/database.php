@@ -316,10 +316,24 @@ class MySqlDatabase implements
     }
 
     public function insertPublisher($name, $address) {
+    
+        $stmt = $this->db->prepare("SELECT Id FROM PUBLISHER WHERE Name = ?");
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+        
+            return false;
+        }
+        $stmt->close();
+
         $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name, Address) VALUES (?, ?)");
         $stmt->bind_param('ss', $name, $address);
-        $stmt->execute();
-        return $stmt->insert_id;
+        if ($stmt->execute()) {
+            return $stmt->insert_id;
+        } else {
+            return false;
+        }
     }
 
 
