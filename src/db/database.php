@@ -701,6 +701,8 @@ class MySqlDatabase implements
             $stmt = $this->db->prepare("UPDATE CART SET Subtotal = 0, Item_count = 0, Last_modified = CURRENT_TIMESTAMP WHERE Customer_id = ?");
             $stmt->bind_param('i', $customerId);
             $stmt->execute();
+
+            $this->insertOrderNotification($orderId,"Ordine in elaborazione" ,"Il tuo ordine è in elaborazione!", 'pending');
     
             // Commit transazione
             $this->db->commit();
