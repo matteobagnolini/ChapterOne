@@ -256,7 +256,16 @@ class MySqlDatabase implements
         return $stmt->insert_id;
     }
 
-    public function updateAuthor($id, $firstName, $lastName) {
+   public function updateAuthor($id, $firstName, $lastName) {
+        $stmt = $this->db->prepare("SELECT Id FROM AUTHOR WHERE First_name = ? AND Last_name = ? AND Id != ?");
+        $stmt->bind_param('ssi', $firstName, $lastName, $id);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            return false;
+        }
+        $stmt->close();
+
         $stmt = $this->db->prepare("UPDATE AUTHOR SET First_name = ?, Last_name = ? WHERE Id = ?");
         $stmt->bind_param('ssi', $firstName, $lastName, $id);
         return $stmt->execute();
