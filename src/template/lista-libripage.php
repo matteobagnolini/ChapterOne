@@ -45,7 +45,7 @@
                             <a href="gestisci-libro.php?id=<?php echo $book["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Libro">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
                             </a>
-                            <a href="elimina-libro.php?id=<?php echo $book["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo libro?');" title="Elimina Libro">
+                            <a href="utils/delete-libro.php?id=<?php echo $book["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo libro?');" title="Elimina Libro">
                                 <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                         </td>

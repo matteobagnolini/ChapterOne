@@ -23,7 +23,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
         $templateParams["abilitarecensione"] = isUserLoggedIn() && $dbh->hasUserPurchaseBookId($_SESSION["id"], $bookId);
     }
 }
-
+var_dump($book);
 require 'template/base.php';
 
 ?>
