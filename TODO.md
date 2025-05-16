@@ -13,8 +13,8 @@
 - [ ] pulsante cambia quantità in carrello
 - [ ] acquista in quantità
 - [ ] Altri estratti
-- [ ] Gestione Ordini, admin cambia notifiche
-- [ ] Admin elimina accounts??
+- [x] Gestione Ordini, admin cambia notifiche
+- [ ] Admin elimina accounts clienti??
 - [ ] Ricerca libri e autore
 - [ ] Notifica ordine per admin quando ho un acquisto
 - [ ] spuntare come lette le notifiche, o poterle eliminare

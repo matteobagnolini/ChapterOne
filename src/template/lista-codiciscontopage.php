@@ -1,4 +1,7 @@
 <section class="container my-4">
+    <?php /* Rimosso blocco per $_SESSION['success_message'] */ ?>
+    <?php /* Rimosso blocco per $_SESSION['error_message'] */ ?>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Gestione Codici Sconto</h1>
         <a href="accountadmin.php" class="btn btn-outline-secondary">
@@ -68,11 +71,10 @@
                             <a href="gestisci-codice-sconto.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Codice Sconto">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
                             </a>
-                            <a href="elimina-codice-sconto.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo codice sconto?');" title="Elimina Codice Sconto">
+                            <a href="utils/delete-discountcode.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo codice sconto?');" title="Elimina Codice Sconto">
                                 <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
                             </a>
-                            <!-- Potresti aggiungere un pulsante per attivare/disattivare rapidamente -->
-                            <a href="attiva-disattiva-codice.php?id=<?php echo $discountCode["Id"]; ?>&current_status=<?php echo $discountCode["Active"]; ?>" class="btn btn-<?php echo $discountCode["Active"] ? 'warning' : 'success'; ?> btn-sm mb-1" title="<?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?>">
+                            <a href="utils/toggle-discountcode.php?id=<?php echo $discountCode["Id"]; ?>&current_status=<?php echo $discountCode["Active"] ? '1' : '0'; ?>" class="btn btn-<?php echo $discountCode["Active"] ? 'warning' : 'success'; ?> btn-sm mb-1" title="<?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?>">
                                 <i class="bi bi-<?php echo $discountCode["Active"] ? 'toggle-off' : 'toggle-on'; ?>"></i> <span class="d-none d-md-inline"><?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?></span>
                             </a>
                         </td>

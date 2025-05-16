@@ -256,7 +256,16 @@ class MySqlDatabase implements
         return $stmt->insert_id;
     }
 
-    public function updateAuthor($id, $firstName, $lastName) {
+   public function updateAuthor($id, $firstName, $lastName) {
+        $stmt = $this->db->prepare("SELECT Id FROM AUTHOR WHERE First_name = ? AND Last_name = ? AND Id != ?");
+        $stmt->bind_param('ssi', $firstName, $lastName, $id);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            return false;
+        }
+        $stmt->close();
+
         $stmt = $this->db->prepare("UPDATE AUTHOR SET First_name = ?, Last_name = ? WHERE Id = ?");
         $stmt->bind_param('ssi', $firstName, $lastName, $id);
         return $stmt->execute();
@@ -316,13 +325,36 @@ class MySqlDatabase implements
     }
 
     public function insertPublisher($name, $address) {
+    
+        $stmt = $this->db->prepare("SELECT Id FROM PUBLISHER WHERE Name = ?");
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+        
+            return false;
+        }
+        $stmt->close();
+
         $stmt = $this->db->prepare("INSERT INTO PUBLISHER (Name, Address) VALUES (?, ?)");
         $stmt->bind_param('ss', $name, $address);
-        $stmt->execute();
-        return $stmt->insert_id;
+        if ($stmt->execute()) {
+            return $stmt->insert_id;
+        } else {
+            return false;
+        }
     }
 
+
     public function updatePublisher($id, $name, $address) {
+        $stmt = $this->db->prepare("SELECT Id FROM PUBLISHER WHERE Name = ? AND Id != ?");
+        $stmt->bind_param('si', $name, $id);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            return false;
+        }
+        $stmt->close();
         $stmt = $this->db->prepare("UPDATE PUBLISHER SET Name = ?, Address = ? WHERE Id = ?");
         $stmt->bind_param('ssi', $name, $address, $id);
         return $stmt->execute();
@@ -517,11 +549,24 @@ class MySqlDatabase implements
     }
 
     public function insertDiscountCode($code, $type, $value, $startDate, $endDate, $singleUse, $active) {
+        $stmt = $this->db->prepare("SELECT Id FROM DISCOUNT_CODE WHERE Code = ?");
+        $stmt->bind_param('s', $code);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            return false;
+        }
+        $stmt->close();
+    
+        // Inserimento nuovo codice
         $stmt = $this->db->prepare("INSERT INTO DISCOUNT_CODE (Code, Type, Value, Start_date, End_date, Single_use, Active) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssdssii', $code, $type, $value, $startDate, $endDate, $singleUse, $active);
-        $stmt->execute();
-        return $stmt->insert_id;
-    }
+        if ($stmt->execute()) {
+            return $stmt->insert_id;
+        } else {
+            return false;
+        }
+}
 
     public function updateDiscountCode($id, $code, $type, $value, $startDate, $endDate, $singleUse, $active) {
         $stmt = $this->db->prepare("UPDATE DISCOUNT_CODE SET Code = ?, Type = ?, Value = ?, Start_date = ?, End_date = ?, Single_use = ?, Active = ? WHERE Id = ?");

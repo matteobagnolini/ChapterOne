@@ -52,11 +52,28 @@
                             <a href="orderdetails.php?id_order=<?php echo $ordine["Id"]; ?>" class="btn btn-primary btn-sm me-2" title="Vedi Dettagli">
                                 <i class="bi bi-eye"></i> <span class="d-none d-md-inline">Dettagli</span>
                             </a>
-                            <a href="modifica-stato-ordine.php?id_order=<?php echo $ordine["Id"]; ?>" class="btn btn-info btn-sm" title="Modifica Stato">
-                                <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Stato</span>
-                            </a>
-                            <!-- Potresti aggiungere un pulsante elimina se necessario, con conferma -->
-                            <!-- 
+                            <?php
+                                // Determina il prossimo stato e il testo del pulsante
+                                $nextStatus = '';
+                                $btnText = '';
+                                $btnClass = '';
+                                if ($ordine['Status'] == 'pending') {
+                                    $nextStatus = 'sent';
+                                    $btnText = 'Spedisci';
+                                    $btnClass = 'info';
+                                } elseif ($ordine['Status'] == 'sent') {
+                                    $nextStatus = 'arrived';
+                                    $btnText = 'Consegnato';
+                                    $btnClass = 'success';
+                                }
+                            ?>
+                            <?php if ($nextStatus): ?>
+                                <a href="utils/modifica-stato-ordine.php?id_order=<?php echo $ordine["Id"]; ?>&next_status=<?php echo $nextStatus; ?>" class="btn btn-<?php echo $btnClass; ?> btn-sm" title="Imposta come <?php echo ucfirst($nextStatus); ?>">
+                                    <i class="bi bi-arrow-repeat"></i> <span class="d-none d-md-inline"><?php echo $btnText; ?></span>
+                                </a>
+                            <?php endif; ?>
+                            <!-- Pulsante elimina (opzionale) -->
+                            <!--
                             <a href="elimina-ordine.php?id=<?php echo $ordine["Id"]; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Sei sicuro di voler eliminare questo ordine?');" title="Elimina Ordine">
                                 <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
                             </a>
@@ -68,6 +85,4 @@
             </table>
         </div>
     <?php endif; ?>
-    
-   
 </section>
