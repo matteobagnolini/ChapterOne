@@ -10,29 +10,29 @@ $templateParams["titolo"] = "ChapterOne - Modifica Autore";
 $templateParams["nome"] = "gestisci-autoripage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
-$idautore = isset($_GET["id"]) ? intval($_GET["id"]) : -1;
-$autore = $dbh->getAuthorById($idautore);
+$idautore = isset($_GET["id"]) ? intval($_GET["id"]) : (isset($_POST["id"]) ? intval($_POST["id"]) : -1);
+$author = $dbh->getAuthorById($idautore);
 
-if(!$autore){
+if(!$author){
     $_SESSION['form_error_message'] = "Autore non trovato.";
     header("Location: lista-autori.php");
     exit;
 }
 
 // Se il form NON è stato inviato, carica i dati dell'autore per il form
-$templateParams["autore"] = $autore;
+$templateParams["author"] = $author;
 
 // Se il form è stato inviato, aggiorna i dati e ripopola in caso di errore
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $nome = trim($_POST['nome']);
-    $cognome = trim($_POST['cognome']);
+    $first_name = trim($_POST['first_name']);
+    $last_name = trim($_POST['last_name']);
 
     $errors = [];
-    if (empty($nome)) $errors[] = "Il nome è obbligatorio.";
-    if (empty($cognome)) $errors[] = "Il cognome è obbligatorio.";
-    var_dump($errors);  
+    if (empty($first_name)) $errors[] = "Il nome è obbligatorio.";
+    if (empty($last_name)) $errors[] = "Il cognome è obbligatorio.";
+
     if (empty($errors)) {
-        $success = $dbh->updateAuthor($idautore, $nome, $cognome);
+        $success = $dbh->updateAuthor($idautore, $first_name, $last_name);
         if ($success) {
             $_SESSION['success_message'] = "Autore aggiornato con successo!";
             header("Location: lista-autori.php");
@@ -42,10 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     } else {
         $_SESSION['form_error_message'] = implode("<br>", $errors);
+
+        $templateParams["author"]["First_name"] = $first_name;
+        $templateParams["author"]["Last_name"] = $last_name;
     }
-    // In caso di errore, ripopola i dati nel form
-    $templateParams["autore"][0]["First_name"] = $nome;
-    $templateParams["autore"][0]["Last_name"] = $cognome;
 }
 
 require 'template/base.php';
