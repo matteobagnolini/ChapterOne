@@ -515,6 +515,14 @@ class MySqlDatabase implements
         return $stmt->get_result()->fetch_assoc();
     }
 
+  
+
+    public function updateBookInCart($cartId, $bookId, $quantity) {
+        $stmt = $this->db->prepare("UPDATE BOOK_IN_CART SET Quantity = ? WHERE Cart_id = ? AND Book_id = ?");
+        $stmt->bind_param('iii', $quantity, $cartId, $bookId);
+        return $stmt->execute();
+    }
+
     public function insertBookInCart($cartId, $bookId, $quantity) {
         // Controlla se il libro è già nel carrello
         $stmt_check = $this->db->prepare("SELECT Id, Quantity FROM BOOK_IN_CART WHERE Cart_id = ? AND Book_id = ?");
@@ -549,12 +557,6 @@ class MySqlDatabase implements
                 return false;
             }
         }
-    }
-
-    public function updateBookInCart($cartId, $bookId, $quantity) {
-        $stmt = $this->db->prepare("UPDATE BOOK_IN_CART SET Quantity = ? WHERE Cart_id = ? AND Book_id = ?");
-        $stmt->bind_param('iii', $quantity, $cartId, $bookId);
-        return $stmt->execute();
     }
 
     public function deleteBookInCart($cartId, $bookId) {
@@ -1276,6 +1278,43 @@ class MySqlDatabase implements
         $stmt->bind_param('siii', $text, $rating, $bookId, $userId);
         $stmt->execute();
         return $stmt->insert_id;
+    }
+
+
+    public function isBookPurchasable($bookId) {
+        if (!is_numeric($bookId) || $bookId <= 0) {
+            // Gestione input non valido
+            error_log("isBookPurchasable: ID libro non valido fornito: " . $bookId);
+            return false;
+        }
+
+        $query = "SELECT Product_count FROM BOOK WHERE Id = ?";
+        $stmt = $this->db->prepare($query);
+
+        if (!$stmt) {
+            // Gestione errore preparazione statement
+            error_log("Errore nella preparazione dello statement per isBookPurchasable: " . $this->db->error);
+            return false; 
+        }
+
+        $stmt->bind_param('i', $bookId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $book = $result->fetch_assoc();
+            $stmt->close();
+            return (isset($book['Product_count']) && $book['Product_count'] > 0);
+        } else {
+            // Libro non trovato o errore nella query
+            if ($stmt->error) {
+                error_log("Errore nell'esecuzione dello statement per isBookPurchasable: " . $stmt->error);
+            } else {
+                error_log("isBookPurchasable: Libro non trovato con ID: " . $bookId);
+            }
+            $stmt->close();
+            return false;
+        }
     }
 
 }

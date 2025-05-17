@@ -36,15 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             case 'add':
                 if ($bookId) {
-                    // Prima controlla se il libro è già nel carrello per aggiornare la quantità
-                    // o inserirlo se non presente. Questa logica potrebbe essere in insertBookInCart
-                    // o gestita qui. Per semplicità, assumiamo che insertBookInCart gestisca i duplicati
-                    // aggiornando la quantità o che si voglia sempre aggiungere la quantità specificata.
-                    $result = $dbh->insertBookInCart($cartId, $bookId, $quantity);
-                    if ($result) {
-                        $_SESSION['success'] = "Libro aggiunto al carrello.";
+                    $isPurchasable = $dbh->isBookPurchasable($bookId);
+                    if (!$isPurchasable) {
+                        $_SESSION['error'] = "Il libro non è disponibile per l'acquisto.";
+                        header("Location: ../cart.php");
+                        exit;
                     } else {
-                        $_SESSION['error'] = "Errore durante l'aggiunta del libro al carrello.";
+                        $result = $dbh->insertBookInCart($cartId, $bookId, $quantity);
+                        if ($result) {
+                            $_SESSION['success'] = "Libro aggiunto al carrello.";
+                        } else {
+                            $_SESSION['error'] = "Errore durante l'aggiunta del libro al carrello.";
+                        }
                     }
                 } else {
                     $_SESSION['error'] = "ID libro mancante per l'aggiunta.";
