@@ -1,7 +1,7 @@
 <article class="container mt-4">
             <section class="row mb-4">
                 <div class="col-md-4">
-                    <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="img-fluid rounded shadow" alt="Copertina del libro">
+                    <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="img-fluid rounded shadow" alt="Copertina Libro">
                 </div>
                 <div class="col-md-8 d-flex flex-column justify-content-between">
                     <div>
@@ -15,23 +15,29 @@
                             $bookDetails = $templateParams["libro"];
                             $excerptFilename = $bookDetails["Exceptr"] ?? null; // Assicurati che 'Excerpt_filename' sia la chiave corretta
                             $bookId = $bookDetails["Id"] ?? null;
-
-                            // Definisci il percorso base per gli estratti.
-                            // Assicurati che questa directory esista e contenga i file.
                             $baseExcerptPath = UPLOAD_DIR;
                         
                         ?>
 
-                        <form action="utils/cart_actions.php" method="POST" style="display: inline-block; margin-right: 0.5rem;">
+                                                <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
-                            <input type="hidden" name="quantity" value="1">
+                            
                             <?php 
-                            if (isset($_SESSION['admin']) && $_SESSION['admin'] === true): 
+                            $isBookAvailable = isset($templateParams["libro"]["Product_count"]) && $templateParams["libro"]["Product_count"] > 0;
+                            if (!(isset($_SESSION['admin']) && $_SESSION['admin'] === true)):
+                                if ($isBookAvailable):
                             ?>
-                                <button type="submit" class="btn btn-secondary" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
-                            <?php else: ?>
+                                <div class="me-2">
+                                    <label for="quantity_<?php echo $bookId; ?>" class="form-label visually-hidden">Quantità</label>
+                                    <input type="number" name="quantity" id="quantity_<?php echo $bookId; ?>" class="form-control" value="1" min="1" <?php if (isset($templateParams["libro"]["Product_count"])) echo 'max="' . $templateParams["libro"]["Product_count"] . '"'; ?> style="width: 70px;" aria-label="Quantità">
+                                </div>
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                            <?php else: ?>
+                                <button type="button" class="btn btn-secondary" disabled><i class="bi bi-cart-plus"></i> Non disponibile</button>
+                            <?php endif; ?>
+                            <?php else: // Se è admin ?>
+                                <button type="button" class="btn btn-secondary" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
                             <?php endif; ?>
                         </form>
 

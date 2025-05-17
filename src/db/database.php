@@ -683,6 +683,20 @@ class MySqlDatabase implements
                     throw new Exception("Codice sconto non valido.");
                 }
             }
+
+               // Recupera i libri nel carrello
+            $booksInCart = $this->getBooksInCart($cartId);
+            $errors = [];
+            foreach ($booksInCart as $book) {
+                $dbBook = $this->getBookById($book['Book_id']);
+                if ($dbBook['Product_count'] <= 0) {
+                    $errors[] = $dbBook['Title'];
+                }
+            }
+
+            if (!empty($errors)) {
+                throw new Exception("I seguenti libri non sono disponibili: " . implode(", ", $errors));
+            }
     
             // Inserisci l'ordine
             $stmt = $this->db->prepare("INSERT INTO `ORDER` (Date, Total, Customer_id, Discount_code_id) VALUES (?, ?, ?, ?)");
@@ -700,8 +714,7 @@ class MySqlDatabase implements
                 );
              }
     
-            // Recupera i libri nel carrello
-            $booksInCart = $this->getBooksInCart($cartId);
+         
     
             // Crea i dettagli dell'ordine per ogni libro nel carrello
             foreach ($booksInCart as $book) {

@@ -3,7 +3,7 @@
 - [x] Pagina Catalogo
 - [x] Pagina Categoria
 - [x] Pagina per gestione con lista libri / categorie / autori
-- [ ] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori, codici sconto)
+- [x] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori, codici sconto)
 - [x] Pagina di Ricerca
 - [x] Pagina About Us
 - [x] Pagina Registra Account
@@ -15,7 +15,7 @@
 - [ ] Altri estratti
 - [x] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts clienti??
-- [ ] Ricerca libri e autore
-- [ ] Notifica ordine per admin quando ho un acquisto
+- [x] Ricerca libri e autore
+- [x] Notifica ordine per admin quando ho un acquisto
 - [ ] spuntare come lette le notifiche, o poterle eliminare
 - [ ] utilizzo di Ajax, salare password

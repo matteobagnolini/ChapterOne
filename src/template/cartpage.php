@@ -32,7 +32,7 @@
                                 <div class="col-md-2">
                                     <a href="book.php?id=<?php echo htmlspecialchars($item["Id"]); ?>">
                                         <figure class="m-3">
-                                            <img src="<?php echo UPLOAD_DIR . htmlspecialchars($item["Cover"]); ?>" alt="Copertina <?php echo htmlspecialchars($item["Title"]); ?>" class="img-fluid rounded">
+                                            <img src="<?php echo UPLOAD_DIR . htmlspecialchars($item["Cover"]); ?>" alt="Copertina Libro" class="img-fluid rounded">
                                         </figure>
                                     </a>
                                 </div>
