@@ -50,6 +50,7 @@ interface BookManager {
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId);
     public function deleteBook($id);
     public function searchBooks($searchTerm);
+    public function updateBookQuantity($id, $quantity);
 }
 
 interface PostManager {

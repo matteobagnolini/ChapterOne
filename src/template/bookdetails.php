@@ -26,7 +26,13 @@
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
                             <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                            <?php 
+                            if (isset($_SESSION['admin']) && $_SESSION['admin'] === true): 
+                            ?>
+                                <button type="submit" class="btn btn-secondary" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                            <?php else: ?>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                            <?php endif; ?>
                         </form>
 
                         <?php if ($excerptFilename && $bookId):?>

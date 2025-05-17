@@ -49,6 +49,10 @@
                                     <input type="number" step="0.01" class="form-control" id="prezzo" name="prezzo" value="<?php echo htmlspecialchars($templateParams['libro']['Price']); ?>" />
                                 </li>
                                 <li class="mb-3">
+                                    <label for="quantita" class="form-label">Quantità:</label>
+                                    <input type="number" step="1" class="form-control" id="quantita" name="quantita" value="<?php echo isset($templateParams['libro']['Product_count']) ? htmlspecialchars($templateParams['libro']['Product_count']) : '0'; ?>" />
+                                </li>
+                                <li class="mb-3">
                                     <label for="descrizione" class="form-label">Descrizione:</label>
                                     <textarea class="form-control" id="descrizione" name="descrizione" rows="4"><?php echo htmlspecialchars($templateParams['libro']['Description']); ?></textarea>
                                 </li>

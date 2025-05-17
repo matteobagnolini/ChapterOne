@@ -190,6 +190,12 @@ class MySqlDatabase implements
         }
     }
 
+     public function updateBookQuantity($bookId, $quantity) {
+        $stmt = $this->db->prepare("UPDATE BOOK SET Product_count = ? WHERE id = ?");
+        $stmt->bind_param('ii', $quantity, $bookId);
+        return $stmt->execute();
+    }
+
     public function deleteBook($id) {
         // Ottieni tutte le informazioni necessarie sui libri nei carrelli prima di eliminarli
         $stmt = $this->db->prepare("

@@ -21,18 +21,23 @@ $templateParams["ordini"] = [];
 $templateParams["isAdminView"] = (isset($_SESSION['admin']) && $_SESSION['admin'] === true); // Imposta il flag qui
 
 if ($templateParams["isAdminView"]) {
-    // Logica per l'admin
-    $templateParams["notifiche"] = $dbh->getOrdersNotificationByStatus('pending'); 
-    var_dump($templateParams["notifiche"]);
-    if (is_array($templateParams["notifiche"])) {
-        foreach ($templateParams["notifiche"] as $notification) {
-            if (isset($notification["Order_id"]) && !in_array($notification["Order_id"], $orderIds)) {
-                $orderIds[] = $notification["Order_id"];
+
+    $notificheAdminRaw = $dbh->getOrdersNotificationByStatus('pending');
+    $templateParams["notifiche"] = []; // Inizializza come array vuoto
+    if (is_array($notificheAdminRaw)) {
+        foreach ($notificheAdminRaw as $key => $notification) {
+            $currentNotification = $notification; // Lavora su una copia per modificarla
+            if (isset($currentNotification["Order_id"])) {
+                if (!in_array($currentNotification["Order_id"], $orderIds)) {
+                    $orderIds[] = $currentNotification["Order_id"];
+                }
+                $currentNotification["Preview"] = "Nuovo Ordine";
+                $currentNotification["Message"] = "Nuovo Ordine ricevuto. Controlla i dettagli."; // Messaggio base
             }
+            $templateParams["notifiche"][$key] = $currentNotification;
         }
     } else {
-        error_log("getOrderNotificationByStatus non ha restituito un array per l'admin.");
-        $templateParams["notifiche"] = []; 
+        error_log("getOrdersNotificationByStatus non ha restituito un array per l'admin.");
     }
 
 } else {

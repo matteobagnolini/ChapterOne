@@ -49,7 +49,7 @@ CREATE TABLE BOOK (
     Category_id INT ,
     Publisher_id INT ,
     Author_id INT ,
-    Product_count INT DEFAULT 0,
+    Product_count INT DEFAULT 10,
     FOREIGN KEY (Category_id) REFERENCES CATEGORY(Id) ON DELETE SET NULL,
     FOREIGN KEY (Author_id) REFERENCES AUTHOR(Id) ON DELETE CASCADE,
     FOREIGN KEY (Publisher_id) REFERENCES PUBLISHER(Id) ON DELETE CASCADE
