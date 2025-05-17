@@ -8,10 +8,10 @@ if (!isset($_GET['query']) || empty($_GET['query'])) {
 } else {
     $templateParams["nome"] = "carosello-libri.php";
     $templateParams["titolo"] = "ChapterOne - Ricerca Libro";
-    $templateParams["intestazione"] = "Cerca Libro per Nome";
+    $templateParams["intestazione"] = "Risultati Ricerca";
     $query = $_GET["query"];
 
-    $book = $dbh->getBookByTitle($query);
+    $book = $dbh->searchBooks($query);
     $templateParams["libri"] = $book;
     
     if ($book === null || count($book) === 0) {

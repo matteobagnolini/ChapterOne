@@ -23,7 +23,7 @@ $templateParams["isAdminView"] = (isset($_SESSION['admin']) && $_SESSION['admin'
 if ($templateParams["isAdminView"]) {
     // Logica per l'admin
     $templateParams["notifiche"] = $dbh->getOrdersNotificationByStatus('pending'); 
-    
+    var_dump($templateParams["notifiche"]);
     if (is_array($templateParams["notifiche"])) {
         foreach ($templateParams["notifiche"] as $notification) {
             if (isset($notification["Order_id"]) && !in_array($notification["Order_id"], $orderIds)) {
