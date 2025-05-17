@@ -68,7 +68,7 @@
                                 </li>
                                 <li class="mt-4">
                                     <input type="submit" name="submit" value="Salva Libro" class="btn btn-primary me-2" />
-                                    <a href="#" class="btn btn-secondary">Annulla</a>
+                                    <a href="lista-libri.php" class="btn btn-secondary">Annulla</a>
                                 </li>
                             </ul>
                             
