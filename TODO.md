@@ -10,12 +10,13 @@
 - [x] Pagina notifiche
 - [x] pulsante Aggiungi libro a carrello
 - [x] pulsante rimuovi dal carrello
-- [ ] pulsante cambia quantità in carrello
-- [ ] acquista in quantità
+- [X] pulsante cambia quantità in carrello
+- [X] acquista in quantità
 - [ ] Altri estratti
 - [x] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts clienti??
 - [x] Ricerca libri e autore
 - [x] Notifica ordine per admin quando ho un acquisto
 - [ ] spuntare come lette le notifiche, o poterle eliminare
-- [ ] utilizzo di Ajax, salare password
+- [ ] utilizzo di Ajax, 
+- [x] salare password
