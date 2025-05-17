@@ -38,7 +38,7 @@
                         </div>
                         <div class="card-body">
 
-                            <form id="account-form" method="POST" action="../update-account.php">
+                            <form id="account-form" method="POST" action="account.php">
                                 <fieldset>
                                     <legend class="fw-bold mb-3">Dettagli Account</legend>
 
@@ -56,26 +56,23 @@
 
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
-                                        <!-- Campo password vuoto, da compilare solo se si vuole cambiare password -->
-                                        <input type="password" id="password" name="password"
-                                               value=""
-                                               class="form-control" autocomplete="new-password" placeholder="Modifca password">
+                                        <input type="password" name="password" value="" class="form-control" placeholder="Modifca password">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Indirizzo</label>
-                                        <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Address"]); ?>" class="form-control">
+                                        <input type="text" name="address" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Address"]); ?>" class="form-control">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Telefono</label>
-                                        <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Phone"]); ?>" class="form-control">
+                                        <input type="tel" name="phone" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Phone"]); ?>" class="form-control">
                                     </div>
                                 </fieldset>
 
                                 <div class="d-flex gap-2 mt-4">
                        
-                                    <button type="submit" name="action" value="update_account" class="btn btn-secondary" disabled>
+                                    <button type="submit" name="action" value="update_account" class="btn btn-secondary">
                                         <i class="bi bi-check-lg me-1"></i> Salva modifiche
                                     </button>
                                 </div>
@@ -87,45 +84,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('account-form');
-    const saveButton = form.querySelector('button[type="submit"][name="action"][value="update_account"]');
-    const inputFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="tel"]');
-    let originalValues = {};
-
-    inputFields.forEach(field => {
-        originalValues[field.id] = field.value;
-    });
-
-    // Disabilita e imposta stile iniziale (grigio)
-    saveButton.disabled = true;
-    // La classe iniziale è già btn-secondary dall'HTML
-
-    function checkChanges() {
-        let hasChanges = false;
-        inputFields.forEach(field => {
-            if (field.value !== originalValues[field.id]) {
-                hasChanges = true;
-            }
-        });
-
-        // Abilita/disabilita e cambia colore
-        if (hasChanges) {
-            saveButton.disabled = false;
-            saveButton.classList.remove('btn-secondary'); // Rimuovi grigio
-            saveButton.classList.add('btn-success');     // Aggiungi verde
-        } else {
-            saveButton.disabled = true;
-            saveButton.classList.remove('btn-success');   // Rimuovi verde
-            saveButton.classList.add('btn-secondary');  // Aggiungi grigio
-        }
-    }
-
-    inputFields.forEach(field => {
-        field.addEventListener('input', checkChanges);
-    });
-});
-</script>
