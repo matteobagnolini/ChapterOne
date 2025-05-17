@@ -990,40 +990,45 @@ class MySqlDatabase implements
     
     public function checkLogin($email, $password) {
         // Prima controlla nella tabella CUSTOMER
-        $stmt = $this->db->prepare("SELECT Id, Email, First_name, Last_name FROM CUSTOMER WHERE Email = ? AND Password = ?");
-        $stmt->bind_param('ss', $email, $password);
+        $stmt = $this->db->prepare("SELECT Id, Email, First_name, Last_name, Password FROM CUSTOMER WHERE Email = ?");
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            return [
-                'id' => $user['Id'],
-                'username' => $user['Email'],
-                'name' => $user['First_name'] . ' ' . $user['Last_name'],
-                'admin' => false
-            ];
+            // Verifica la password hashata
+            if (password_verify($password, $user['Password'])) {
+                return [
+                    'id' => $user['Id'],
+                    'username' => $user['Email'],
+                    'name' => $user['First_name'] . ' ' . $user['Last_name'],
+                    'admin' => false
+                ];
+            }
         }
-        
+
         // Se non trovato, controlla nella tabella ADMIN
-        $stmt = $this->db->prepare("SELECT Id, Email, First_name, Last_name FROM ADMIN WHERE Email = ? AND Password = ?");
-        $stmt->bind_param('ss', $email, $password);
+        $stmt = $this->db->prepare("SELECT Id, Email, First_name, Last_name, Password FROM ADMIN WHERE Email = ?");
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            return [
-                'id' => $user['Id'],
-                'username' => $user['Email'],
-                'name' => $user['First_name'] . ' ' . $user['Last_name'],
-                'admin' => true
-            ];
-        }
-        
-        // Se non trovato in nessuna tabella
-        return null;
+            // Verifica la password hashata
+            if (password_verify($password, $user['Password'])) {
+                return [
+                    'id' => $user['Id'],
+                    'username' => $user['Email'],
+                    'name' => $user['First_name'] . ' ' . $user['Last_name'],
+                    'admin' => true
+                ];
+            }
     }
+
+    return null;
+}
 
     public function getAccountInfo($email){
         // Prima controlla nella tabella CUSTOMER

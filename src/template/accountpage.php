@@ -56,13 +56,10 @@
 
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
-                                        <!-- Campo pre-compilato con la password attuale (mascherata) -->
+                                        <!-- Campo password vuoto, da compilare solo se si vuole cambiare password -->
                                         <input type="password" id="password" name="password"
-                                               value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Password"]); // Visualizza la password attuale ?>"
-                                               class="form-control">
-                                        <div id="passwordHelpBlock" class="form-text">
-                                          Modifica questo campo solo se desideri cambiare la password.
-                                        </div>
+                                               value=""
+                                               class="form-control" autocomplete="new-password" placeholder="Modifca password">
                                     </div>
 
                                     <div class="mb-3">

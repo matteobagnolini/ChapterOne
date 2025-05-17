@@ -6,7 +6,7 @@ $templateParams["nome"] = "accountpage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
 if(isUserLoggedIn()){
-    $templateParams["accountInfo"] = $dbh->getAccountInfo($_SESSION["username"]); # TODO: Account info with logged user ID
+    $templateParams["accountInfo"] = $dbh->getAccountInfo($_SESSION["username"]);
 }else{
     header("location: login.php");
 } 

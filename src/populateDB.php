@@ -41,12 +41,12 @@ try {
     $db->db->query("ALTER TABLE ADMIN AUTO_INCREMENT = 1");
     
     // Popola la tabella CUSTOMER
-    $customerId1 = $db->insertCustomer('Mario', 'Rossi', 'prova@example.com', 'password123', 'Via Roma 1', '1234567890');
-    $customerId2 = $db->insertCustomer('Luigi', 'Verdi', 'luigi.verdi@example.com', 'password123', 'Via Milano 2', '0987654321');
-    $customerId3 = $db->insertCustomer('Anna', 'Bianchi', 'anna.bianchi@example.com', 'password123', 'Via Napoli 3', '3456789012');
+    $customerId1 = $db->insertCustomer('Mario', 'Rossi', 'prova@example.com', password_hash('password123', PASSWORD_DEFAULT), 'Via Roma 1', '1234567890');
+    $customerId2 = $db->insertCustomer('Luigi', 'Verdi', 'luigi.verdi@example.com', password_hash('password123', PASSWORD_DEFAULT), 'Via Milano 2', '0987654321');
+    $customerId3 = $db->insertCustomer('Anna', 'Bianchi', 'anna.bianchi@example.com', password_hash('password123', PASSWORD_DEFAULT), 'Via Napoli 3', '3456789012');
 
     // Popola la tabella ADMIN
-    $adminId = $db->insertAdmin('Admin', 'User', 'admin@example.com', 'admin123');
+    $adminId = $db->insertAdmin('Admin', 'User', 'admin@example.com', password_hash('admin123', PASSWORD_DEFAULT));
 
     // Popola la tabella AUTHOR
     $authorId1 = $db->insertAuthor('Giovanni', 'Bianchi');

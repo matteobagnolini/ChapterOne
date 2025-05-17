@@ -5,7 +5,7 @@ if (isUserLoggedIn() || isAdminLoggedIn()) {
     header("location: index.php");
 }
 
-$templateParams["titolo"] = "ChapterOne - Notifiche";
+$templateParams["titolo"] = "ChapterOne - Registrazione";
 $templateParams["nome"] = "registrazionepage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 

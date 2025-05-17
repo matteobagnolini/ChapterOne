@@ -16,7 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Errore: Email non valida.");
     }
 
-    $result = $dbh->registerUser($nomeCompleto, $email, $password, $indirizzo, $telefono);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $result = $dbh->registerUser($nomeCompleto, $email, $hashedPassword, $indirizzo, $telefono);
 
     if ($result) {
         header("Location: ../login.php");
