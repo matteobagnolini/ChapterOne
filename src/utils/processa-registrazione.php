@@ -8,23 +8,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $indirizzo = trim($_POST["indirizzo"]);
     $telefono = trim($_POST["telefono"]);
 
-    if (empty($nomeCompleto) || empty($email) || empty($password) || empty($indirizzo) || empty($telefono)) {
-        die("Errore: Tutti i campi sono obbligatori.");
+  if (empty($nomeCompleto) || empty($email) || empty($password) || empty($indirizzo) || empty($telefono)) {
+        $_SESSION['error_message'] = "Errore: Tutti i campi sono obbligatori.";
+        header("Location: ../registrazione.php");
+        exit;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die("Errore: Email non valida.");
+        $_SESSION['error_message'] = "Errore: Email non valida.";
+        header("Location: ../registrazione.php");
+        exit;
     }
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $result = $dbh->registerUser($nomeCompleto, $email, $hashedPassword, $indirizzo, $telefono);
+    $nomeArray = explode(' ', $nomeCompleto, 2);
+    $firstName = $nomeArray[0];
+    $lastName = isset($nomeArray[1]) ? $nomeArray[1] : '';
+
+    $result = $dbh->insertCustomer($firstName, $lastName, $email, $hashedPassword, $indirizzo, $telefono);
 
     if ($result) {
         header("Location: ../login.php");
         exit;
     } else {
-        die("Errore: Registrazione fallita. Riprova più tardi.");
+        $_SESSION['error_message'] = "Errore: Registrazione fallita. L'email potrebbe essere già in uso o si è verificato un problema.";
+        header("Location: ../registrazione.php");
     }
+} else 
+{
+    $_SESSION['error_message'] = "Errore: Metodo di richiesta non valido.";
+    header("Location: ../registrazione.php");
 }
 ?>

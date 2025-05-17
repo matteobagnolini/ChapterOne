@@ -17,7 +17,7 @@
                                         <option selected>Seleziona un autore</option>
                                         <?php foreach ($templateParams["autori"] as $autore): ?>
                                             <option value="<?php echo $autore["Id"]; ?>">
-                                                <?php echo $autore["First_name"] . $autore["Last_name"]; ?>
+                                                <?php echo $autore["First_name"] . " " . $autore["Last_name"]; ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>

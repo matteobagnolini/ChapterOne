@@ -1,9 +1,28 @@
+
 <section class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <div class="card shadow p-5">
                 <h2 class="text-center mb-4">Registrazione Utente</h2>
+
+                <?php if (isset($_SESSION['error_message'])): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php 
+                            echo htmlspecialchars($_SESSION['error_message']); 
+                            unset($_SESSION['error_message']); 
+                        ?>
+                    </div>
+                <?php endif; ?>
                 
+                <?php if (isset($_SESSION['success_message'])):  ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php 
+                            echo htmlspecialchars($_SESSION['success_message']); 
+                            unset($_SESSION['success_message']); 
+                        ?>
+                    </div>
+                <?php endif; ?>
+
                 <form action="utils/processa-registrazione.php" method="POST">
                     <fieldset>
                         <legend class="visually-hidden">Informazioni Utente</legend>

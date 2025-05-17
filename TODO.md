@@ -6,7 +6,7 @@
 - [ ] Creazione di pagine per rimuovere i dati e crearne nuovi (libri, case editrici e autori, codici sconto)
 - [x] Pagina di Ricerca
 - [x] Pagina About Us
-- [ ] Pagina Registra Account
+- [x] Pagina Registra Account
 - [x] Pagina notifiche
 - [x] pulsante Aggiungi libro a carrello
 - [x] pulsante rimuovi dal carrello

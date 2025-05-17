@@ -53,13 +53,37 @@ class MySqlDatabase implements
     }
 
     public function insertCustomer($firstName, $lastName, $email, $password, $address, $phone) {
+        // Controlla se l'email esiste già
+        $stmt = $this->db->prepare("SELECT Id FROM CUSTOMER WHERE Email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            $stmt->close();
+            return false;
+        }
+        $stmt->close();
+
         $stmt = $this->db->prepare("INSERT INTO CUSTOMER (First_name, Last_name, Email, Password, Address, Phone) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssssss', $firstName, $lastName, $email, $password, $address, $phone);
-        $stmt->execute();
-        return $stmt->insert_id;
+        if ($stmt->execute()) {
+            return $stmt->insert_id;
+        } else {
+            return false; 
+        }
     }
 
     public function updateCustomer($id, $firstName, $lastName, $email, $password, $address, $phone) {
+        $stmt = $this->db->prepare("SELECT Id FROM CUSTOMER WHERE Email = ? AND Id != ?");
+        $stmt->bind_param('si', $email, $id);
+        $stmt->execute();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            $stmt->close();
+            return false; 
+        }
+        $stmt->close();
+
         $stmt = $this->db->prepare("UPDATE CUSTOMER SET First_name = ?, Last_name = ?, Email = ?, Password = ?, Address = ?, Phone = ? WHERE Id = ?");
         $stmt->bind_param('ssssssi', $firstName, $lastName, $email, $password, $address, $phone, $id);
         return $stmt->execute();
