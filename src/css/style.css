@@ -140,3 +140,50 @@ footer {
 }
 
 
+
+.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link,
+.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link {
+    background-color: #ffffff;
+    border-radius: 0.25rem;
+    padding: 3px 6px !important; 
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
+}
+
+.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link:hover,
+.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+    border-color: #ced4da;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+
+.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link.text-success:hover .bi,
+.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link.text-success:hover .bi { /* Applicabile se ci fosse un pulsante success nelle notifiche lette */
+    color: #157347;
+}
+
+.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link.text-danger:hover .bi,
+.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link.text-danger:hover .bi {
+    color: #b02a37;
+}
+
+
+
+@media (max-width: 575.98px) {
+    section li a .card {
+        height: 350px; /* Riduci l'altezza totale della card per mobile */
+    }
+
+    section li a .card .card-img-container {
+        height: 220px; /* Riduci l'altezza del contenitore dell'immagine per mobile */
+    }
+}
+
+   
+
+
+
+

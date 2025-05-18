@@ -1,19 +1,18 @@
-<section>
+<section class="pt-3 pb-4 text-center bg-light"> 
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1>Benvenuti su ChapterOne</h1>
-                <p>ChapterOne è il tuo negozio online di fiducia per libri di ogni genere. Scopri i nostri bestseller, le ultime novità e le categorie più popolari.</p>
+        <div class="row py-lg-2">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h1 class="fw-light display-5">Benvenuti su ChapterOne</h1>
+                <p class="lead text-muted">ChapterOne è il tuo negozio online di fiducia per libri di ogni genere. Scopri i nostri bestseller, le ultime novità e le categorie più popolari.</p>
             </div>
         </div>
     </div>
-</section>
 
 <section>
     <div class="container">
-        <div class="row">
+        <div class="row text-center mb-4">
             <div class="col-12">
-                <h2>Bestseller</h2>
+                <h2 class="display-6 fw-light">Bestseller</h2>
             </div>
         </div>
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
@@ -39,9 +38,9 @@
 
 <section>
     <div class="container">
-        <div class="row">
+        <div class="row text-center mb-4">
             <div class="col-12">
-                <h2>Novità</h2>
+                <h2 class="display-6 fw-light">Novità</h2>
             </div>
         </div>
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
