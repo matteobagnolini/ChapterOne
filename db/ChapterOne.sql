@@ -44,7 +44,7 @@ CREATE TABLE BOOK (
     Title VARCHAR(255) NOT NULL,
     Description TEXT,
     Price DECIMAL(10, 2) NOT NULL,
-    Cover VARCHAR(255) NOT NULL,
+    Cover VARCHAR(255) DEFAULT 'images/NoImage.jpg',
     Exceptr VARCHAR(255),
     Category_id INT ,
     Publisher_id INT ,

@@ -12,7 +12,7 @@
 - [x] pulsante rimuovi dal carrello
 - [X] pulsante cambia quantità in carrello
 - [X] acquista in quantità
-- [ ] Altri estratti
+- [x] Altri estratti
 - [x] Gestione Ordini, admin cambia notifiche
 - [ ] Admin elimina accounts clienti??
 - [x] Ricerca libri e autore

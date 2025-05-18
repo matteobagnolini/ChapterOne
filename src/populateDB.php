@@ -70,14 +70,14 @@ try {
 
     // Popola la tabella BOOK con 9 libri
     $bookId1 = $db->insertBookWithExceptr('Il Grande Romanzo', 'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni', 19.99, 'images/deepwork.jpg', 'exceptr/text.txt', $categoryId1, $publisherId1, $authorId1);
-    $bookId2 = $db->insertBookWithExceptr('Viaggio nello Spazio', 'Un racconto di fantascienza ambientato nel 2150', 15.99, 'images/shining.jpg', 'exceptr/text.txt', $categoryId2, $publisherId2, $authorId2);
-    $bookId3 = $db->insertBookWithExceptr('Il Mistero del Lago', 'Un giallo avvincente ambientato in un piccolo villaggio di montagna', 18.50, 'images/stevejobs.jpg', 'exceptr/text.txt', $categoryId3, $publisherId3, $authorId3);
+    $bookId2 = $db->insertBookWithExceptr('Viaggio nello Spazio', 'Un racconto di fantascienza ambientato nel 2150', 15.99, 'images/shining.jpg', 'exceptr/text1.txt', $categoryId2, $publisherId2, $authorId2);
+    $bookId3 = $db->insertBookWithExceptr('Il Mistero del Lago', 'Un giallo avvincente ambientato in un piccolo villaggio di montagna', 18.50, 'images/stevejobs.jpg', 'exceptr/text2.txt', $categoryId3, $publisherId3, $authorId3);
     $bookId4 = $db->insertBookWithExceptr('La Terra di Mezzo', 'Un fantasy epico con draghi, elfi e antiche magie', 22.00, 'images/shining.jpg', '', $categoryId4, $publisherId1, $authorId4);
-    $bookId5 = $db->insertBookWithExceptr('Vita di Einstein', 'La biografia del famoso scienziato', 24.99, 'images/5.jpg', 'exceptr/text.txt', $categoryId5, $publisherId4, $authorId5);
-    $bookId6 = $db->insertBookWithExceptr('Il Ritorno', 'Sequel del Grande Romanzo, continua la saga familiare', 21.50, 'images/stevejobs.jpg', 'exceptr/text.txt', $categoryId1, $publisherId1, $authorId1);
-    $bookId7 = $db->insertBookWithExceptr('Mondi Paralleli', 'Un viaggio tra dimensioni alternative', 17.99, 'images/deepwork.jpg', 'exceptr/text.txt', $categoryId2, $publisherId2, $authorId2);
-    $bookId8 = $db->insertBookWithExceptr('Il Codice Segreto', 'Un mistero da risolvere in una corsa contro il tempo', 16.50, 'images/8.jpg', 'exceptr/text.txt', $categoryId3, $publisherId3, $authorId3);
-    $bookId9 = $db->insertBookWithExceptr('Le Cronache del Regno', 'Una saga fantasy di avventura e magia', 23.99, 'images/deepwork.jpg', 'exceptr/text.txt', $categoryId4, $publisherId4, $authorId4);
+    $bookId5 = $db->insertBookWithExceptr('Vita di Einstein', 'La biografia del famoso scienziato', 24.99, 'images/5.jpg', 'exceptr/text4.txt', $categoryId5, $publisherId4, $authorId5);
+    $bookId6 = $db->insertBookWithExceptr('Il Ritorno', 'Sequel del Grande Romanzo, continua la saga familiare', 21.50, 'images/stevejobs.jpg', 'exceptr/text5.txt', $categoryId1, $publisherId1, $authorId1);
+    $bookId7 = $db->insertBookWithExceptr('Mondi Paralleli', 'Un viaggio tra dimensioni alternative', 17.99, 'images/deepwork.jpg', 'exceptr/text6.txt', $categoryId2, $publisherId2, $authorId2);
+    $bookId8 = $db->insertBookWithExceptr('Il Codice Segreto', 'Un mistero da risolvere in una corsa contro il tempo', 16.50, 'images/8.jpg', 'exceptr/text7.txt', $categoryId3, $publisherId3, $authorId3);
+    $bookId9 = $db->insertBookWithExceptr('Le Cronache del Regno', 'Una saga fantasy di avventura e magia', 23.99, 'images/deepwork.jpg', 'exceptr/text8.txt', $categoryId4, $publisherId4, $authorId4);
 
     // Popola la tabella CART (i carrelli vengono creati automaticamente dal trigger after_insert_customer)
     $cart1 = $db->getCartByCustomerId($customerId1);
