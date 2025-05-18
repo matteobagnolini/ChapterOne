@@ -17,6 +17,6 @@
 - [ ] Admin elimina accounts clienti??
 - [x] Ricerca libri e autore
 - [x] Notifica ordine per admin quando ho un acquisto
-- [ ] spuntare come lette le notifiche, o poterle eliminare
+- [x] spuntare come lette le notifiche, o poterle eliminare
 - [ ] utilizzo di Ajax, 
 - [x] salare password
