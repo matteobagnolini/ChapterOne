@@ -13,14 +13,24 @@
                         <?php foreach($templateParams["notifiche_non_lette"] as $notification): ?>
                         <li class="card mb-3 shadow-sm position-relative">
                             <article class="card-body">
-                                <?php if(isset($notification["Id"])): // L'ID della notifica è necessario per segnarla come letta ?>
-                                <form action="utils/mark_notification_seen.php" method="POST" class="position-absolute top-0 end-0 p-2" style="z-index: 10;">
-                                    <input type="hidden" name="notification_id" value="<?php echo htmlspecialchars($notification["Id"]); ?>">
-                                    <button type="submit" class="btn btn-link text-success btn-sm" title="Segna come letta">
-                                       <i class="bi bi-check-circle-fill"></i>
-                                    </button>
-                                </form>
-                                <?php endif; ?>
+                                <div class="position-absolute top-0 end-0 p-2 d-flex" style="z-index: 10;">
+                                    <?php if(isset($notification["Id"])): // L'ID della notifica è necessario per segnarla come letta ?>
+                                    <form action="utils/mark_notification_seen.php" method="POST" class="me-1">
+                                        <input type="hidden" name="notification_id" value="<?php echo htmlspecialchars($notification["Id"]); ?>">
+                                        <button type="submit" class="btn btn-link text-success btn-sm p-0" title="Segna come letta">
+                                           <i class="bi bi-check-circle-fill fs-5"></i>
+                                        </button>
+                                    </form>
+                                    <?php endif; ?>
+                                    <?php if(isset($notification["Id"])): // L'ID della notifica è necessario per eliminarla ?>
+                                    <form action="utils/delete_notification.php" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questa notifica?');">
+                                        <input type="hidden" name="notification_id" value="<?php echo htmlspecialchars($notification["Id"]); ?>">
+                                        <button type="submit" class="btn btn-link text-danger btn-sm p-0" title="Elimina notifica">
+                                           <i class="bi bi-trash-fill fs-5"></i>
+                                        </button>
+                                    </form>
+                                    <?php endif; ?>
+                                </div>
 
                                 <h3 class="h5 card-title"><?php echo isset($notification["Preview"]) ? htmlspecialchars($notification["Preview"]) : 'Notifica Ordine'; ?></h3>
                                 <p class="card-text"><?php echo isset($notification["Message"]) ? htmlspecialchars($notification["Message"]) : 'Dettagli non disponibili.'; ?></p>
@@ -50,8 +60,17 @@
                 <?php else: ?>
                     <ul class="list-unstyled">
                         <?php foreach($templateParams["notifiche_lette"] as $notification): ?>
-                        <li class="card mb-3 shadow-sm bg-light">
+                        <li class="card mb-3 shadow-sm bg-light position-relative">
                             <article class="card-body">
+                                <?php if(isset($notification["Id"])): // L'ID della notifica è necessario per eliminarla ?>
+                                <form action="utils/delete_notification.php" method="POST" class="position-absolute top-0 end-0 p-2" style="z-index: 10;" onsubmit="return confirm('Sei sicuro di voler eliminare questa notifica?');">
+                                    <input type="hidden" name="notification_id" value="<?php echo htmlspecialchars($notification["Id"]); ?>">
+                                    <button type="submit" class="btn btn-link text-danger btn-sm p-0" title="Elimina notifica">
+                                       <i class="bi bi-trash-fill fs-5"></i>
+                                    </button>
+                                </form>
+                                <?php endif; ?>
+
                                 <h3 class="h5 card-title"><?php echo isset($notification["Preview"]) ? htmlspecialchars($notification["Preview"]) : 'Notifica Ordine'; ?></h3>
                                 <p class="card-text"><?php echo isset($notification["Message"]) ? htmlspecialchars($notification["Message"]) : 'Dettagli non disponibili.'; ?></p>
                                 <div class="d-flex justify-content-between align-items-center mt-2">

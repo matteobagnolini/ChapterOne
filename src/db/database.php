@@ -986,9 +986,22 @@ class MySqlDatabase implements
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getAdminOrderNotificationById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM ADMIN_ORDER_NOTIFICATION WHERE Id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function SetSeenAdminNotification($notificationId) {
         $stmt = $this->db->prepare("UPDATE ADMIN_ORDER_NOTIFICATION SET Seen = 1 WHERE Id = ?");
         $stmt->bind_param('i', $notificationId);
+        return $stmt->execute();
+    }
+
+    public function deleteAdminNotification($id) {
+        $stmt = $this->db->prepare("DELETE FROM ADMIN_ORDER_NOTIFICATION WHERE Id = ?");
+        $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 
