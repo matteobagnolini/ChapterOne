@@ -215,5 +215,10 @@ BEGIN
     VALUES (NEW.Book_id, NEW.Quantity)
     ON DUPLICATE KEY UPDATE
     Purchase_count = Purchase_count + NEW.Quantity;
+
+
+    UPDATE BOOK
+    SET Product_count = Product_count - NEW.Quantity
+    WHERE Id = NEW.Book_id;
 END;
 
