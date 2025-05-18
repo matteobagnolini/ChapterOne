@@ -1,4 +1,5 @@
 <?php
+
 require_once '../bootstrap.php'; // Assicurati che il percorso sia corretto
 
 if (!isUserLoggedIn()) {
@@ -50,7 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $_SESSION['error'] = "Il libro '{$bookDetails['Title']}' non è attualmente disponibile per l'acquisto.";
                         $redirectTo = "../book.php?id=" . $bookId;
                     } else {
-                        $existingItem = $dbh->getCartItem($cartId, $bookId);
+                        $books = $dbh->getBooksInCart($cartId);
+                        $existingItem = null;
+                        foreach ($books as $item) {
+                            if ($item['Book_id'] == $bookId) {
+                                $existingItem = $item;
+                                break;
+                            }
+                        }
+
                         $requestedTotalQuantity = $existingItem ? $existingItem['Quantity'] + $quantity : $quantity;
 
                         if ($requestedTotalQuantity > $bookDetails['Product_count']) {

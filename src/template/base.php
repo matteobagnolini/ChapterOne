@@ -17,23 +17,41 @@
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
                     <div class="d-flex align-items-center order-lg-2">
                     
-                    <?php  ?>
+                    <?php // Link Notifiche con Badge ?>
                     <?php if(isset($_SESSION['username'])): ?>
-                        <a class="nav-link me-2" href="notifiche.php" aria-label="Notifiche"><i class="bi bi-bell me-1"></i><span class="d-none d-md-inline"> Notifiche</span></a>
+                        <a class="nav-link me-3 position-relative" href="notifiche.php" aria-label="Notifiche">
+                            <i class="bi bi-bell me-1"></i>
+                            <?php if (isset($templateParams['unread_notifications_count']) && $templateParams['unread_notifications_count'] > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php echo htmlspecialchars($templateParams['unread_notifications_count']); ?>
+                                    <span class="visually-hidden">notifiche non lette</span>
+                                </span>
+                            <?php endif; ?>
+                            <span class="d-none d-md-inline"> Notifiche</span>
+                        </a>
                     <?php endif; ?>
 
-                    <?php ?>
+                    <?php // Link Carrello con Badge ?>
                     <?php if(isset($_SESSION['username']) && (!isset($_SESSION['admin']) || !$_SESSION['admin'])): ?>
-                        <a class="nav-link me-2" href="cart.php" aria-label="Carrello"><i class="bi bi-cart me-1"></i><span class="d-none d-md-inline"> Carrello</span></a>
+                        <a class="nav-link me-3 position-relative" href="cart.php" aria-label="Carrello"> 
+                            <i class="bi bi-cart me-1"></i>
+                            <?php if (isset($templateParams['cart_item_count']) && $templateParams['cart_item_count'] > 0): ?>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php echo htmlspecialchars($templateParams['cart_item_count']); ?>
+                                    <span class="visually-hidden">articoli nel carrello</span>
+                                </span>
+                            <?php endif; ?>
+                            <span class="d-none d-md-inline"> Carrello</span>
+                        </a>
                     <?php endif; ?>
                     
-                    <?php ?>
+                    <?php // Link Login/Account/Admin ?>
                     <?php if(!isset($_SESSION['username'])): ?>
-                        <a class="nav-link me-2" href="login.php" aria-label="Login"><i class="bi bi-box-arrow-in-right me-1"></i><span class="d-none d-md-inline"> Login</span></a>
+                        <a class="nav-link me-3" href="login.php" aria-label="Login"><i class="bi bi-box-arrow-in-right me-1"></i><span class="d-none d-md-inline"> Login</span></a> {/* Modificato da me-2 a me-3 */}
                     <?php elseif(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
-                        <a class="nav-link me-2" href="accountadmin.php" aria-label="Pannello Admin"><i class="bi bi-shield-lock me-1"></i><span class="d-none d-md-inline"> Admin</span></a>
+                        <a class="nav-link me-3" href="accountadmin.php" aria-label="Pannello Admin"><i class="bi bi-shield-lock me-1"></i><span class="d-none d-md-inline"> Admin</span></a> {/* Modificato da me-2 a me-3 */}
                     <?php else: ?>
-                        <a class="nav-link me-2" href="account.php" aria-label="Account Utente"><i class="bi bi-person me-1"></i><span class="d-none d-md-inline"> Account</span></a>
+                        <a class="nav-link me-3" href="account.php" aria-label="Account Utente"><i class="bi bi-person me-1"></i><span class="d-none d-md-inline"> Account</span></a> 
                     <?php endif; ?>
 
                     <form class="d-flex" method="GET" action="./ricerca.php">
@@ -58,9 +76,13 @@
                                 Categorie
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <?php foreach ($templateParams["categorie"] as $category): ?>
-                                    <?php echo '<li><a class="dropdown-item" href="categoria.php?id=' . $category['Id'] . '">' . $category['Name'] . '</a></li>'; ?>
-                                <?php endforeach; ?>
+                                <?php if (!empty($templateParams["categorie"])): ?>
+                                    <?php foreach ($templateParams["categorie"] as $category): ?>
+                                        <?php echo '<li><a class="dropdown-item" href="categoria.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>'; ?>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <li><span class="dropdown-item">Nessuna categoria</span></li>
+                                <?php endif; ?>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -82,7 +104,7 @@
     </main>
     <footer class="bg-light text-white text-center py3 mt-auto">
         <div class="text-center p-3 bg-dark text-white">
-            © 2023 ChapterOne Shop. All rights reserved.
+            © <?php echo date("Y"); ?> ChapterOne Shop. All rights reserved.
         </div>
     </footer>
 
