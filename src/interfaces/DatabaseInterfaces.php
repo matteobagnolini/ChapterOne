@@ -131,6 +131,11 @@ interface OrderNotificationManager {
     public function SetSeenNotification($id);
 }
 
+interface AdminNotificationManager {
+    public function getAdminOrderNotifications();
+    public function SetSeenAdminNotification($id);
+}
+
 interface BusinessLogic {
     public function getbestSellers($numberOfBooks);
     public function getNewBooks($numberOfBooks);

@@ -134,4 +134,9 @@ footer {
     color: white !important;
 }
 
+.btn-success {
+    background-color: #198754 !important; /* Verde Bootstrap */
+    color: white !important;
+}
+
 

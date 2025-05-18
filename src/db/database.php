@@ -17,7 +17,8 @@ class MySqlDatabase implements
     OrderDetailManager, 
     DiscountCodeUsageManager, 
     OrderNotificationManager,
-    BusinessLogic
+    BusinessLogic,
+    AdminNotificationManager
 {
     public $db;
 
@@ -977,6 +978,20 @@ class MySqlDatabase implements
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    public function getAdminOrderNotifications() {
+        $stmt = $this->db->prepare("SELECT Id, Order_id, Preview, Message, Date, Seen FROM ADMIN_ORDER_NOTIFICATION ORDER BY Date DESC");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function SetSeenAdminNotification($notificationId) {
+        $stmt = $this->db->prepare("UPDATE ADMIN_ORDER_NOTIFICATION SET Seen = 1 WHERE Id = ?");
+        $stmt->bind_param('i', $notificationId);
+        return $stmt->execute();
+    }
+
 
     
     public function getBestSellers($numberOfBooks) {
