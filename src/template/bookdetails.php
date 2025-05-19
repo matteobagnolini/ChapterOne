@@ -13,13 +13,13 @@
                     <div>
                         <?php
                             $bookDetails = $templateParams["libro"];
-                            $excerptFilename = $bookDetails["Exceptr"] ?? null; // Assicurati che 'Excerpt_filename' sia la chiave corretta
+                            $excerptFilename = $bookDetails["Exceptr"] ?? null;
                             $bookId = $bookDetails["Id"] ?? null;
                             $baseExcerptPath = UPLOAD_DIR;
                         
                         ?>
 
-                                                <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
+                            <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
                             
@@ -98,22 +98,29 @@
         <?php endif; ?>
 
 
-                <ul class="list-group"></ul>
-                <?php foreach($templateParams["recensioni"] as $recensione): ?>
-                    <li class="list-group-item">
-                        <article>
-                            <header class="d-flex align-items-center">
-                                <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
-                                <div class="text-warning">
-                                    <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
-                                    <i class="bi bi-star-fill"></i>
-                                    <?php endfor; ?>
-                                </div>
-                            </header>
-                            <p><?php echo $recensione["Text"]; ?></p>
-                        </article>
-                    </li>
-                <?php endforeach; ?>
+                <?php if(empty($templateParams["recensioni"])): ?>
+                    <div class="mb-3">
+                        <p>Ancora nessuna recensione...</p>
+                    </div>
+                <?php else: ?>
+                    <ul class="list-group">
+                        <?php foreach($templateParams["recensioni"] as $recensione): ?>
+                            <li class="list-group-item">
+                                <article>
+                                    <header class="d-flex align-items-center">
+                                        <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
+                                        <div class="text-warning">
+                                            <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
+                                            <i class="bi bi-star-fill"></i>
+                                            <?php endfor; ?>
+                                        </div>
+                                    </header>
+                                    <p><?php echo $recensione["Text"]; ?></p>
+                                </article>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             </section>
             
             <section>
