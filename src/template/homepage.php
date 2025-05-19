@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-
+</section>
 <section>
     <div class="container">
         <div class="row text-center mb-4">
@@ -60,5 +60,6 @@
                 </a>
             </li>
             <?php endforeach; ?>
+        </ul>
     </div>
 </section>

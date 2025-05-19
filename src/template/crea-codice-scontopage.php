@@ -42,6 +42,7 @@ if (isset($templateParams["codicesconto"])) {
                             <li class="mb-3">
                                 <label for="type" class="form-label">Tipo Sconto:</label>
                                 <select class="form-select" id="type" name="type" required>
+                                    <option value="" disabled <?php echo empty($defaultType) ? 'selected' : ''; ?>>Seleziona tipo sconto</option>
                                     <option value="percentage" <?php echo ($defaultType == 'percentage') ? 'selected' : ''; ?>>Percentuale (%)</option>
                                     <option value="fixed" <?php echo ($defaultType == 'fixed') ? 'selected' : ''; ?>>Importo Fisso (€)</option>
                                 </select>

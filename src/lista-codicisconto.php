@@ -16,5 +16,3 @@ $templateParams["codicisconto"] = $dbh->getDiscountCodes();
 
 require 'template/base.php';
 ?>
-
-?>

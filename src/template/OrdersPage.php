@@ -21,4 +21,5 @@
                 </small>
             </li>
             <?php endforeach; ?>
+        </ul>
 </section>

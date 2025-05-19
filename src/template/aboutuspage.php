@@ -1,4 +1,3 @@
-<main class="container my-5">
     <section class="text-center">
         <h1 class="mb-4">Benvenuti su ChapterOne</h1>
         <p class="lead">
@@ -18,8 +17,7 @@
     </section>
 
     <section class="text-center my-5">
-        <p>
+        <h2>
             Grazie per aver scelto ChapterOne. Buona lettura!
-        </p>
+        </h2>
     </section>
-</main>

@@ -6,7 +6,7 @@
                 <i class="bi bi-person me-1"></i> Torna ad account
             </a>
         </div>
-
+    </section>
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?php echo $_SESSION['error']; ?>

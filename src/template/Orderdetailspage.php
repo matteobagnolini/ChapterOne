@@ -25,8 +25,8 @@
                             ?>
                             <?php if ($bookInfo): ?>
                                
-                                <a href="book.php?id=<?php echo $bookId; ?>" class="text-decoration-none text-dark d-block">
-                                    <li class="card mb-3">
+                                <li class="card mb-3">
+                                    <a href="book.php?id=<?php echo $bookId; ?>" class="text-decoration-none text-dark d-block">
                                         <div class="row g-0">
                                             <div class="col-md-2 d-flex align-items-center justify-content-center">
                                                 <figure class="m-3" style="max-width: 100px;">
@@ -48,8 +48,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>
-                                </a> 
+                                    </a>     
+                                </li>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>

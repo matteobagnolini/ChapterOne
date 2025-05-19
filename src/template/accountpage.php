@@ -56,17 +56,17 @@
 
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password" value="" class="form-control" placeholder="Modifca password">
+                                        <input type="password" id="password" name="password" value="" class="form-control" placeholder="Modifica password">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Indirizzo</label>
-                                        <input type="text" name="address" value="<?php echo $templateParams["accountInfo"]["Address"]; ?>" class="form-control">
+                                        <input type="text" id="address" name="address" value="<?php echo $templateParams["accountInfo"]["Address"]; ?>" class="form-control">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Telefono</label>
-                                        <input type="tel" name="phone" value="<?php echo $templateParams["accountInfo"]["Phone"]; ?>" class="form-control">
+                                        <input type="tel" id="phone" name="phone" value="<?php echo $templateParams["accountInfo"]["Phone"]; ?>" class="form-control">
                                     </div>
                                 </fieldset>
 
