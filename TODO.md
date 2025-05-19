@@ -14,9 +14,16 @@
 - [X] acquista in quantità
 - [x] Altri estratti
 - [x] Gestione Ordini, admin cambia notifiche
-- [ ] Admin elimina accounts clienti??
+- [ ] Admin elimina accounts clienti?? NON LO FACCIAMO
 - [x] Ricerca libri e autore
 - [x] Notifica ordine per admin quando ho un acquisto
 - [x] spuntare come lette le notifiche, o poterle eliminare
-- [ ] utilizzo di Ajax, 
+- [ ] utilizzo di Ajax, PER LE NOTIFICHE?
 - [x] salare password
+
+- [ ] Pulire file database.php
+- [ ] pulire file 
+- [ ] nomi coerenti pagine, in inglese?
+- [ ] validare pagine, stare attento ai form e alle tabelle
+- [ ] Mockup desktop?
+- [ ] pulizia docker e push aggiornato, mettere online quando finito
