@@ -9,7 +9,7 @@
                     
                     <div class="alert alert-light border my-4">
                         <p class="mb-0 lead">
-                            <?php echo isset($templateParams["errore"]) ? htmlspecialchars($templateParams["errore"]) : "La risorsa richiesta non è disponibile."; ?>
+                            <?php echo isset($templateParams["errore"]) ? $templateParams["errore"] : "La risorsa richiesta non è disponibile."; ?>
                         </p>
                     </div>
                     

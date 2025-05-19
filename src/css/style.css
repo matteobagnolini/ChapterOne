@@ -128,6 +128,12 @@ footer {
     font-family: 'Poppins', sans-serif; /* Font per la navbar */
 }
 
+body table tbody td img {
+    width: 50px;
+    height: auto;
+    object-fit: cover;
+}
+
 
 .btn-danger {
     background-color: #dc3545 !important; /* Rosso Bootstrap */

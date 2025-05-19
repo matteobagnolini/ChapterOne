@@ -33,13 +33,13 @@
                 <tbody>
                     <?php foreach($templateParams["codicisconto"] as $discountCode): ?>
                     <tr>
-                        <th scope="row"><?php echo htmlspecialchars($discountCode["Id"]); ?></th>
-                        <td><?php echo htmlspecialchars($discountCode["Code"]); ?></td>
-                        <td><?php echo ucfirst(htmlspecialchars($discountCode["Type"])); ?></td>
+                        <th scope="row"><?php echo $discountCode["Id"]; ?></th>
+                        <td><?php echo $discountCode["Code"]; ?></td>
+                        <td><?php echo ucfirst($discountCode["Type"]); ?></td>
                         <td>
                             <?php 
                                 if ($discountCode["Type"] == 'percentage') {
-                                    echo htmlspecialchars($discountCode["Value"]) . "%";
+                                    echo $discountCode["Value"] . "%";
                                 } else {
                                     echo number_format($discountCode["Value"], 2, ',', '.') . " €";
                                 }

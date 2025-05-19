@@ -14,21 +14,24 @@
     <?php else: ?>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
+                <caption class="visually-hidden">
+                    Elenco delle case editrici con nome, indirizzo e azioni disponibili.
+                </caption>
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Indirizzo</th>
-                        <th scope="col">Azioni</th>
+                        <th id="intestazione-id" scope="col">ID</th>
+                        <th id="intestazione-nome" scope="col">Nome</th>
+                        <th id="intestazione-indirizzo" scope="col">Indirizzo</th>
+                        <th id="intestazione-azioni" scope="col">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($templateParams["caseeditrici"] as $publisher): ?>
                     <tr>
-                        <th scope="row"><?php echo htmlspecialchars($publisher["Id"]); ?></th>
-                        <td><?php echo htmlspecialchars($publisher["Name"]); ?></td>
-                        <td><?php echo htmlspecialchars($publisher["Address"]); ?></td>
-                        <td>
+                        <th id="riga-<?php echo $publisher['Id']; ?>" scope="row"><?php echo htmlspecialchars($publisher["Id"]); ?></th>
+                        <td headers="riga-<?php echo $publisher['Id']; ?> intestazione-nome"><?php echo htmlspecialchars($publisher["Name"]); ?></td>
+                        <td headers="riga-<?php echo $publisher['Id']; ?> intestazione-indirizzo"><?php echo htmlspecialchars($publisher["Address"]); ?></td>
+                        <td headers="riga-<?php echo $publisher['Id']; ?> intestazione-azioni">
                             <a href="../gestisci-casa-editrice.php?id=<?php echo $publisher["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Casa Editrice">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
                             </a>
@@ -40,6 +43,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
         </div>
     <?php endif; ?>
     

@@ -13,11 +13,11 @@
                         <ul class="list-unstyled">
                             <li class="mb-3">
                                 <label for="nome" class="form-label">Nome:</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required value="<?php echo isset($publisher['Name']) ? htmlspecialchars($publisher['Name']) : ''; ?>" />
+                                <input type="text" class="form-control" id="nome" name="nome" required value="<?php echo isset($publisher['Name']) ? $publisher['Name'] : ''; ?>" />
                             </li>
                             <li class="mb-3">
                                 <label for="indirizzo" class="form-label">Indirizzo:</label>
-                                <input type="text" class="form-control" id="indirizzo" name="indirizzo" required value="<?php echo isset($publisher['Address']) ? htmlspecialchars($publisher['Address']) : ''; ?>" />
+                                <input type="text" class="form-control" id="indirizzo" name="indirizzo" required value="<?php echo isset($publisher['Address']) ? $publisher['Address'] : ''; ?>" />
                             </li>
                             <li class="mt-4">
                                 <input type="submit" name="submit" value="Aggiungi Casa Editrice" class="btn btn-success me-2" />

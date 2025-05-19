@@ -12,11 +12,11 @@ $defaultActive = true;
 
 if (isset($templateParams["codicesconto"])) {
     $codice = $templateParams["codicesconto"];
-    $defaultCode = htmlspecialchars($codice["Code"]);
-    $defaultType = htmlspecialchars($codice["Type"]);
-    $defaultValue = htmlspecialchars($codice["Value"]);
-    $defaultStartDate = htmlspecialchars($codice["Start_date"]);
-    $defaultEndDate = htmlspecialchars($codice["End_date"]);
+    $defaultCode = $codice["Code"];
+    $defaultType = $codice["Type"];
+    $defaultValue = $codice["Value"];
+    $defaultStartDate = $codice["Start_date"];
+    $defaultEndDate = $codice["End_date"];
     $defaultSingleUse = (bool)$codice["Single_use"];
     $defaultActive = (bool)$codice["Active"];
 }

@@ -9,12 +9,12 @@
     
     <?php if (isset($_SESSION['success_message'])): ?>
         <div class="alert alert-success" role="alert">
-            <?php echo htmlspecialchars($_SESSION['success_message']); unset($_SESSION['success_message']); ?>
+            <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
         </div>
     <?php endif; ?>
     <?php if (isset($_SESSION['error_message'])): ?>
         <div class="alert alert-danger" role="alert">
-            <?php echo htmlspecialchars($_SESSION['error_message']); unset($_SESSION['error_message']); ?>
+            <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
         </div>
     <?php endif; ?>
 
@@ -25,35 +25,38 @@
     <?php else: ?>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
+                <caption class="visually-hidden">
+                    Elenco dei libri con informazioni dettagliate e azioni disponibili per ciascuno (modifica o eliminazione).
+                </caption>
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Copertina</th>
-                        <th scope="col">Titolo</th>
-                        <th scope="col">Autore</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Prezzo</th>
-                        <th scope="col">Quantità</th> 
-                        <th scope="col">Azioni</th>
+                        <th id="intestazione-id" scope="col">ID</th>
+                        <th id="intestazione-copertina" scope="col">Copertina</th>
+                        <th id="intestazione-titolo" scope="col">Titolo</th>
+                        <th id="intestazione-autore" scope="col">Autore</th>
+                        <th id="intestazione-categoria" scope="col">Categoria</th>
+                        <th id="intestazione-prezzo" scope="col">Prezzo</th>
+                        <th id="intestazione-quantita" scope="col">Quantità</th> 
+                        <th id="intestazione-azioni" scope="col">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($templateParams["libri"] as $book): ?>
                     <tr>
-                        <th scope="row"><?php echo htmlspecialchars($book["Id"]); ?></th>
-                        <td>
+                        <th id="riga-<?php echo $book['Id']; ?>" scope="row"><?php echo $book["Id"]; ?></th>
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-copertina">
                             <?php if (!empty($book["Cover"])): ?>
-                                <img src="<?php echo UPLOAD_DIR . htmlspecialchars($book["Cover"]); ?>" alt="Copertina <?php echo htmlspecialchars($book["Title"]); ?>" style="width: 50px; height: auto; object-fit: cover;">
+                                <img src="<?php echo UPLOAD_DIR . $book["Cover"]; ?>" alt="Copertina <?php echo $book["Title"]; ?>">
                             <?php else: ?>
                                 N/D
                             <?php endif; ?>
                         </td>
-                        <td><?php echo htmlspecialchars($book["Title"]); ?></td>
-                        <td><?php echo htmlspecialchars($book["Author_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($book["Category_name"]); ?></td>
-                        <td><?php echo number_format($book["Price"], 2, ',', '.'); ?> €</td>
-                        <td><?php echo isset($book["Product_count"]) ? htmlspecialchars($book["Product_count"]) : 'N/D'; ?></td> 
-                        <td>
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-titolo"><?php echo $book["Title"]; ?></td>
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-autore"><?php echo $book["Author_name"]; ?></td>
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-categoria"><?php echo $book["Category_name"]; ?></td>
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-prezzo"><?php echo number_format($book["Price"], 2, ',', '.'); ?> €</td>
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-quantita"><?php echo isset($book["Product_count"]) ? $book["Product_count"] : 'N/D'; ?></td> 
+                        <td headers="riga-<?php echo $book['Id']; ?> intestazione-azioni">
                             <a href="gestisci-libro.php?id=<?php echo $book["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Libro">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
                             </a>
@@ -65,6 +68,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
         </div>
     <?php endif; ?>
     

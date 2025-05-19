@@ -9,7 +9,7 @@
 
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($_SESSION['error']); ?>
+                <?php echo $_SESSION['error']; ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <?php unset($_SESSION['error']); ?>
             </div>
@@ -17,7 +17,7 @@
 
         <?php if (isset($_SESSION['success'])): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($_SESSION['success']); ?>
+                <?php echo $_SESSION['success']; ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <?php unset($_SESSION['success']); ?>
             </div>
@@ -32,9 +32,9 @@
                         <li class="card mb-3 shadow-sm">
                             <div class="row g-0">
                                 <div class="col-md-2 col-lg-1 text-center text-md-start">
-                                    <a href="book.php?id=<?php echo htmlspecialchars($item["Id"]); ?>">
+                                    <a href="book.php?id=<?php echo $item["Id"]; ?>">
                                         <figure class="m-2 m-md-3" style="max-width: 80px; margin: auto;">
-                                            <img src="<?php echo UPLOAD_DIR . htmlspecialchars($item["Cover"]); ?>" alt="Copertina: <?php echo htmlspecialchars($item["Title"]); ?>" class="img-fluid rounded">
+                                            <img src="<?php echo UPLOAD_DIR . $item["Cover"]; ?>" alt="Copertina: <?php echo $item["Title"]; ?>" class="img-fluid rounded">
                                         </figure>
                                     </a>
                                 </div>
@@ -42,17 +42,17 @@
                                     <div class="card-body">
                                         <div class="d-flex flex-column flex-md-row justify-content-between">
                                             <div>
-                                                <a href="book.php?id=<?php echo htmlspecialchars($item["Id"]); ?>" class="text-decoration-none text-dark">
-                                                    <h3 class="card-title h5 mb-1"><?php echo htmlspecialchars($item["Title"]); ?></h3>
+                                                <a href="book.php?id=<?php echo $item["Id"]; ?>" class="text-decoration-none text-dark">
+                                                    <h3 class="card-title h5 mb-1"><?php echo $item["Title"]; ?></h3>
                                                 </a>
-                                                <p class="card-text small text-muted mb-1">Autore: <?php echo htmlspecialchars($item["Author_First_name"] . " " . $item["Author_Last_name"]); ?></p>
+                                                <p class="card-text small text-muted mb-1">Autore: <?php echo $item["Author_First_name"] . " " . $item["Author_Last_name"]; ?></p>
                                                 <p class="card-text small mb-2">Prezzo unitario: <?php echo number_format($item["Price"], 2, ',', '.'); ?> €</p>
                                             </div>
                                             <div class="mt-2 mt-md-0">
                                                 <form action="utils/cart_actions.php" method="POST" class="d-inline-block">
                                                     <input type="hidden" name="action" value="remove">
-                                                    <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($item["Id"]); ?>">
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm" aria-label="Rimuovi <?php echo htmlspecialchars($item["Title"]); ?> dal carrello">
+                                                    <input type="hidden" name="book_id" value="<?php echo $item["Id"]; ?>">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm" aria-label="Rimuovi <?php echo $item["Title"]; ?> dal carrello">
                                                         <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Rimuovi</span>
                                                     </button>
                                                 </form>
@@ -61,9 +61,9 @@
                                         
                                         <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mt-2 mb-2" style="max-width: 250px;">
                                             <input type="hidden" name="action" value="update">
-                                            <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($item["Id"]); ?>">
-                                            <label for="quantity_<?php echo htmlspecialchars($item["Id"]); ?>" class="form-label me-2 visually-hidden">Quantità:</label>
-                                            <input type="number" name="quantity" id="quantity_<?php echo htmlspecialchars($item["Id"]); ?>" class="form-control form-control-sm me-2" value="<?php echo htmlspecialchars($item["Quantity"]); ?>" min="0" <?php echo (isset($item["Product_count_actual"]) && $item["Product_count_actual"] !== null) ? 'max="' . htmlspecialchars($item["Product_count_actual"]) . '"' : 'max="99"'; ?> style="width: 75px;" aria-label="Quantità per <?php echo htmlspecialchars($item["Title"]); ?>">
+                                            <input type="hidden" name="book_id" value="<?php echo $item["Id"]; ?>">
+                                            <label for="quantity_<?php echo $item["Id"]; ?>" class="form-label me-2 visually-hidden">Quantità:</label>
+                                            <input type="number" name="quantity" id="quantity_<?php echo $item["Id"]; ?>" class="form-control form-control-sm me-2" value="<?php echo $item["Quantity"]; ?>" min="0" <?php echo (isset($item["Product_count_actual"]) && $item["Product_count_actual"] !== null) ? 'max="' . $item["Product_count_actual"] . '"' : 'max="99"'; ?> style="width: 75px;" aria-label="Quantità per <?php echo $item["Title"]; ?>">
                                             <button type="submit" class="btn btn-primary btn-sm">Aggiorna</button>
                                         </form>
                                         <p class="card-text fw-bold">Subtotale articolo: <?php echo number_format($item["Price"] * $item["Quantity"], 2, ',', '.'); ?> €</p>
@@ -88,11 +88,11 @@
     <?php if (!empty($templateParams["libricarrello"])): ?>
             <section class="card p-4 bg-light">
                 <h2 class="mb-3">Riepilogo</h2>
-                <p class="fw-bold">Totale articoli: <?php echo htmlspecialchars($templateParams["carrello"]["Item_count"]); ?></p>
+                <p class="fw-bold">Totale articoli: <?php echo $templateParams["carrello"]["Item_count"]; ?></p>
                 <p class="fw-bold fs-5">Prezzo totale: <?php echo number_format($templateParams["carrello"]["Subtotal"], 2, ',', '.'); ?> €</p>
                 
                 <form action="create_order.php" method="POST">
-                    <input type="hidden" name="cart_id" value="<?php echo htmlspecialchars($templateParams["carrello"]["Id"]); ?>">
+                    <input type="hidden" name="cart_id" value="<?php echo $templateParams["carrello"]["Id"]; ?>">
                     
                     <div class="mb-3">
                         <label for="discount_code" class="form-label">Codice Sconto (opzionale)</label>

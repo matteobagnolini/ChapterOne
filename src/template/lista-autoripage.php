@@ -26,9 +26,9 @@
                 <tbody>
                     <?php foreach($templateParams["autori"] as $author): ?>
                     <tr>
-                        <th scope="row"><?php echo htmlspecialchars($author["Id"]); ?></th>
-                        <td><?php echo htmlspecialchars($author["First_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($author["Last_name"]); ?></td>
+                        <th scope="row"><?php echo $author["Id"]; ?></th>
+                        <td><?php echo $author["First_name"]; ?></td>
+                        <td><?php echo $author["Last_name"]; ?></td>
                         <td>
                             <a href="gestisci-autore.php?id=<?php echo $author["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Autore">
                                 <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
@@ -44,7 +44,7 @@
         </div>
     <?php endif; ?>
     
-    <a href="crea-autore.php" class="btn btn-success mt-3"> <!-- Assumendo crea-autore.php per la logica di creazione -->
+    <a href="crea-autore.php" class="btn btn-success mt-3">
         <i class="bi bi-plus-circle me-1"></i> Crea un nuovo autore
     </a>
 </section>

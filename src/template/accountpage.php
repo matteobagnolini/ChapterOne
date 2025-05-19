@@ -21,7 +21,7 @@
    
                     <?php if (isset($_SESSION['update_message'])): ?>
                         <div class="alert alert-<?php echo $_SESSION['update_message_type'] ?? 'info'; ?> alert-dismissible fade show" role="alert">
-                            <?php echo htmlspecialchars($_SESSION['update_message']); ?>
+                            <?php echo $_SESSION['update_message']; ?>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <?php
@@ -45,13 +45,13 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nome Completo</label>
                                         <input type="text" id="name" name="name"
-                                            value="<?php echo htmlspecialchars($templateParams["accountInfo"]["First_name"] . ' ' . $templateParams["accountInfo"]["Last_name"]); ?>"
+                                            value="<?php echo $templateParams["accountInfo"]["First_name"] . ' ' . $templateParams["accountInfo"]["Last_name"]; ?>"
                                             class="form-control" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Email"]); ?>" class="form-control" required>
+                                        <input type="email" id="email" name="email" value="<?php echo $templateParams["accountInfo"]["Email"]; ?>" class="form-control" required>
                                     </div>
 
                                     <div class="mb-3">
@@ -61,12 +61,12 @@
 
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Indirizzo</label>
-                                        <input type="text" name="address" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Address"]); ?>" class="form-control">
+                                        <input type="text" name="address" value="<?php echo $templateParams["accountInfo"]["Address"]; ?>" class="form-control">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Telefono</label>
-                                        <input type="tel" name="phone" value="<?php echo htmlspecialchars($templateParams["accountInfo"]["Phone"]); ?>" class="form-control">
+                                        <input type="tel" name="phone" value="<?php echo $templateParams["accountInfo"]["Phone"]; ?>" class="form-control">
                                     </div>
                                 </fieldset>
 

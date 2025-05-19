@@ -5,9 +5,9 @@
                 </div>
                 <div class="col-md-8 d-flex flex-column justify-content-between">
                     <div>
-                        <h1><?php echo htmlspecialchars($templateParams["libro"]["Title"]); ?></h1>
-                        <p><strong>Autore:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Author_full_name"]); ?></p>
-                        <p><strong>Casa Editrice:</strong> <?php echo htmlspecialchars($templateParams["libro"]["Publisher_name"]); ?></p>
+                        <h1><?php echo $templateParams["libro"]["Title"]; ?></h1>
+                        <p><strong>Autore:</strong> <?php echo $templateParams["libro"]["Author_full_name"]; ?></p>
+                        <p><strong>Casa Editrice:</strong> <?php echo $templateParams["libro"]["Publisher_name"]; ?></p>
                         <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
                     </div>
                     <div>

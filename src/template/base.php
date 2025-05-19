@@ -17,7 +17,6 @@
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
                     <div class="d-flex align-items-center order-lg-2">
                     
-                    <?php // Link Notifiche con Badge ?>
                     <?php if(isset($_SESSION['username'])): ?>
                         <a class="nav-link me-3 position-relative" href="notifiche.php" aria-label="Notifiche">
                             <i class="bi bi-bell me-1"></i>
@@ -31,7 +30,6 @@
                         </a>
                     <?php endif; ?>
 
-                    <?php // Link Carrello con Badge ?>
                     <?php if(isset($_SESSION['username']) && (!isset($_SESSION['admin']) || !$_SESSION['admin'])): ?>
                         <a class="nav-link me-3 position-relative" href="cart.php" aria-label="Carrello"> 
                             <i class="bi bi-cart me-1"></i>
@@ -45,7 +43,6 @@
                         </a>
                     <?php endif; ?>
                     
-                    <?php // Link Login/Account/Admin ?>
                     <?php if(!isset($_SESSION['username'])): ?>
                         <a class="nav-link me-3" href="login.php" aria-label="Login"><i class="bi bi-box-arrow-in-right me-1"></i><span class="d-none d-md-inline"> Login</span></a> 
                     <?php elseif(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
@@ -78,7 +75,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php if (!empty($templateParams["categorie"])): ?>
                                     <?php foreach ($templateParams["categorie"] as $category): ?>
-                                        <?php echo '<li><a class="dropdown-item" href="categoria.php?id=' . htmlspecialchars($category['Id']) . '">' . htmlspecialchars($category['Name']) . '</a></li>'; ?>
+                                        <?php echo '<li><a class="dropdown-item" href="categoria.php?id=' . $category['Id'] . '">' . $category['Name'] . '</a></li>'; ?>
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <li><span class="dropdown-item">Nessuna categoria</span></li>

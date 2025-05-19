@@ -2,7 +2,7 @@
     <div class="container pt-4 pb-3">
         <div class="row text-center mb-4">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <h1 class="fw-light display-5"><?php echo htmlspecialchars($templateParams["intestazione"]); ?></h1> 
+                <h1 class="fw-light display-5"><?php echo $templateParams["intestazione"]; ?></h1> 
                 
                 <?php if(isset($templateParams["testo"]) && !empty($templateParams["testo"])): ?>
                     <p class="lead text-muted">
@@ -22,9 +22,9 @@
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($book["Title"]); ?></h5>
-                            <p class="card-text"><?php echo htmlspecialchars($book["Author_First_name"] . " " . $book["Author_Last_name"]); ?></p>
-                            <p class="card-text"><?php echo htmlspecialchars($book["Price"]); ?> €</p>
+                            <h5 class="card-title"><?php echo $book["Title"]; ?></h5>
+                            <p class="card-text"><?php echo $book["Author_First_name"] . " " . $book["Author_Last_name"]; ?></p>
+                            <p class="card-text"><?php echo $book["Price"]; ?> €</p>
                         </div>
                     </div>
                 </a>

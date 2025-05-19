@@ -9,7 +9,7 @@
                             <ul class="list-unstyled">
                                 <li class="mb-3">
                                     <label for="titoloarticolo" class="form-label">Titolo:</label>
-                                    <input type="text" class="form-control" id="titoloarticolo" name="titoloarticolo" value="<?php echo htmlspecialchars($templateParams['libro']['Title']); ?>" />
+                                    <input type="text" class="form-control" id="titoloarticolo" name="titoloarticolo" value="<?php echo ($templateParams['libro']['Title']); ?>" />
                                 </li>
                                 <li class="mb-3">
                                     <label for="autore" class="form-label">Autore:</label>
@@ -46,28 +46,28 @@
                                 </li>
                                 <li class="mb-3">
                                     <label for="prezzo" class="form-label">Prezzo:</label>
-                                    <input type="number" step="0.01" class="form-control" id="prezzo" name="prezzo" value="<?php echo htmlspecialchars($templateParams['libro']['Price']); ?>" />
+                                    <input type="number" step="0.01" class="form-control" id="prezzo" name="prezzo" value="<?php echo ($templateParams['libro']['Price']); ?>" />
                                 </li>
                                 <li class="mb-3">
                                     <label for="quantita" class="form-label">Quantità:</label>
-                                    <input type="number" step="1" class="form-control" id="quantita" name="quantita" value="<?php echo isset($templateParams['libro']['Product_count']) ? htmlspecialchars($templateParams['libro']['Product_count']) : '0'; ?>" />
+                                    <input type="number" step="1" class="form-control" id="quantita" name="quantita" value="<?php echo isset($templateParams['libro']['Product_count']) ? ($templateParams['libro']['Product_count']) : '0'; ?>" />
                                 </li>
                                 <li class="mb-3">
                                     <label for="descrizione" class="form-label">Descrizione:</label>
-                                    <textarea class="form-control" id="descrizione" name="descrizione" rows="4"><?php echo htmlspecialchars($templateParams['libro']['Description']); ?></textarea>
+                                    <textarea class="form-control" id="descrizione" name="descrizione" rows="4"><?php echo ($templateParams['libro']['Description']); ?></textarea>
                                 </li>
                                 <li class="mb-3">
                                     <label for="copertina" class="form-label">Copertina:</label>
                                     <input type="file" class="form-control" name="copertina" id="copertina" />
                                     <?php if (!empty($templateParams['libro']['Cover'])): ?>
-                                        <small>Copertina attuale: <?php echo htmlspecialchars($templateParams['libro']['Cover']); ?></small>
+                                        <small>Copertina attuale: <?php echo ($templateParams['libro']['Cover']); ?></small>
                                     <?php endif; ?>
                                 </li>
                                 <li class="mb-3">
                                     <label for="estratto" class="form-label">Estratto del libro:</label>
                                     <input type="file" class="form-control" name="estratto" id="estratto" />
                                     <?php if (!empty($templateParams['libro']['Exceptr'])): ?>
-                                        <small>Estratto attuale: <?php echo htmlspecialchars($templateParams['libro']['Exceptr']); ?></small>
+                                        <small>Estratto attuale: <?php echo ($templateParams['libro']['Exceptr']); ?></small>
                                     <?php endif; ?>
                                 </li>
                                 <li class="mt-4">
@@ -76,7 +76,7 @@
                                 </li>
                             </ul>
                             
-                            <input type="hidden" name="idlibro" value="<?php echo htmlspecialchars($templateParams['libro']['Id']); ?>" />
+                            <input type="hidden" name="idlibro" value="<?php echo ($templateParams['libro']['Id']); ?>" />
                         </form>
                     </div>
                 </div>
