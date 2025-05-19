@@ -5,6 +5,6 @@
 - [ ] Pulire file database.php
 - [ ] pulire file 
 - [ ] nomi coerenti pagine, in inglese?
-- [ ] validare pagine, stare attento ai form e alle tabelle
+- [x] validare pagine, stare attento ai form e alle tabelle
 - [ ] Mockup desktop?
 - [ ] pulizia docker e push aggiornato, mettere online quando finito
