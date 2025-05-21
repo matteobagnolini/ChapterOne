@@ -31,7 +31,7 @@ services:
         done
         echo 'MySQL started, executing initialization script...'
         mysql -h database -u root -pmypassword < /sql_scripts/ChapterOne.sql
-        mysql -h database -u root -pmypassword < /sql_scripts/populateDB.sql
+       
 
         echo 'Initialization completed'
       "
@@ -50,6 +50,8 @@ services:
     container_name: sito
     command: >
       /bin/bash -c "
+        echo 'DB Population in progress...'
+        php /var/www/populateDB.php
         echo 'Database population completed, starting Apache...'
         apache2-foreground
       "
@@ -57,6 +59,7 @@ services:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
+      - ./db:/var/www
     networks:
       - my_networkSQL
     depends_on:
