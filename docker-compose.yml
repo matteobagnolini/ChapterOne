@@ -11,8 +11,15 @@ services:
       - my_networkSQL
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d ## it is used to initialize the database, only if the volume is empty
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
-  db-init:
+  db-init: ## should have installed mysql client on the php-apache image, i have to use the mysql image
     image: mysql:latest
     platform: linux/amd64
     container_name: db-init
@@ -23,13 +30,19 @@ services:
           sleep 1
         done
         echo 'MySQL started, executing initialization script...'
- 
+        mysql -h database -u root -pmypassword < /sql_scripts/ChapterOne.sql
+        mysql -h database -u root -pmypassword < /sql_scripts/populateDB.sql
+
         echo 'Initialization completed'
       "
     networks:
       - my_networkSQL
+    volumes:
+      - ./db:/sql_scripts
     depends_on:
-      - mysql
+      mysql:
+        condition: service_started
+
   
   php-apache:
     image: whatsm97/sito:latest
@@ -37,8 +50,6 @@ services:
     container_name: sito
     command: >
       /bin/bash -c "
-        echo 'Initializing database with populateDB.php...'
-        php /var/www/html/populateDB.php
         echo 'Database population completed, starting Apache...'
         apache2-foreground
       "
@@ -51,6 +62,12 @@ services:
     depends_on:
       db-init:
         condition: service_completed_successfully
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   my_networkSQL:

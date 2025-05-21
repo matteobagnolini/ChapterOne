@@ -1,6 +1,6 @@
 # To-Do List
 
-- [ ] pulire CSS
+- [x] pulire CSS
 - [ ] utilizzo di Ajax, PER LE NOTIFICHE?
 - [ ] Pulire file database.php
 - [ ] pulire file 
