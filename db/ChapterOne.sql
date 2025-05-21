@@ -169,6 +169,8 @@ CREATE TABLE BEST_SELLER (
 
 -- TRIGGER -- 
 
+DELIMITER $$ --
+
 CREATE TRIGGER after_insert_book_in_cart
 AFTER INSERT ON BOOK_IN_CART
 FOR EACH ROW
@@ -178,7 +180,7 @@ BEGIN
         Subtotal = Subtotal + (NEW.Quantity * (SELECT Price FROM BOOK WHERE Id = NEW.Book_id)),
         Last_modified = CURRENT_TIMESTAMP
     WHERE Id = NEW.Cart_id;
-END;
+END$$
 
 CREATE TRIGGER after_update_book_in_cart
 AFTER UPDATE ON BOOK_IN_CART
@@ -195,7 +197,7 @@ BEGIN
         Subtotal = Subtotal + (quantity_diff * price_val),
         Last_modified = CURRENT_TIMESTAMP
     WHERE Id = NEW.Cart_id;
-END;
+END$$
 
 CREATE TRIGGER after_delete_book_in_cart
 AFTER DELETE ON BOOK_IN_CART
@@ -206,7 +208,7 @@ BEGIN
         Subtotal = Subtotal - (OLD.Quantity * (SELECT Price FROM BOOK WHERE Id = OLD.Book_id)),
         Last_modified = CURRENT_TIMESTAMP
     WHERE Id = OLD.Cart_id;
-END;
+END$$
 
 
 -- Trigger per creare un carrello quando viene creato un nuovo cliente
@@ -215,7 +217,7 @@ AFTER INSERT ON CUSTOMER
 FOR EACH ROW
 BEGIN
     INSERT INTO CART (Customer_id) VALUES (NEW.Id);
-END;
+END$$
 
 
 CREATE TRIGGER after_insert_order_detail
@@ -231,7 +233,7 @@ BEGIN
     UPDATE BOOK
     SET Product_count = Product_count - NEW.Quantity
     WHERE Id = NEW.Book_id;
-END;
+END$$
 
 CREATE TRIGGER after_insert_order_notification_for_admin
 AFTER INSERT ON ORDER_NOTIFICATION
@@ -241,5 +243,5 @@ BEGIN
         INSERT INTO ADMIN_ORDER_NOTIFICATION (Order_id, Preview, Message)
         VALUES (NEW.Order_id, 'NUOVO ORDINE', 'Nuovo ordine ricevuto');
     END IF;
-END;
+END$$
 
