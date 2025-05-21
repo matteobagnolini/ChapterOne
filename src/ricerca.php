@@ -11,7 +11,7 @@ if (!isset($_GET['query']) || empty($_GET['query'])) {
     $templateParams["intestazione"] = "Risultati Ricerca";
     $query = $_GET["query"];
 
-    $book = $dbh->searchBooks($query);
+    $book = $dbh->getBookByTitle($query);
     $templateParams["libri"] = $book;
     
     if ($book === null || count($book) === 0) {
