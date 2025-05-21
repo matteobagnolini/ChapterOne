@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/db/database.php';
+require_once __DIR__ . '/html/db/database.php';
 
 $db = new MySqlDatabase('database', 'root', 'mypassword', 'Chapter_one', 3306);
 
