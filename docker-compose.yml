@@ -56,7 +56,7 @@ services:
         apache2-foreground
       "
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./src:/var/www/html
       - ./db:/var/www
