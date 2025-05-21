@@ -1,17 +1,17 @@
 body {
-    background-color: rgb(247, 247, 247); /* Grigio chiaro */
-    color: rgb(38, 50, 56); /* Blu scuro */
+    background-color: rgb(247, 247, 247);
+    color: rgb(38, 50, 56);
     font-family: Arial, sans-serif;
 }
 
 nav {
-    background-color: rgb(38, 50, 56); /* Bianco puro */
-    border-bottom: 1px solid rgb(176, 190, 197); /* Grigio medio */
-    font-family: 'Poppins', sans-serif; /* Font per la navbar */
+    background-color: rgb(38, 50, 56);
+    border-bottom: 1px solid rgb(176, 190, 197);
+    font-family: 'Poppins', sans-serif;
 }
 
 nav a.nav-link, nav a.navbar-brand {
-    color: rgb(255, 255, 255) ;  /* Bianco puro */
+    color: rgb(255, 255, 255) ;
     text-decoration: none;
     margin-right: 15px;
 }
@@ -21,7 +21,7 @@ nav a.nav-link:hover, nav a.navbar-brand:hover {
 }
 
 h1, h2, h3 {
-    color: rgb(38, 50, 56); /* Blu scuro */
+    color: rgb(38, 50, 56);
 }
 
 p {
@@ -30,49 +30,47 @@ p {
 
 
 .card-img-container {
-    height: 300px; /* Imposta un'altezza fissa per il contenitore delle immagini */
-    overflow: hidden; /* Nasconde le parti dell'immagine che escono dal contenitore */
+    height: 300px;
+    overflow: hidden;
 }
 .card-img-top {
-    height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
-    object-fit: cover; /* Adatta l'immagine all'interno del contenitore */
-    width: 100%; /* Assicura che l'immagine occupi tutta la larghezza del contenitore */
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
 }
 
 section li a .card {
-    background-color: rgb(255, 255, 255); /* Bianco puro */
-    border: 1px solid rgb(176, 190, 197); /* Grigio medio */
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(176, 190, 197);
     border-radius: 5px;
-    /* padding: 15px; */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Aggiungi una transizione fluida */
-    height: 450px; /* Altezza fissa per tutte le card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 450px;
     display: flex;
     flex-direction: column;
 }
 
-/* Aggiungi effetto hover per le schede dei libri */
 section li a .card:hover {
-    transform: scale(1.05); /* Aumenta le dimensioni del 5% */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Ombra più pronunciata */
+    transform: scale(1.05);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 section li a .card-body {
-    flex-grow: 1; /* Fa sì che il corpo della card occupi lo spazio disponibile */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 15px; /* Assicura un padding consistente */
+    padding: 15px;
 }
 
 section li a .card-title {
-    color: rgb(38, 50, 56); /* Blu scuro */
+    color: rgb(38, 50, 56);
     font-weight: bold;
-    font-size: 1rem; /* Dimensione del testo fissa */
-    height: 3rem; /* Altezza fissa per il titolo (~2 righe) */
-    overflow: hidden; /* Nasconde il testo in eccesso */
-    text-overflow: ellipsis; /* Aggiunge i puntini di sospensione */
+    font-size: 1rem;
+    height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita il testo a 2 righe */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     margin-bottom: 0.5rem;
 }
@@ -81,32 +79,30 @@ section li a .card-text {
     margin-bottom: 0.4rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap; /* Impedisce il testo di andare a capo */
+    white-space: nowrap;
 }
 
 .card-author, .card-price {
-    color: rgb(69, 90, 100); /* Grigio bluastro */
+    color: rgb(69, 90, 100);
 }
 
-/* Pulsanti */
 button, .btn {
-    background-color: rgb(69, 90, 100); /* Grigio bluastro */
+    background-color: rgb(69, 90, 100);
     color: white;
     cursor: pointer;
 }
 
 
 .btn:hover {
-    background-color: rgb(69, 90, 100); /* Blu scuro */
+    background-color: rgb(69, 90, 100);
 }
 
-/* Input search */
 input[type="search"] {
-    border: 1px solid rgb(176, 190, 197); /* Grigio medio */
+    border: 1px solid rgb(176, 190, 197);
 }
 
 input[type="search"]:focus {
-    border-color: rgb(69, 90, 100); /* Grigio bluastro */
+    border-color: rgb(69, 90, 100);
     outline: none;
 }
 
@@ -115,17 +111,17 @@ button.navbar-toggler .navbar-toggler-icon {
 }
 
 button.navbar-toggler {
-    border: none; /* Rimuove il bordo */
+    border: none;
     margin-left: 10px;
 }
 
 button.navbar-toggler:focus {
-    outline: none; /* Rimuove il bordo di focus */
-    box-shadow: none; /* Rimuove il bordo scuro */
+    outline: none;
+    box-shadow: none;
 }
 
 footer {
-    font-family: 'Poppins', sans-serif; /* Font per la navbar */
+    font-family: 'Poppins', sans-serif;
 }
 
 body table tbody td img {
@@ -136,12 +132,12 @@ body table tbody td img {
 
 
 .btn-danger {
-    background-color: #dc3545 !important; /* Rosso Bootstrap */
+    background-color: #dc3545 !important;
     color: white !important;
 }
 
 .btn-success {
-    background-color: #198754 !important; /* Verde Bootstrap */
+    background-color: #198754 !important;
     color: white !important;
 }
 
@@ -167,7 +163,7 @@ body table tbody td img {
 
 
 .notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link.text-success:hover .bi,
-.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link.text-success:hover .bi { /* Applicabile se ci fosse un pulsante success nelle notifiche lette */
+.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link.text-success:hover .bi {
     color: #157347;
 }
 
@@ -180,16 +176,10 @@ body table tbody td img {
 
 @media (max-width: 575.98px) {
     section li a .card {
-        height: 350px; /* Riduci l'altezza totale della card per mobile */
+        height: 350px; 
     }
 
     section li a .card .card-img-container {
-        height: 220px; /* Riduci l'altezza del contenitore dell'immagine per mobile */
+        height: 220px;
     }
 }
-
-   
-
-
-
-
