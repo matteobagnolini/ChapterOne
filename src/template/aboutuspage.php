@@ -8,7 +8,7 @@
     </section>
 
     <section class="my-5">
-        <h2 class="text-center mb-4">La Nostra Storia</h2>
+        <h2 class="text-center mb-4">La Nostra Storia2</h2>
         <p>
             Nati dalla passione per i libri e dalla volontà di condividere questa passione con il mondo,
             ChapterOne è cresciuto fino a diventare un punto di riferimento per lettori accaniti e occasionali.
