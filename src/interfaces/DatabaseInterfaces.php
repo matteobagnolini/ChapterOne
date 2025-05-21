@@ -23,7 +23,6 @@ interface AuthorManager {
     public function insertAuthor($firstName, $lastName);
     public function updateAuthor($id, $firstName, $lastName);
     public function deleteAuthor($id);
-    public function searchAuthors($searchTerm);
 }
 
 interface CategoryManager {
@@ -49,7 +48,6 @@ interface BookManager {
     public function insertBookWithExceptr($title, $description, $price, $cover, $exceptr, $categoryId, $publisherId, $authorId);
     public function updateBook($id, $title, $description, $price, $cover, $categoryId, $publisherId, $authorId);
     public function deleteBook($id);
-    public function searchBooks($searchTerm);
     public function updateBookQuantity($id, $quantity);
 }
 
