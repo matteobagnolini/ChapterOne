@@ -1,4 +1,36 @@
 services:
+  mysql:
+    image: whatsm97/database:latest
+    platform: linux/amd64
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    networks:
+      - my_networkSQL
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  db-init:
+    image: mysql:latest
+    platform: linux/amd64
+    container_name: db-init
+    command: >
+      /bin/bash -c "
+        echo 'Waiting for MySQL to start...'
+        while ! mysql -h database -u root -pmypassword -e 'SELECT 1' >/dev/null 2>&1; do
+          sleep 1
+        done
+        echo 'MySQL started, executing initialization script...'
+ 
+        echo 'Initialization completed'
+      "
+    networks:
+      - my_networkSQL
+    depends_on:
+      - mysql
+  
   php-apache:
     image: whatsm97/sito:latest
     platform: linux/amd64
@@ -19,41 +51,6 @@ services:
     depends_on:
       db-init:
         condition: service_completed_successfully
-  
-  mysql:
-    image: whatsm97/database:latest
-    platform: linux/amd64
-    container_name: database
-    environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-    ports:
-      - "3306:3306"
-    networks:
-      - my_networkSQL
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./ChapterOne.sql:/docker-entrypoint-initdb.d/ChapterOne.sql  # Copia il tuo script SQL
-  
-  db-init:
-    image: mysql:latest
-    platform: linux/amd64
-    container_name: db-init
-    command: >
-      /bin/bash -c "
-        echo 'Waiting for MySQL to start...'
-        while ! mysql -h database -u root -pmypassword -e 'SELECT 1' >/dev/null 2>&1; do
-          sleep 1
-        done
-        echo 'MySQL started, executing initialization script...'
- 
-        echo 'Initialization completed'
-      "
-    volumes:
-      - ./db.ChapterOne.sql:/ChapterOne.sql  # Monta il tuo script SQL
-    networks:
-      - my_networkSQL
-    depends_on:
-      - mysql
 
 networks:
   my_networkSQL:
