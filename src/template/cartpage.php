@@ -52,7 +52,7 @@
                                                 <form action="utils/cart_actions.php" method="POST" class="d-inline-block">
                                                     <input type="hidden" name="action" value="remove">
                                                     <input type="hidden" name="book_id" value="<?php echo $item["Id"]; ?>">
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm" aria-label="Rimuovi <?php echo $item["Title"]; ?> dal carrello">
+                                                    <button type="submit" class="btn btn-sm" aria-label="Rimuovi <?php echo $item["Title"]; ?> dal carrello">
                                                         <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Rimuovi</span>
                                                     </button>
                                                 </form>
