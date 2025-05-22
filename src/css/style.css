@@ -122,6 +122,7 @@ button.navbar-toggler:focus {
 
 footer {
     font-family: 'Poppins', sans-serif;
+    background-color: rgb(38, 50, 56);
 }
 
 body table tbody td img {
