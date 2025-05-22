@@ -17,6 +17,9 @@
                         
                         ?>
 
+                        <h2>Descrizione</h2>
+                        <p><?php echo $templateParams["libro"]["Description"]; ?></p>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae praesentium ea quam sunt sit aliquid eveniet deleniti! Optio quis veniam assumenda accusamus mollitia labore, a, explicabo cupiditate aperiam fugiat harum?</p>
                             <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
@@ -52,12 +55,6 @@
                     </div>
                 </div>
             </section>
-            
-            <section class="mb-4">
-                <h2>Descrizione</h2>
-                <p><?php echo $templateParams["libro"]["Description"]; ?></p>
-            </section>
-
             <section class="mb-4">
                 <h2>Recensioni</h2>
 
