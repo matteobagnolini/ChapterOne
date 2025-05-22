@@ -99,10 +99,10 @@
     ?>
     
     </main>
-    <footer class="bg-light text-white text-center py3 mt-auto">
-        <div class="text-center p-3 bg-dark text-white">
+    <footer class="text-white text-center py3 mt-auto">
+        <p class="text-center p-3 text-white">
             © <?php echo date("Y"); ?> ChapterOne Shop. All rights reserved.
-        </div>
+        </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script></body>
