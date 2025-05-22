@@ -9,9 +9,7 @@
                         <p><strong>Autore:</strong> <?php echo $templateParams["libro"]["Author_full_name"]; ?></p>
                         <p><strong>Casa Editrice:</strong> <?php echo $templateParams["libro"]["Publisher_name"]; ?></p>
                         <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
-                    </div>
-                    <div>
-                        <?php
+                                                <?php
                             $bookDetails = $templateParams["libro"];
                             $excerptFilename = $bookDetails["Exceptr"] ?? null;
                             $bookId = $bookDetails["Id"] ?? null;
@@ -28,25 +26,28 @@
                             if (!(isset($_SESSION['admin']) && $_SESSION['admin'] === true)):
                                 if ($isBookAvailable):
                             ?>
-                                <div class="me-2">
-                                    <label for="quantity_<?php echo $bookId; ?>" class="form-label visually-hidden">Quantità</label>
-                                    <input type="number" name="quantity" id="quantity_<?php echo $bookId; ?>" class="form-control" value="1" min="1" <?php if (isset($templateParams["libro"]["Product_count"])) echo 'max="' . $templateParams["libro"]["Product_count"] . '"'; ?> style="width: 70px;" aria-label="Quantità">
+                                <div class="d-flex w-100">
+                                    
+                                    <button type="submit" class="btn btn-primary flex-grow-1"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                                    <div class="ms-2">
+                                        <label for="quantity_<?php echo $bookId; ?>" class="form-label visually-hidden">Quantità</label>
+                                        <input type="number" name="quantity" id="quantity_<?php echo $bookId; ?>" class="form-control" value="1" min="1" <?php if (isset($templateParams["libro"]["Product_count"])) echo 'max="' . $templateParams["libro"]["Product_count"] . '"'; ?> style="width: 70px;" aria-label="Quantità">
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
                             <?php else: ?>
-                                <button type="button" class="btn btn-secondary" disabled><i class="bi bi-cart-plus"></i> Non disponibile</button>
+                                <button type="button" class="btn btn-secondary w-100" disabled><i class="bi bi-cart-plus"></i> Non disponibile</button>
                             <?php endif; ?>
                             <?php else: // Se è admin ?>
-                                <button type="button" class="btn btn-secondary" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                                <button type="button" class="btn btn-secondary w-100" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
                             <?php endif; ?>
                         </form>
 
                         <?php if ($excerptFilename && $bookId):?>
-                            <a href="<?php echo $baseExcerptPath . $excerptFilename; ?>" class="btn btn-outline-secondary" download="<?php echo $bookDetails["Title"] . "_Preview" . ".txt"; ?>">
+                            <a href="<?php echo $baseExcerptPath . $excerptFilename; ?>" class="btn btn-outline-secondary w-100 mt-2" download="<?php echo $bookDetails["Title"] . "_Preview" . ".txt"; ?>">
                                 <i class="bi bi-file-earmark-arrow-down"></i> Scarica estratto
                             </a>
                         <?php else: ?>
-                            <button class="btn btn-outline-secondary" disabled><i class="bi bi-file-earmark-arrow-down"></i> Estratto non disponibile</button>
+                            <button class="btn btn-outline-secondary w-100 mt-2" disabled><i class="bi bi-file-earmark-arrow-down"></i> Estratto non disponibile</button>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                 <?php else: ?>
                     <ul class="list-group">
                         <?php foreach($templateParams["recensioni"] as $recensione): ?>
-                            <li class="list-group-item">
+                            <li class="list-group">
                                 <article>
                                     <header class="d-flex align-items-center">
                                         <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
