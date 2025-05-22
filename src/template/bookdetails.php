@@ -5,22 +5,25 @@
                 </div>
                 <div class="col-md-8 d-flex flex-column justify-content-between">
                     <div>
-                        <h1><?php echo $templateParams["libro"]["Title"]; ?></h1>
-                        <p><strong>Autore:</strong> <?php echo $templateParams["libro"]["Author_full_name"]; ?></p>
-                        <p><strong>Casa Editrice:</strong> <?php echo $templateParams["libro"]["Publisher_name"]; ?></p>
-                        <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
-                                                <?php
-                            $bookDetails = $templateParams["libro"];
-                            $excerptFilename = $bookDetails["Exceptr"] ?? null;
-                            $bookId = $bookDetails["Id"] ?? null;
-                            $baseExcerptPath = UPLOAD_DIR;
-                        
-                        ?>
-
-                        <h2>Descrizione</h2>
-                        <p><?php echo $templateParams["libro"]["Description"]; ?></p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae praesentium ea quam sunt sit aliquid eveniet deleniti! Optio quis veniam assumenda accusamus mollitia labore, a, explicabo cupiditate aperiam fugiat harum?</p>
-                            <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
+                        <section class="pt-3 mt-3">
+                            <h1><?php echo $templateParams["libro"]["Title"]; ?></h1>
+                            <p><strong>Autore:</strong> <?php echo $templateParams["libro"]["Author_full_name"]; ?></p>
+                            <p><strong>Casa Editrice:</strong> <?php echo $templateParams["libro"]["Publisher_name"]; ?></p>
+                            <p><strong>Prezzo:</strong> € <?php echo number_format($templateParams["libro"]["Price"], 2, ',', '.'); ?></p>
+                                                    <?php
+                                $bookDetails = $templateParams["libro"];
+                                $excerptFilename = $bookDetails["Exceptr"] ?? null;
+                                $bookId = $bookDetails["Id"] ?? null;
+                                $baseExcerptPath = UPLOAD_DIR;
+                            
+                            ?>
+                        </section>
+                        <section class="border-top border-bottom py-3 my-3">
+                            <h2>Descrizione</h2>
+                            <p><?php echo $templateParams["libro"]["Description"]; ?></p>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae praesentium ea quam sunt sit aliquid eveniet deleniti! Optio quis veniam assumenda accusamus mollitia labore, a, explicabo cupiditate aperiam fugiat harum?</p>
+                        </section>
+                        <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
                             
