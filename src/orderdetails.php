@@ -1,5 +1,4 @@
 <?php
-// filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\orderdetails.php
 require_once 'bootstrap.php';
 
 if (!isUserLoggedIn() && !isAdminLoggedIn()) {
@@ -8,13 +7,13 @@ if (!isUserLoggedIn() && !isAdminLoggedIn()) {
 }
 
 $templateParams["titolo"] = "ChapterOne - Dettagli Ordine";
-$templateParams["nome"] = "orderdetailspage.php";
+$templateParams["nome"] = "Orderdetailspage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 $templateParams["ordineInfo"] = null;     
 $templateParams["dettagliordine"] = [];
 $templateParams["libriOrdine"] = [];
 $templateParams["totaleArticoli"] = 0;   
-$templateParams["isAdminView"] = isAdminLoggedIn(); // Imposta il flag qui
+$templateParams["isAdminView"] = isAdminLoggedIn();
 
 if (isset($_GET["id_order"])) {
     $orderId = $_GET["id_order"];

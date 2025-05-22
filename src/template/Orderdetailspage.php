@@ -69,14 +69,7 @@
                     ?>
                 </p>
                 <p class="fw-bold fs-5">Prezzo totale: <?php echo number_format($templateParams["ordineInfo"]["Total"], 2, ',', '.'); ?> €</p>
-                <p class="fw-bold">Stato: <span class="badge bg-<?php
-                    switch ($templateParams["ordineInfo"]['Status']) {
-                        case 'pending': echo 'warning text-dark'; break;
-                        case 'sent': echo 'info text-dark'; break;
-                        case 'arrived': echo 'success'; break;
-                        default: echo 'secondary'; break;
-                    }
-                ?>"><?php echo ucfirst($templateParams["ordineInfo"]['Status']); ?></span></p>
+                <p class="fw-bold">Stato: <?php echo ucfirst($templateParams["ordineInfo"]['Status']); ?></p>
             </section>
 
             <div class="text-center">
