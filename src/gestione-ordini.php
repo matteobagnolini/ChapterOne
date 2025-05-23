@@ -8,9 +8,8 @@ if (!isAdminLoggedIn()) {
 }
 
 $templateParams["titolo"] = "ChapterOne - Gestione Ordini";
-$templateParams["nome"] = "lista-ordinipage.php";
-$templateParams["categorie"] = $dbh->getCategories();
-
+$templateParams["nome"] = "lista-ordinipage.php"
+$templateParams["categorie"] = $dbh->getCategories(); 
 
 $templateParams["ordini"] = $dbh->getOrders(); 
 

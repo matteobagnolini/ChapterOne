@@ -14,7 +14,7 @@ if (!isAdminLoggedIn()) {
 
 $templateParams["titolo"] = "ChapterOne - Gestione Libri";
 $templateParams["nome"] = "lista-libripage.php";
-$templateParams["categorie"] = $dbh->getCategories();
+$templateParams["categorie"] = $dbh->getCategories(); 
 
 $libriDaDb = $dbh->getBooks();
 $templateParams["libri"] = [];

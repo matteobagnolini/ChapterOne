@@ -19,10 +19,10 @@ if(!$author){
     exit;
 }
 
-// Se il form NON è stato inviato, carica i dati dell'autore per il form
+
 $templateParams["author"] = $author;
 
-// Se il form è stato inviato, aggiorna i dati e ripopola in caso di errore
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $first_name = trim($_POST['first_name']);
     $last_name = trim($_POST['last_name']);

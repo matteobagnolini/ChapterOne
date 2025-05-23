@@ -5,8 +5,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (isset($_POST["action"]) && $_POST["action"] === "delete"){
        $reviewId = intval($_POST["review_id"]);
-       $bookId = intval($_POST["book_id"]); // Corretto: mancava l'assegnazione
-       $customerId = $_SESSION["id"]; // Aggiunta dichiarazione della variabile customerId
+       $bookId = intval($_POST["book_id"]); 
+       $customerId = $_SESSION["id"]; 
        
        if (empty($reviewId) || empty($bookId)) {
             die("Errore: Dati mancanti per l'eliminazione della recensione.");

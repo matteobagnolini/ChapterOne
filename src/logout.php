@@ -3,7 +3,6 @@ require_once 'bootstrap.php';
 
 $_SESSION = array();
 
-// delete cookie 
 if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), '', time()-42000, '/');
 }

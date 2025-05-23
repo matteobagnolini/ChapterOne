@@ -12,7 +12,7 @@ $publisher = [
     "Address" => ""
 ];
 
-// Se c'è un id in GET, carica i dati della casa editrice
+
 if (isset($_GET['id'])) {
     $editMode = true;
     $publisher = $dbh->getPublisherById($_GET['id']);
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-// Gestione submit del form
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $id = isset($_POST['id']) ? intval($_POST['id']) : null;
     $nome = trim($_POST['nome']);
@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     if (empty($errors)) {
         if ($id) {
-            // Modifica
             $success = $dbh->updatePublisher($id, $nome, $indirizzo);
             if ($success) {
                 $_SESSION['success_message'] = "Casa editrice aggiornata con successo!";

@@ -145,10 +145,5 @@ interface BusinessLogic {
     public function getAccountInfo($email);
     public function getCartBooksWithInfo($cartId);
     public function isBookPurchasable($bookId);
-} // get detailsorder con book
-  // checklogin
-  // GetNewBooks
-  // GetAccountInfo
-  // getRandomPost
-  // GetPost
+} 
 ?>

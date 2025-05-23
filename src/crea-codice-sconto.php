@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     } elseif ($type === 'percentage' && $value > 100) {
         $errors[] = "Il valore percentuale non può superare 100.";
     }
+    // preg_match is used to validate a date in the format YYYY-MM-DD
     if (empty($startDate) || !preg_match("/^\d{4}-\d{2}-\d{2}$/", $startDate)) {
         $errors[] = "Data inizio non valida.";
     }
@@ -54,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     } else {
         $_SESSION['form_error_message'] = implode("<br>", $errors);
-        // Ripopola i campi in caso di errore
         $templateParams["codicesconto"] = [
             "Code" => $code,
             "Type" => $type,

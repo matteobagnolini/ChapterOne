@@ -14,9 +14,15 @@ $templateParams["case_editrici"] = $dbh->getPublishers();
 
 
 $templateParams["book_input"] = [
-    "Title" => "", "Description" => "", "Price" => "", "Cover" => null,
-    "Exceptr" => null, "Category_id" => "", "Author_id" => "",
-    "Publisher_id" => "", "Product_count" => 0
+    "Title" => "", 
+    "Description" => "", 
+    "Price" => "", 
+    "Cover" => null,
+    "Exceptr" => null, 
+    "Category_id" => "", 
+    "Author_id" => "",
+    "Publisher_id" => "", 
+    "Product_count" => 0
 ];
 
 
@@ -54,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
 
     if (isset($_FILES['estratto']) && $_FILES['estratto']['error'] == UPLOAD_ERR_OK) {
-        $titoloPerNomeFileEstratto = !empty($titolo) ? $titolo : 'estratto_default'; // Nome base per il file
+        $titoloPerNomeFileEstratto = !empty($titolo) ? $titolo : 'estratto_default'; 
         list($uploadOkEstratto, $risultatoUploadEstratto) = uploadFile("resources/exceptr/", $_FILES['estratto'], $titoloPerNomeFileEstratto);
         if ($uploadOkEstratto) {
             $nomeFileEstratto = $risultatoUploadEstratto;
@@ -66,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $errors[] = "Problema con il file estratto fornito (Codice: " . $_FILES['estratto']['error'] . ").";
     }
 
-    // Validazioni campi testuali e numerici
+ 
     if (empty($titolo)) $errors[] = "Il campo 'Titolo' è obbligatorio.";
     if (empty($prezzo) || !is_numeric($prezzo) || floatval($prezzo) <= 0) $errors[] = "Il campo 'Prezzo' è obbligatorio, deve essere un numero maggiore di zero.";
     if (empty($categoria_id)) $errors[] = "Seleziona una categoria.";

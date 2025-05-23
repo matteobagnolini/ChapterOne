@@ -1,5 +1,5 @@
 <?php
-// filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\update-account.php
+
 require_once 'bootstrap.php';
 
 if (!isUserLoggedIn()) {
@@ -8,12 +8,11 @@ if (!isUserLoggedIn()) {
 }
 
 if (isset($_POST['action']) && $_POST['action'] === 'update_account') {
-    $user = $dbh->getCustomerByUsername( $_SESSION['username']);  // Assicurati che 'id' sia la chiave corretta nella sessione
-    $userId = $user['Id']; // ID dell'utente da aggiornare
+    $user = $dbh->getCustomerByUsername( $_SESSION['username']); 
+    $userId = $user['Id'];
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
-    $submittedPassword = $_POST['password'] ?? ''; // Password inviata dal form
-    $address = $_POST['address'] ?? '';
+    $submittedPassword = $_POST['password'] ?? ''; 
     $phone = $_POST['phone'] ?? '';
 
     $nameParts = explode(' ', trim($name), 2);
@@ -27,7 +26,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_account') {
             $firstName,
             $lastName,
             $email,
-            $submittedPassword, // Passa la nuova password o null
+            $submittedPassword, 
             $address,
             $phone
         );

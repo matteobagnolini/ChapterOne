@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     } else {
         $_SESSION['form_error_message'] = implode("<br>", $errors);
-        // Ripopola i campi in caso di errore
         $templateParams["author"] = [
             "First_name" => $first_name,
             "Last_name" => $last_name

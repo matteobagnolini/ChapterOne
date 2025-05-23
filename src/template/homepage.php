@@ -18,7 +18,7 @@
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
             <?php foreach($templateParams["bestsellers"] as $book): ?>
             <li class="col">
-                <a href="book.php?id=<?php echo $book["Id"] ?>" class="text-decoration-none">
+                <a href="libro.php?id=<?php echo $book["Id"] ?>" class="text-decoration-none">
                     <div class="card mb-4">
                         <div class="card-img-container">
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
@@ -46,7 +46,7 @@
         <ul class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-4 m-0 list-unstyled">
             <?php foreach($templateParams["novità"] as $book): ?>
             <li class="col">
-                <a href="book.php?id=<?php echo $book["Id"] ?>" class="text-decoration-none">
+                <a href="libro.php?id=<?php echo $book["Id"] ?>" class="text-decoration-none">
                     <div class="card mb-4">
                         <div class="card-img-container">
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">

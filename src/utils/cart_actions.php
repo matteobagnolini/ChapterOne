@@ -1,37 +1,22 @@
 <?php
+require_once '../bootstrap.php';
 
-require_once '../bootstrap.php'; // Assicurati che il percorso sia corretto
 
 if (!isUserLoggedIn()) {
     header("Location: ../login.php");
     exit;
 }
 
-$redirectTo = '../cart.php'; // Pagina predefinita a cui reindirizzare
+$redirectTo = '../cart.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
         $user = $dbh->getCustomerByUsername($_SESSION["username"]);
         
-        // Tentativo di recuperare o creare il carrello
         $cartDetails = $dbh->getCartByCustomerId($user['Id']);
-        $cartId = null;
-        if ($cartDetails) {
-            $cartId = $cartDetails['Id'];
-        } elseif (in_array($action, ['add', 'update'])) { // Crea il carrello solo se necessario per add/update
-            $newCartId = $dbh->createCartForCustomer($user['Id']);
-            if ($newCartId) {
-                $cartId = $newCartId;
-            }
-        }
-
-        if (!$cartId && in_array($action, ['add', 'update', 'remove'])) { // Se ancora non c'è ID carrello per azioni che lo richiedono
-            $_SESSION['error'] = "Impossibile trovare o creare un carrello per l'utente.";
-            header("Location: " . $redirectTo);
-            exit;
-        }
-
+        $cartId = $cartDetails['Id'];
+     
         $bookId = isset($_POST['book_id']) ? (int)$_POST['book_id'] : null;
         $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1; 
 
@@ -41,15 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $bookDetails = $dbh->getBookById($bookId);
                     if (!$bookDetails) {
                         $_SESSION['error'] = "Libro non trovato.";
-                        header("Location: " . ($bookId ? "../book.php?id=" . $bookId : $redirectTo));
+                        header("Location: " . ($bookId ? "../libro.php?id=" . $bookId : $redirectTo));
                         exit;
                     }
 
-                    $isPurchasable = $bookDetails['Product_count'] > 0; // Semplice controllo di disponibilità
+                    $isPurchasable = $bookDetails['Product_count'] > 0; 
 
                     if (!$isPurchasable) {
                         $_SESSION['error'] = "Il libro '{$bookDetails['Title']}' non è attualmente disponibile per l'acquisto.";
-                        $redirectTo = "../book.php?id=" . $bookId;
+                        $redirectTo = "../libro.php?id=" . $bookId;
                     } else {
                         $books = $dbh->getBooksInCart($cartId);
                         $existingItem = null;
@@ -67,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             if ($existingItem) {
                                  $_SESSION['error'] .= " Hai già {$existingItem['Quantity']} unità nel carrello.";
                             }
-                            $redirectTo = "../book.php?id=" . $bookId;
+                            $redirectTo = "../libro.php?id=" . $bookId;
                         } else {
                             if ($existingItem) {
                                 $result = $dbh->updateBookInCart($cartId, $bookId, $requestedTotalQuantity);
@@ -87,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             case 'update':
                 if ($bookId && $cartId) {
-                    if ($quantity < 0) { // Non permettere quantità negative
+                    if ($quantity < 0) { 
                         $_SESSION['error'] = "La quantità non può essere negativa.";
                     } elseif ($quantity == 0) { // Se la quantità è 0, rimuovi il libro
                         $result = $dbh->deleteBookInCart($cartId, $bookId);
@@ -96,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         } else {
                             $_SESSION['error'] = "Errore durante la rimozione del libro dal carrello.";
                         }
-                    } else { // Quantità > 0
+                    } else if ($quantity > 0) { 
                         $bookDetails = $dbh->getBookById($bookId);
                         if (!$bookDetails) {
                             $_SESSION['error'] = "Libro non trovato per l'aggiornamento.";
@@ -136,8 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $_SESSION['error'] = "Nessuna azione specificata.";
     }
-} else {
-    $_SESSION['error'] = "Metodo di richiesta non valido.";
 }
 
 header("Location: " . $redirectTo);

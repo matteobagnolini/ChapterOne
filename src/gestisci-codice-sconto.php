@@ -1,8 +1,7 @@
 <?php
-// filepath: c:\Users\Giuseppe\Documents\Progetti\ChapterOne\src\gestisci-codice-sconto.php
+
 require_once 'bootstrap.php';
 
-// Controllo accesso Admin
 if (!isAdminLoggedIn()) {
     header("location: login.php");
     exit;
@@ -10,7 +9,7 @@ if (!isAdminLoggedIn()) {
 
 $templateParams["titolo"] = "ChapterOne - Gestisci Codice Sconto";
 $templateParams["nome"] = "gestisci-codice-scontopage.php";
-$templateParams["categorie"] = $dbh->getCategories(); // Per la navbar, se necessario
+$templateParams["categorie"] = $dbh->getCategories();
 
 $isEditing = false;
 $discountCodeId = null;
@@ -23,14 +22,14 @@ if (isset($_GET['id'])) {
         if ($existingCode) {
             $templateParams["codicesconto"] = $existingCode;
         } else {
-            // Codice non trovato, forse reindirizzare o mostrare errore
-            $_SESSION['error_message'] = "Codice sconto non trovato."; // Messaggio per la lista
+
+            $_SESSION['error_message'] = "Codice sconto non trovato.";
             header("Location: lista-codicisconto.php");
             exit;
         }
     } else {
-        // ID non valido
-        $_SESSION['error_message'] = "ID codice sconto non valido."; // Messaggio per la lista
+ 
+        $_SESSION['error_message'] = "ID codice sconto non valido."; 
         header("Location: lista-codicisconto.php");
         exit;
     }
@@ -38,14 +37,14 @@ if (isset($_GET['id'])) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Validazione e recupero dati dal form
+
     $code = trim($_POST['code']);
     $type = trim($_POST['type']);
     $value = filter_var(trim($_POST['value']), FILTER_VALIDATE_FLOAT);
     $startDate = trim($_POST['start_date']);
     $endDate = trim($_POST['end_date']);
-    $singleUse = isset($_POST['single_use']) ? 1 : 0; // Converte in 0 o 1
-    $active = isset($_POST['active']) ? 1 : 0;       // Converte in 0 o 1
+    $singleUse = isset($_POST['single_use']) ? 1 : 0; 
+    $active = isset($_POST['active']) ? 1 : 0;     
     $idToUpdate = isset($_POST['id']) ? filter_var($_POST['id'], FILTER_VALIDATE_INT) : null;
 
     // --- Validazione base ---
@@ -74,39 +73,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if (!empty($startDate) && !empty($endDate) && strtotime($endDate) < strtotime($startDate)) {
         $errors[] = "La data di fine non può essere precedente alla data di inizio.";
     }
-    // --- Fine Validazione ---
+
 
     if (empty($errors)) {
-        if ($idToUpdate && $isEditing) { // Modalità modifica
+        if ($idToUpdate && $isEditing) { 
             $success = $dbh->updateDiscountCode($idToUpdate, $code, $type, $value, $startDate, $endDate, $singleUse, $active);
             if ($success) {
-                $_SESSION['success_message'] = "Codice sconto aggiornato con successo!"; // Messaggio per la lista
+                $_SESSION['success_message'] = "Codice sconto aggiornato con successo!";
                 header("Location: lista-codicisconto.php");
                 exit;
             } else {
-                $_SESSION['form_error_message'] = "Errore durante l'aggiornamento del codice sconto."; // Messaggio per il form
+                $_SESSION['form_error_message'] = "Errore durante l'aggiornamento del codice sconto."; 
             }
-        } else { // Modalità creazione
+        } else { 
             $success = $dbh->insertDiscountCode($code, $type, $value, $startDate, $endDate, $singleUse, $active);
             if ($success) {
-                $_SESSION['success_message'] = "Codice sconto creato con successo!"; // Messaggio per la lista
+                $_SESSION['success_message'] = "Codice sconto creato con successo!"; 
                 header("Location: lista-codicisconto.php");
                 exit;
             } else {
-                $_SESSION['form_error_message'] = "Errore durante la creazione del codice sconto."; // Messaggio per il form
+                $_SESSION['form_error_message'] = "Errore durante la creazione del codice sconto."; 
             }
         }
     } else {
         $_SESSION['form_error_message'] = implode("<br>", $errors);
-        // Se ci sono errori, ricarica i dati inviati nel form per precompilarlo
-        $templateParams["codicesconto_input"] = $_POST; // Usato nel template per ripopolare
-        // Se si stava modificando, ricarica i dati originali per il titolo e l'ID
+    
+        $templateParams["codicesconto_input"] = $_POST; 
         if ($isEditing && $idToUpdate) {
              $templateParams["codicesconto"] = $dbh->getDiscountCodeById($idToUpdate);
         }
     }
 }
 
-// Se si arriva qui senza POST o con errori POST, si carica il template base
+
 require 'template/base.php';
 ?>

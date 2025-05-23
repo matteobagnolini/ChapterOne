@@ -32,7 +32,7 @@
                         <li class="card mb-3 shadow-sm">
                             <div class="row g-0">
                                 <div class="col-md-2 col-lg-1 text-center text-md-start">
-                                    <a href="book.php?id=<?php echo $item["Id"]; ?>">
+                                    <a href="libro.php?id=<?php echo $item["Id"]; ?>">
                                         <figure class="m-2 m-md-3" style="max-width: 80px; margin: auto;">
                                             <img src="<?php echo UPLOAD_DIR . $item["Cover"]; ?>" alt="Copertina: <?php echo $item["Title"]; ?>" class="img-fluid rounded">
                                         </figure>
@@ -42,7 +42,7 @@
                                     <div class="card-body">
                                         <div class="d-flex flex-column flex-md-row justify-content-between">
                                             <div>
-                                                <a href="book.php?id=<?php echo $item["Id"]; ?>" class="text-decoration-none text-dark">
+                                                <a href="libro.php?id=<?php echo $item["Id"]; ?>" class="text-decoration-none text-dark">
                                                     <h3 class="card-title h5 mb-1"><?php echo $item["Title"]; ?></h3>
                                                 </a>
                                                 <p class="card-text small text-muted mb-1">Autore: <?php echo $item["Author_First_name"] . " " . $item["Author_Last_name"]; ?></p>
