@@ -6,7 +6,7 @@ if (!isUserLoggedIn()) {
 }
 
 $templateParams["titolo"] = "ChapterOne - Orders";
-$templateParams["nome"] = "orderspage.php";
+$templateParams["nome"] = "OrdersPage.php";
 $templateParams["categorie"] = $dbh->getCategories();
 
 $user = $dbh->getCustomerByUsername($_SESSION["username"]);
