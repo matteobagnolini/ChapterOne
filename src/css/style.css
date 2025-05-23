@@ -144,18 +144,19 @@ body table tbody td img {
 
 
 
-.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link,
-.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link {
+.btn-link,
+.btn-link {
     background-color: #ffffff;
     border-radius: 0.25rem;
-    padding: 3px 6px !important; 
+    padding: 6px 10px !important; 
     line-height: 1;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     border: 1px solid #dee2e6;
+
 }
 
-.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link:hover,
-.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link:hover {
+.btn-link:hover,
+.btn-link:hover {
     background-color: #f8f9fa;
     text-decoration: none;
     border-color: #ced4da;
@@ -163,15 +164,7 @@ body table tbody td img {
 }
 
 
-.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link.text-success:hover .bi,
-.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link.text-success:hover .bi {
-    color: #157347;
-}
 
-.notification-section .card div.position-absolute.top-0.end-0.p-2 form .btn-link.text-danger:hover .bi,
-.notification-section .card form.position-absolute.top-0.end-0.p-2 .btn-link.text-danger:hover .bi {
-    color: #b02a37;
-}
 
 
 
