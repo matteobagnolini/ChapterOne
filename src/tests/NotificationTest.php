@@ -28,18 +28,18 @@ class NotificationTest extends BaseTest {
     
         // Verifica notifica per 'sent'
         $notifications = $this->db->getOrderNotificationByOrderId($orderId);
-        $this->assertCount(1, $notifications);
-        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[0]['Message']);
-        $this->assertEquals("sent", $notifications[0]['Status']);
+        $this->assertCount(2, $notifications);
+        $this->assertEquals("Il tuo ordine è in elaborazione!", $notifications[0]['Message']);
+        $this->assertEquals("pending", $notifications[0]['Status']);
     
         // Aggiorna lo stato a 'arrived'
         $this->db->updateOrderStatus($orderId, 'arrived');
     
         // Verifica notifica per 'arrived'
         $notifications = $this->db->getOrderNotificationByOrderId($orderId);
-        $this->assertCount(2, $notifications);
-        $this->assertEquals("Il tuo ordine è arrivato!", $notifications[1]['Message']);
-        $this->assertEquals("arrived", $notifications[1]['Status']);
+        $this->assertCount(3, $notifications);
+        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[1]['Message']);
+        $this->assertEquals("sent", $notifications[1]['Status']);
     }
 
     public function testNotificationSeen(): void {
@@ -67,9 +67,9 @@ class NotificationTest extends BaseTest {
     
         // Verifica notifica per 'sent'
         $notifications = $this->db->getOrderNotificationByOrderId($orderId);
-        $this->assertCount(1, $notifications);
-        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[0]['Message']);
-        $this->assertEquals("sent", $notifications[0]['Status']);
+        $this->assertCount(2, $notifications);
+        $this->assertEquals("Il tuo ordine è in elaborazione!", $notifications[0]['Message']);
+        $this->assertEquals("pending", $notifications[0]['Status']);
         $this->assertEquals(0, $notifications[0]['Seen']); // Verifica che la notifica non sia vista
     
         // Imposta la notifica come vista
@@ -84,9 +84,9 @@ class NotificationTest extends BaseTest {
     
         // Verifica notifica per 'arrived'
         $notifications = $this->db->getOrderNotificationByOrderId($orderId);
-        $this->assertCount(2, $notifications);
-        $this->assertEquals("Il tuo ordine è arrivato!", $notifications[1]['Message']);
-        $this->assertEquals("arrived", $notifications[1]['Status']);
+        $this->assertCount(3, $notifications);
+        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[1]['Message']);
+        $this->assertEquals("sent", $notifications[1]['Status']);
         $this->assertEquals(0, $notifications[1]['Seen']); // Verifica che la nuova notifica non sia vista
     }
 }

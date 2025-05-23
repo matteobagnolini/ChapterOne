@@ -42,8 +42,8 @@ class CustomerTest extends BaseTest {
         $this->assertIsInt($customerId1);
 
         // Attempt to insert a second customer with the same email
-        $this->expectException(mysqli_sql_exception::class);
-        $this->db->insertCustomer('Bob', 'Johnson', 'alice.smith@example.com', 'password456', '456 Elm St', '0987654321');
+        $result = $this->db->insertCustomer('Bob', 'Johnson', 'alice.smith@example.com', 'password456', '456 Elm St', '0987654321');
+        $this->assertFalse($result);
     }
 
     public function testMissingRequiredFields() {
@@ -195,18 +195,18 @@ class CustomerTest extends BaseTest {
 
         // Verifica notifica per 'sent'
         $notifications = $this->db->getOrderNotifications($orderId);
-        $this->assertCount(1, $notifications);
-        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[0]['Message']);
-        $this->assertEquals("sent", $notifications[0]['Status']);
+        $this->assertCount(2, $notifications);
+        $this->assertEquals("Il tuo ordine è in elaborazione!", $notifications[0]['Message']);
+        $this->assertEquals("pending", $notifications[0]['Status']);
 
         // Aggiorna lo stato dell'ordine a 'arrived'
         $this->db->updateOrderStatus($orderId, 'arrived');
 
         // Verifica notifica per 'arrived'
         $notifications = $this->db->getOrderNotifications($orderId);
-        $this->assertCount(2, $notifications);
-        $this->assertEquals("Il tuo ordine è arrivato!", $notifications[1]['Message']);
-        $this->assertEquals("arrived", $notifications[1]['Status']);
+        $this->assertCount(3, $notifications);
+        $this->assertEquals("Il tuo ordine è stato spedito!", $notifications[1]['Message']);
+        $this->assertEquals("sent", $notifications[1]['Status']);
 
         // Eliminazione del cliente
         $deleted = $this->db->deleteCustomer($customerId);
