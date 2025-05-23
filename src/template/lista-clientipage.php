@@ -51,7 +51,7 @@
                         <td><?php echo htmlspecialchars($customer["Address"]); ?></td>
                         <td><?php echo htmlspecialchars($customer["Phone"]); ?></td>
                         <td>
-                            <a href="utils/delete_customer.php?id=<?php echo $customer["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo cliente? L\'eliminazione potrebbe influenzare gli ordini e i dati associati.');" title="Elimina Cliente">
+                            <a href="utils/delete-customer.php?id=<?php echo $customer["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo cliente? L\'eliminazione potrebbe influenzare gli ordini e i dati associati.');" title="Elimina Cliente">
                                 <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                         </td>
