@@ -65,6 +65,7 @@ interface ReviewManager {
     public function insertReview($text, $rating, $bookId, $customerId);
     public function updateReview($id, $text, $rating, $bookId, $customerId);
     public function deleteReview($id);
+    public function hasUserDoneReviewOfBook($customerId, $bookId);
 }
 
 interface CartManager {

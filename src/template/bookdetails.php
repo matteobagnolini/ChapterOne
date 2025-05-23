@@ -62,8 +62,8 @@
                 <h2>Recensioni</h2>
 
             <?php 
-                if ($templateParams["abilitarecensione"]):
-            ?>
+                if ($templateParams["abilitarecensione"]):;
+            ?> 
                 <div class="mb-4">
                     <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#reviewForm" aria-expanded="false" aria-controls="reviewForm">
                     <i class="bi bi-pen"></i> Scrivi una recensione

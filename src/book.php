@@ -21,6 +21,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
         $templateParams["recensioni"] = $dbh->getBookReviews($bookId);
         $templateParams["librisimili"] = $dbh->getRelatedBooks($bookId);
         $templateParams["abilitarecensione"] = isUserLoggedIn() && $dbh->hasUserPurchaseBookId($_SESSION["id"], $bookId);
+        $templateParams["recensioneDone"] = $templateParams["abilitarecensione"] ? $dbh->hasUserDoneReviewOfBook($_SESSION["id"], $bookId) : false;
     }
 }
 require 'template/base.php';

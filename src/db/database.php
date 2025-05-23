@@ -479,6 +479,18 @@ class MySqlDatabase implements
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    public function hasUserDoneReviewOfBook($userId, $bookId) {
+        $stmt = $this->db->prepare("
+            SELECT COUNT(*) as count
+            FROM REVIEW
+            WHERE Customer_id = ? AND Book_id = ?
+        ");
+        $stmt->bind_param('ii', $userId, $bookId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['count'] > 0;
+    }
     
     // CART methods
     public function getCarts() {
@@ -1274,6 +1286,8 @@ class MySqlDatabase implements
         $result = $stmt->get_result()->fetch_assoc();
         return $result['count'] > 0; // Restituisce true se l'utente ha acquistato il libro, altrimenti false
     }
+
+
 
     public function addReview($text, $rating, $bookId, $userId) {
         // Controlla se il cliente ha acquistato il libro
