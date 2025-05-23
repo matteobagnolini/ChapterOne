@@ -61,9 +61,7 @@
             <section class="mb-4">
                 <h2>Recensioni</h2>
 
-            <?php 
-                if ($templateParams["abilitarecensione"]):;
-            ?> 
+            <?php if ($templateParams["abilitarecensione"] && !$templateParams["recensioneDone"]):?> 
                 <div class="mb-4">
                     <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#reviewForm" aria-expanded="false" aria-controls="reviewForm">
                     <i class="bi bi-pen"></i> Scrivi una recensione
@@ -72,6 +70,7 @@
                     <div class="collapse" id="reviewForm">
                         <div class="card card-body">
                             <form action="utils/processa-recensione.php" method="POST">
+                            <input type="hidden" name="action" value="add"> 
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
                         
                             <div class="mb-3">
@@ -98,7 +97,6 @@
             </div>
         <?php endif; ?>
 
-
                 <?php if(empty($templateParams["recensioni"])): ?>
                     <div class="mb-3">
                         <p>Ancora nessuna recensione...</p>
@@ -107,14 +105,29 @@
                     <ul class="list-group">
                         <?php foreach($templateParams["recensioni"] as $recensione): ?>
                             <li class="list-group">
-                                <article class="review-article">
-                                    <header class="d-flex align-items-center">
-                                        <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
-                                        <div class="text-warning">
-                                            <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
-                                            <i class="bi bi-star-fill"></i>
-                                            <?php endfor; ?>
+                                      <article class="review-article">
+                                    <header class="d-flex justify-content-between align-items-center"> 
+                                        <div> 
+                                            <h3 class="h5 mb-0 me-2 d-inline"><?php echo $recensione["Customer_full_name"]; ?></h3>
+                                            <div class="text-warning d-inline"> 
+                                                <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
+                                                <i class="bi bi-star-fill"></i>
+                                                <?php endfor; ?>
+                                            </div>
                                         </div>
+                                        
+                                        <?php if ($recensione["Customer_full_name"] == $templateParams["customer_name"]): ?>
+                                        <form action="utils/processa-recensione.php" method="POST">
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="review_id" value="<?php echo $recensione["Id"]; ?>">
+                                            <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
+                                            <button type="submit" class="btn btn-link text-danger p-0" 
+                                                  onclick="return confirm('Sei sicuro di voler cancellare questa recensione?');" 
+                                                  aria-label="Cancella recensione">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                        <?php endif; ?>
                                     </header>
                                     <p><?php echo $recensione["Text"]; ?></p>
                                 </article>
