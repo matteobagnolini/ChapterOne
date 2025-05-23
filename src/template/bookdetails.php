@@ -69,7 +69,7 @@
             
                     <div class="collapse" id="reviewForm">
                         <div class="card card-body">
-                            <form action="utils/processa-recensione.php" method="POST">
+                            <form action="utils/manage-recensione.php" method="POST">
                             <input type="hidden" name="action" value="add"> 
                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
                         
@@ -117,7 +117,7 @@
                                         </div>
                                         
                                         <?php if ($recensione["Customer_full_name"] == $templateParams["customer_name"]): ?>
-                                        <form action="utils/processa-recensione.php" method="POST">
+                                        <form action="utils/manage-recensione.php" method="POST">
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="review_id" value="<?php echo $recensione["Id"]; ?>">
                                             <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">

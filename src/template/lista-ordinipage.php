@@ -70,7 +70,7 @@
                                 }
                             ?>
                             <?php if ($nextStatus): ?>
-                                <a href="utils/modifica-stato-ordine.php?id_order=<?php echo $ordine["Id"]; ?>&next_status=<?php echo $nextStatus; ?>" class="btn btn-<?php echo $btnClass; ?> btn-sm" title="Imposta come <?php echo ucfirst($nextStatus); ?>">
+                                <a href="utils/update-stato-ordine.php?id_order=<?php echo $ordine["Id"]; ?>&next_status=<?php echo $nextStatus; ?>" class="btn btn-<?php echo $btnClass; ?> btn-sm" title="Imposta come <?php echo ucfirst($nextStatus); ?>">
                                     <i class="bi bi-arrow-repeat"></i> <span class="d-none d-md-inline"><?php echo $btnText; ?></span>
                                 </a>
                             <?php endif; ?>

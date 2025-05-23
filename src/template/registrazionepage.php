@@ -23,7 +23,7 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="utils/processa-registrazione.php" method="POST">
+                <form action="utils/manage-registrazione.php" method="POST">
                     <fieldset>
                         <legend class="visually-hidden">Informazioni Utente</legend>
                         
