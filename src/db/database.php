@@ -1248,14 +1248,16 @@ class MySqlDatabase implements
     }
 
     public function getBookByTitle($title) {
+        $searchTerm = "%" . $title . "%"; 
         $stmt = $this->db->prepare("
             SELECT b.*, a.First_name AS Author_First_name, 
                    a.Last_name AS Author_Last_name,
                    CONCAT(a.First_name, ' ', a.Last_name) AS Author_name
-            FROM BOOK AS b, AUTHOR AS a
-            WHERE b.Title = ? AND b.Author_id = a.Id
+            FROM BOOK AS b
+            JOIN AUTHOR AS a ON b.Author_id = a.Id
+            WHERE b.Title LIKE ?
         ");
-        $stmt->bind_param('s', $title);
+        $stmt->bind_param('s', $searchTerm);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
