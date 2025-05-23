@@ -13,6 +13,10 @@
                     <nav>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item border-0">
+                                <a href="lista-clienti.php" class="fw-bold text-decoration-none">Gestisci Clienti</a>
+                                <p class="mb-0 mt-1 text-muted">Controlla ed elimina i clienti del sito.</p>
+                            </li>
+                            <li class="list-group-item border-0">
                                 <a href="lista-libri.php" class="fw-bold text-decoration-none">Gestisci Libri</a>
                                 <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi libri dal catalogo.</p>
                             </li>

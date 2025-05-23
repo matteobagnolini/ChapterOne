@@ -8,9 +8,9 @@ if(!isAdminLoggedIn() && !isUserLoggedIn()){
 }
 
 $templateParams["titolo"] = "ChapterOne - Gestione Autori";
-$templateParams["nome"] = "lista-autoripage.php";
+$templateParams["nome"] = "lista-clientipage.php";
 $templateParams["categorie"] = $dbh->getCategories();
-$templateParams["autori"] = $dbh->getAuthors();
+$templateParams["utenti"] = $dbh->getCustomers();
 
 require 'template/base.php';
 
