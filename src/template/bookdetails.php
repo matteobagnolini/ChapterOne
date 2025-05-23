@@ -96,46 +96,47 @@
                 </div>
             </div>
         <?php endif; ?>
-
-                <?php if(empty($templateParams["recensioni"])): ?>
-                    <div class="mb-3">
-                        <p>Ancora nessuna recensione...</p>
-                    </div>
-                <?php else: ?>
-                    <ul class="list-group">
-                        <?php foreach($templateParams["recensioni"] as $recensione): ?>
-                            <li class="list-group-item">
-                                      <article class="review-article">
-                                    <header class="d-flex justify-content-between align-items-center"> 
-                                        <div> 
-                                            <h3 class="h5 mb-0 me-2 d-inline"><?php echo $recensione["Customer_full_name"]; ?></h3>
-                                            <div class="text-warning d-inline"> 
-                                                <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
-                                                <i class="bi bi-star-fill"></i>
-                                                <?php endfor; ?>
-                                            </div>
-                                        </div>
-                                        
-                                        <?php if ($recensione["Customer_full_name"] == $templateParams["customer_name"]): ?>
-                                        <form action="utils/manage-recensione.php" method="POST">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="review_id" value="<?php echo $recensione["Id"]; ?>">
-                                            <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
-                                            <button type="submit" class="btn btn-link text-danger p-0" 
-                                                  onclick="return confirm('Sei sicuro di voler cancellare questa recensione?');" 
-                                                  aria-label="Cancella recensione">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
-                                        <?php endif; ?>
-                                    </header>
-                                    <p><?php echo $recensione["Text"]; ?></p>
-                                </article>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
-            </section>
+ <?php if(empty($templateParams["recensioni"])): ?>
+                <div class="mb-3">
+                    <p>Ancora nessuna recensione...</p>
+                </div>
+            <?php else: ?>
+                <ul class="list-group">
+                    <?php foreach($templateParams["recensioni"] as $recensione): ?>
+                        <li class="list-group"> 
+                                <article class="review-article">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <header class="d-flex flex-wrap align-items-center mb-2"> 
+                                                <div class="d-flex flex-nowrap align-items-center me-auto">
+                                                    <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
+                                                    <div class="text-warning d-inline-flex flex-nowrap"> 
+                                                        <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <?php endfor; ?>
+                                                    </div>
+                                                </div>
+                                    
+                                    <?php if ($recensione["Customer_full_name"] == $templateParams["customer_name"]): ?>
+                                    <form action="utils/manage-recensione.php" method="POST">
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="review_id" value="<?php echo $recensione["Id"]; ?>">
+                                        <input type="hidden" name="book_id" value="<?php echo $bookId; ?>">
+                                        <button type="submit" class="btn btn-link text-danger p-0" 
+                                              onclick="return confirm('Sei sicuro di voler cancellare questa recensione?');" 
+                                              aria-label="Cancella recensione">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                    <?php endif; ?>
+                                </header>
+                                <p><?php echo $recensione["Text"]; ?></p>
+                            </article>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </section>
             
             <section>
                 <h2>Dello stesso autore:</h2>

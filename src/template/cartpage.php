@@ -39,7 +39,7 @@
                                     </a>
                                 </div>
                                 <div class="col-md-10 col-lg-11">
-                                    <div class="card-body">
+                                    <div class="card-body pt-4">
                                         <div class="d-flex flex-column flex-md-row justify-content-between">
                                             <div>
                                                 <a href="libro.php?id=<?php echo $item["Id"]; ?>" class="text-decoration-none text-dark">
