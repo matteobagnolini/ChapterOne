@@ -20,11 +20,18 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
         $templateParams["titolo"] = "ChapterOne - " . $book["Title"];
         $templateParams["recensioni"] = $dbh->getBookReviews($bookId);
         $templateParams["librisimili"] = $dbh->getRelatedBooks($bookId);
-        $templateParams["abilitarecensione"] = isUserLoggedIn() && $dbh->hasUserPurchaseBookId($_SESSION["id"], $bookId);
-        $templateParams["recensioneDone"] = $dbh->hasUserDoneReviewOfBook($_SESSION["id"], $bookId);
-        $customerId = $_SESSION["id"];
-        $customer = $dbh->getCustomerById($customerId);
-        $templateParams["customer_name"] = $customer["First_name"] . " " . $customer["Last_name"];
+
+        if (isUserLoggedIn()) {
+            $templateParams["abilitarecensione"] = isUserLoggedIn() && $dbh->hasUserPurchaseBookId($_SESSION["id"], $bookId);
+            $templateParams["recensioneDone"] = $dbh->hasUserDoneReviewOfBook($_SESSION["id"], $bookId);
+            $customerId = $_SESSION["id"];
+            $customer = $dbh->getCustomerById($customerId);
+            $templateParams["customer_name"] = $customer["First_name"] . " " . $customer["Last_name"];
+        } else {
+            $templateParams["abilitarecensione"] = false;
+            $templateParams["recensioneDone"] = false;
+            $templateParams["customer_name"] = null;
+        }
         
 
     }
