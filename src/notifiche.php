@@ -16,7 +16,7 @@ $templateParams["categorie"] = $dbh->getCategories();
 $templateParams["notifiche_non_lette"] = [];
 $templateParams["notifiche_lette"] = [];
 $orderIds = []; 
-$templateParams["isAdminView"] = isAdminLoggedIn()
+$templateParams["isAdminView"] = isAdminLoggedIn();
 
 if ($templateParams["isAdminView"]) {
 

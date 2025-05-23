@@ -104,7 +104,7 @@
                 <?php else: ?>
                     <ul class="list-group">
                         <?php foreach($templateParams["recensioni"] as $recensione): ?>
-                            <li class="list-group">
+                            <li class="list-group-item">
                                       <article class="review-article">
                                     <header class="d-flex justify-content-between align-items-center"> 
                                         <div> 
