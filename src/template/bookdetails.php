@@ -107,7 +107,7 @@
                     <ul class="list-group">
                         <?php foreach($templateParams["recensioni"] as $recensione): ?>
                             <li class="list-group">
-                                <article>
+                                <article class="review-article">
                                     <header class="d-flex align-items-center">
                                         <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
                                         <div class="text-warning">
