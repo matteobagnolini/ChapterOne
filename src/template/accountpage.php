@@ -70,11 +70,15 @@
                                     </div>
                                 </fieldset>
 
-                                <div class="d-flex gap-2 mt-4">
+                                <div class="d-flex justify-content-between mt-4">
                        
                                     <button type="submit" name="action" value="update_account" class="btn btn-secondary">
                                         <i class="bi bi-check-lg me-1"></i> Salva modifiche
                                     </button>
+                                    
+                                    <a href="utils/delete-account.php" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile.');">
+                                        <i class="bi bi-trash me-1"></i> Elimina Account
+                                    </a>
                                 </div>
                             </form>
                         </div>
