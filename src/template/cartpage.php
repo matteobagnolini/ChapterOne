@@ -82,7 +82,7 @@
                     Il tuo carrello è vuoto.
                 </div>
                 <div class="text-center mb-4">
-                    <a href="index.php" class="btn btn-primary"><i class="bi bi-book"></i> Sfoglia il catalogo</a>
+                    <a href="catalogo.php" class="btn btn-primary"><i class="bi bi-book"></i> Sfoglia il catalogo</a>
                 </div>
             <?php endif; ?>
         </section>
