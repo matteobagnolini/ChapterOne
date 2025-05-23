@@ -2,8 +2,7 @@
 
 - [x] pulire CSS
 - [ ] utilizzo di Ajax, PER LE NOTIFICHE?
-- [ ] Pulire file database.php
-- [ ] pulire file 
+- [x] pulire file 
 - [x] validare pagine, stare attento ai form e alle tabelle
 - [x] pulizia docker
 - [x] docker push aggiornato, mettere online quando finito
