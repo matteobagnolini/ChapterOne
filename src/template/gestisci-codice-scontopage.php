@@ -13,11 +13,11 @@ $defaultActive = true;
 
 if ($isEditing) {
     $codice = $templateParams["codicesconto"];
-    $defaultCode = htmlspecialchars($codice["Code"]);
-    $defaultType = htmlspecialchars($codice["Type"]);
-    $defaultValue = htmlspecialchars($codice["Value"]);
-    $defaultStartDate = htmlspecialchars(date('Y-m-d', strtotime($codice["Start_date"])));
-    $defaultEndDate = htmlspecialchars(date('Y-m-d', strtotime($codice["End_date"])));
+    $defaultCode = $codice["Code"];
+    $defaultType = $codice["Type"];
+    $defaultValue = $codice["Value"];
+    $defaultStartDate = date('Y-m-d', strtotime($codice["Start_date"]));
+    $defaultEndDate = date('Y-m-d', strtotime($codice["End_date"]));
     $defaultSingleUse = (bool)$codice["Single_use"];
     $defaultActive = (bool)$codice["Active"];
 }
@@ -27,15 +27,10 @@ if ($isEditing) {
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <form action="gestisci-codice-sconto.php<?php echo $isEditing ? '?id=' . htmlspecialchars($codice["Id"]) : ''; ?>" method="POST">
+                    <form action="gestisci-codice-sconto.php<?php echo $isEditing ? '?id=' . $codice["Id"] : ''; ?>" method="POST">
                         <h2 class="card-title mb-4"><?php echo $pageTitle; ?></h2>
-                        <?php if (isset($_SESSION['form_error_message'])): ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo htmlspecialchars($_SESSION['form_error_message']); unset($_SESSION['form_error_message']); ?>
-                            </div>
-                        <?php endif; ?>
                         <?php if ($isEditing): ?>
-                            <input type="hidden" name="id" value="<?php echo htmlspecialchars($codice["Id"]); ?>" />
+                            <input type="hidden" name="id" value="<?php echo $codice["Id"]; ?>" />
                         <?php endif; ?>
                         <ul class="list-unstyled">
                             <li class="mb-3">
