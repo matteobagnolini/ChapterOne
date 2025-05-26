@@ -50,6 +50,8 @@ services:
     container_name: sito
     command: >
       /bin/bash -c "
+        chown -R www-data:www-data /var/www/html/resources
+        chmod -R 755 /var/www/html/resources
         echo 'DB Population in progress...'
         php /var/www/populateDB.php
         echo 'Database population completed, starting Apache...'
