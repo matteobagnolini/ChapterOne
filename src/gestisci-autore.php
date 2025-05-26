@@ -1,9 +1,13 @@
 <?php
 require_once 'bootstrap.php';
 
-if(!isAdminLoggedIn()){
-    header("location: login.php");
-    exit;
+if (!isAdminLoggedIn()) {
+    if (isUserLoggedIn()) {
+        header("location: index.php"); 
+    } else {
+        header("location: login.php"); 
+    }
+    exit; 
 }
 
 $templateParams["titolo"] = "ChapterOne - Modifica Autore";
