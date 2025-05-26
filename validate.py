@@ -18,6 +18,8 @@ LOGOUT_URL = f"{base_url}/logout.php"
 
 for file in os.listdir(SRC_FOLDER):
     if file.endswith(".php") and os.path.isfile(os.path.join(SRC_FOLDER, file)):
+        if file == "bootstrap.php":
+            continue
         url = f"{base_url}/{file}"
         pages.append(url)
 
@@ -118,3 +120,7 @@ with open(report_filename, "w", encoding="utf-8") as report:
         report.write(f"Errore in: {file}\n")
 
         
+if errors_count > 0:
+    print(f"Validazione completata con {errors_count} errori. Vedi {report_filename} per i dettagli.")
+else:
+    print("Validazione completata senza errori.")
