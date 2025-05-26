@@ -628,10 +628,15 @@ class MySqlDatabase implements
 
     // ORDER methods
     public function getOrders() {
-        $stmt = $this->db->prepare("SELECT * FROM `ORDER`");
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    }
+    $stmt = $this->db->prepare("
+        SELECT * FROM `ORDER`
+        ORDER BY 
+            (Status = 'arrived') ASC, 
+            Id DESC                  
+    ");
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 
     public function getOrderById($id) {
         $stmt = $this->db->prepare("SELECT * FROM `ORDER` WHERE Id = ?");
