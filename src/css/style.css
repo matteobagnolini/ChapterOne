@@ -33,6 +33,7 @@ p {
     height: 220px;
     overflow: hidden;
 }
+
 .card-img-top {
     height: 100%;
     object-fit: cover;
@@ -66,7 +67,6 @@ section li a .card-title {
     color: rgb(38, 50, 56);
     font-weight: bold;
     font-size: 1rem;
-    height: 3rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -176,6 +176,14 @@ body table tbody td img {
 .review-article p {
     margin-bottom: 0px;
     margin-top: 10px;
+}
+
+article section .img-fluid {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+
 }
 
 
