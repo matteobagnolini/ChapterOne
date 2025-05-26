@@ -84,9 +84,9 @@ try {
 
     // Popola la tabella BOOK con 9 libri
     $bookId1 = $db->insertBookWithExceptr(
-        'Il Grande Romanzo',
+        'Quale verità?',
         'Un romanzo epico che racconta la storia di una famiglia attraverso tre generazioni. Le vicende si intrecciano tra amori, tradimenti e segreti nascosti, offrendo uno spaccato intenso della società italiana del Novecento. Un viaggio emozionante tra passato e presente, dove ogni personaggio lascia un segno indelebile.',
-        19.99, 'images/deepwork.jpg', 'exceptr/text.txt', $categoryId1, $publisherId1, $authorId1
+        19.99, 'images/quale_verita.jpg', 'exceptr/text.txt', $categoryId1, $publisherId1, $authorId1
     );
     $bookId2 = $db->insertBookWithExceptr(
         'Viaggio nello Spazio',
@@ -96,7 +96,7 @@ try {
     $bookId3 = $db->insertBookWithExceptr(
         'Il Mistero del Lago',
         'Un giallo avvincente ambientato in un piccolo villaggio di montagna, dove un misterioso omicidio sconvolge la quiete locale. L\'investigatore incaricato dovrà scavare tra antichi rancori e segreti di famiglia per arrivare alla verità. Suspense e colpi di scena fino all\'ultima pagina.',
-        18.50, 'images/stevejobs.jpg', 'exceptr/text2.txt', $categoryId3, $publisherId3, $authorId3
+        18.50, 'images/il_mistero_del_lago.jpg', 'exceptr/text2.txt', $categoryId3, $publisherId3, $authorId3
     );
     $bookId4 = $db->insertBookWithExceptr(
         'La Terra di Mezzo',
@@ -114,19 +114,19 @@ try {
         21.50, 'images/stevejobs.jpg', 'exceptr/text5.txt', $categoryId1, $publisherId1, $authorId1
     );
     $bookId7 = $db->insertBookWithExceptr(
-        'Mondi Paralleli',
+        'Il barone rampante',
         'Un viaggio tra dimensioni alternative dove ogni scelta crea una nuova realtà. Il protagonista si trova a dover affrontare versioni diverse di sé stesso, esplorando i confini tra sogno e realtà. Un romanzo che invita a riflettere sul destino e sulle infinite possibilità della vita.',
-        17.99, 'images/deepwork.jpg', 'exceptr/text6.txt', $categoryId2, $publisherId2, $authorId2
+        17.99, 'images/il_barone_rampante.jpg', 'exceptr/text6.txt', $categoryId2, $publisherId2, $authorId2
     );
     $bookId8 = $db->insertBookWithExceptr(
-        'Il Codice Segreto',
+        'Il Codice Segreto di Leonardo',
         'Un mistero da risolvere in una corsa contro il tempo. Un antico manoscritto scomparso, enigmi da decifrare e una società segreta pronta a tutto pur di proteggere i propri segreti. Un thriller che tiene il lettore con il fiato sospeso fino all\'ultima pagina.',
-        16.50, 'images/8.jpg', 'exceptr/text7.txt', $categoryId3, $publisherId3, $authorId3
+        16.50, 'images/il_codice_segreto_di_leonardo.jpg', 'exceptr/text7.txt', $categoryId3, $publisherId3, $authorId3
     );
     $bookId9 = $db->insertBookWithExceptr(
         'Le Cronache del Regno',
         'Una saga fantasy di avventura e magia, dove il destino di un intero regno è nelle mani di un gruppo di eroi improbabili. Tra battaglie epiche, tradimenti e antiche profezie, i protagonisti dovranno trovare la forza di cambiare il proprio destino.',
-        23.99, 'images/deepwork.jpg', 'exceptr/text8.txt', $categoryId4, $publisherId4, $authorId4
+        23.99, 'images/il_signore_degli_anelli.jpg', 'exceptr/text8.txt', $categoryId4, $publisherId4, $authorId4
     );
     $bookId10 = $db->insertBookWithExceptr(
         'Il Pendolo di Foucault',
