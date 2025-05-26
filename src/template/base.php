@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">ChapterOne Shop</a>
-                    <div class="d-flex align-items-center order-lg-2">
+                    <div class="d-flex align-items-center order-lg-2 ms-auto justify-content-end">
                     
                     <?php if(isset($_SESSION['username'])): ?>
                         <a class="nav-link me-3 position-relative" href="notifiche.php" aria-label="Notifiche">
