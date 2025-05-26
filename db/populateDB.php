@@ -396,34 +396,31 @@ try {
 
     // Popola la tabella REVIEW
     $db->insertReview('Libro fantastico, lo consiglio vivamente! La scrittura è coinvolgente e la storia mi ha emozionato.', 5, $bookId1, $customerId1);
-    $db->insertReview('Una buona lettura ma la trama è prevedibile. Mi aspettavo qualche colpo di scena in più.', 3, $bookId2, $customerId2);
-    $db->insertReview('Mi ha tenuto sveglio tutta la notte. Eccellente! Suspense fino all’ultima pagina.', 5, $bookId3, $customerId3);
-    $db->insertReview('Un viaggio incredibile tra mondi fantastici. Consigliato agli amanti del genere.', 4, $bookId4, $customerId1);
-    $db->insertReview('Biografia dettagliata e appassionante, ho scoperto molti aspetti inediti della vita di Einstein.', 5, $bookId5, $customerId2);
-    $db->insertReview('Un romanzo profondo e ricco di spunti di riflessione. Da leggere con attenzione.', 4, $bookId6, $customerId3);
-    $db->insertReview('Stile unico e trama originale, Calvino non delude mai.', 5, $bookId7, $customerId1);
-    $db->insertReview('Un classico del giallo, la Christie è una garanzia. Finale sorprendente!', 5, $bookId12, $customerId2);
-    $db->insertReview('Un capolavoro del realismo magico, emozionante e poetico.', 5, $bookId13, $customerId3);
-    $db->insertReview('Romanzo intenso e moderno, Woolf riesce a trasmettere emozioni profonde.', 4, $bookId14, $customerId1);
-    $db->insertReview('Distopico e inquietante, fa riflettere sulla società attuale.', 5, $bookId15, $customerId2);
-    $db->insertReview('Murakami è sempre una garanzia, storia surreale e affascinante.', 4, $bookId16, $customerId3);
-    $db->insertReview('Un fantasy epico, Tolkien crea un mondo indimenticabile.', 5, $bookId17, $customerId1);
-    $db->insertReview('Saggi interessanti e profondi, Einstein sorprende anche come pensatore.', 4, $bookId18, $customerId2);
-    $db->insertReview('Un romanzo storico avvincente, Eco mescola sapientemente realtà e finzione.', 5, $bookId19, $customerId3);
-    $db->insertReview('Le città invisibili è pura poesia, ogni pagina è una scoperta.', 5, $bookId20, $customerId1);
-    $db->insertReview('Un giallo perfetto, la Christie tiene alta la tensione fino alla fine.', 5, $bookId21, $customerId2);
-    $db->insertReview('Lo Hobbit è un’avventura senza tempo, adatto a tutte le età.', 5, $bookId22, $customerId3);
-    $db->insertReview('Un libro che fa riflettere sulla scienza e sulla società, consigliato.', 4, $bookId23, $customerId1);
-    $db->insertReview('Un romanzo intenso e visionario, Woolf è una maestra della narrazione.', 5, $bookId25, $customerId2);
-    $db->insertReview('Orwell racconta la guerra con lucidità e passione, lettura consigliata.', 4, $bookId35, $customerId3);
-    $db->insertReview('Murakami riesce sempre a sorprendere, storia onirica e coinvolgente.', 5, $bookId36, $customerId1);
-    $db->insertReview('Un libro che lascia il segno, Márquez è un vero maestro.', 5, $bookId33, $customerId2);
-    $db->insertReview('Un romanzo che fa riflettere sul tempo e sull’identità, consigliato.', 4, $bookId34, $customerId3);
+    $db->insertReview('Un fantasy epico, mi ha ricordato le grandi saghe. Consigliato!', 4, $bookId4, $customerId1);
+    $db->insertReview('Storia avvincente e ben scritta, mi ha tenuto incollato fino alla fine.', 5, $bookId2, $customerId2);
+    $db->insertReview('Interessante e ben documentato, perfetto per chi ama la scienza.', 4, $bookId5, $customerId2);
+    $db->insertReview('Giallo intrigante, colpi di scena fino all\'ultima pagina.', 5, $bookId3, $customerId3);
+    $db->insertReview('Un classico del giallo, trama avvincente e finale sorprendente.', 5, $bookId12, $customerId3);
+    $db->insertReview('Capolavoro assoluto, ogni pagina è un viaggio.', 5, $bookId17, $customerId1);
+    $db->insertReview('Romanzo potente e attuale, fa riflettere.', 5, $bookId15, $customerId2);
+    $db->insertReview('Surreale e poetico, Murakami non delude mai.', 4, $bookId16, $customerId3);
+    $db->insertReview('Intrigante e ricco di mistero, consigliato agli amanti del genere.', 5, $bookId28, $customerId1);
+    $db->insertReview('Romanzo delicato e malinconico, emozionante.', 4, $bookId27, $customerId2);
+    $db->insertReview('Originale e divertente, Calvino è sempre una garanzia.', 5, $bookId29, $customerId3);
+    
     
     // Popola la tabella ORDER_NOTIFICATION
     $db->insertOrderNotification($orderId1,'Ordine spedito','Il tuo ordine è stato spedito', 'sent');
     $db->insertOrderNotification($orderId2,'Ordine in elaborazione', 'Il tuo ordine è in elaborazione', 'pending');
     $db->insertOrderNotification($orderId3,'Ordine consegnato', 'Il tuo ordine è stato consegnato', 'arrived');
+    $db->insertOrderNotification($orderId4,'Ordine in preparazione','Il tuo ordine è in preparazione', 'pending');
+    $db->insertOrderNotification($orderId5,'Ordine spedito','Il tuo ordine è stato spedito', 'sent');
+    $db->insertOrderNotification($orderId7,'Ordine consegnato','Il tuo ordine è stato consegnato', 'arrived');
+    $db->insertOrderNotification($orderId8,'Ordine in attesa di pagamento','Attendi la conferma del pagamento', 'pending');
+    $db->insertOrderNotification($orderId9,'Ordine spedito','Il tuo ordine è stato spedito', 'sent');
+    $db->insertOrderNotification($orderId11,'Ordine in preparazione','Il tuo ordine è in preparazione', 'pending');
+    $db->insertOrderNotification($orderId12,'Ordine spedito','Il tuo ordine è stato spedito', 'sent');
+    $db->insertOrderNotification($orderId13,'Ordine consegnato','Il tuo ordine è stato consegnato', 'arrived');
 
 
     // Popola la tabella BOOK_IN_CART
