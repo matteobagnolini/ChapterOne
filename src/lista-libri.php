@@ -3,7 +3,6 @@ require_once 'bootstrap.php';
 
 
 if (!isAdminLoggedIn()) {
-    
     if (isUserLoggedIn()) {
         header("location: index.php"); 
     } else {

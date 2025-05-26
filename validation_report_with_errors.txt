@@ -1,0 +1,280 @@
+Login come admin effettuato con successo.
+Validazione di http://204.216.208.227/aboutus.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/account.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/accountadmin.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/book.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/bootstrap.php:
+Error: End of file seen without seeing a doctype first. Expected “<!DOCTYPE html>”.
+Error: Element “head” is missing a required instance of child element “title”.
+Warning: Consider adding a “lang” attribute to the “html” start tag to declare the language of this document.
+There were errors.
+
+Validazione di http://204.216.208.227/cart.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/catalogo.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/categoria.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/crea-autore.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 75, column 33; to line 75, column 126
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 79, column 33; to line 79, column 124
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 82, column 33; to line 82, column 122
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/crea-casa-editrice.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 75, column 33; to line 75, column 114
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 79, column 33; to line 79, column 124
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 82, column 33; to line 82, column 129
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/crea-codice-sconto.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 75, column 33; to line 75, column 129
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 88, column 33; to line 88, column 138
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 93, column 33; to line 93, column 136
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 97, column 33; to line 97, column 132
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 100, column 33; to line 100, column 127
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 104, column 33; to line 104, column 126
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 109, column 33; to line 109, column 125
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/crea-libro.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 76, column 37; to line 76, column 151
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 126, column 37; to line 126, column 132
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 130, column 37; to line 130, column 129
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 138, column 37; to line 138, column 110
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 142, column 37; to line 142, column 108
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 145, column 37; to line 145, column 122
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 150, column 29; to line 150, column 78
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/create_order.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestione-autori.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestione-case-editrici.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestione-codicisconto.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestione-libri.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestione-ordini.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestisci-autore.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestisci-casa-editrice.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 77, column 33; to line 77, column 114
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 81, column 33; to line 81, column 124
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 84, column 33; to line 84, column 126
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestisci-codice-sconto.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 75, column 33; to line 75, column 129
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 88, column 33; to line 88, column 138
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 93, column 33; to line 93, column 136
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 97, column 33; to line 97, column 132
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 100, column 33; to line 100, column 127
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 104, column 33; to line 104, column 126
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 109, column 33; to line 109, column 125
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/gestisci-libro.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 76, column 37; to line 76, column 129
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 126, column 37; to line 126, column 127
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 130, column 37; to line 130, column 129
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 138, column 37; to line 138, column 110
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 142, column 37; to line 142, column 108
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 145, column 37; to line 145, column 122
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 150, column 29; to line 150, column 75
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/index.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Error: End tag “main” seen, but there were open elements.
+From line 311, column 5; to line 311, column 11
+Error: Unclosed element “div”.
+From line 66, column 1; to line 66, column 5
+There were errors.
+
+Validazione di http://204.216.208.227/libro.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/lista-autori.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/lista-case-editrici.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/lista-clienti.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/lista-codicisconto.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/lista-libri.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/lista-ordini.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/login.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/logout.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+Error: End tag “main” seen, but there were open elements.
+From line 304, column 5; to line 304, column 11
+Error: Unclosed element “div”.
+From line 59, column 1; to line 59, column 5
+There were errors.
+
+Validazione di http://204.216.208.227/notifiche.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/orderdetails.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/orders.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/registrazione.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/ricerca.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+Validazione di http://204.216.208.227/update-account.php:
+Info: Trailing slash on void elements has no effect and interacts badly with unquoted attribute values.
+From line 9, column 5; to line 9, column 68
+The document validates according to the specified schema(s).
+
+
+
+Numero totale di errori: 6
+Errore in: http://204.216.208.227/bootstrap.php
+Errore in: http://204.216.208.227/index.php
+Errore in: http://204.216.208.227/logout.php
