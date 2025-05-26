@@ -58,6 +58,7 @@ try {
     $authorId7 = $db->insertAuthor('Virginia', 'Woolf');
     $authorId8 = $db->insertAuthor('George', 'Orwell');
     $authorId9 = $db->insertAuthor('Haruki', 'Murakami');
+    $authorId10 = $db->insertAuthor('walter', 'benjamin');
 
     // Popola la tabella CATEGORY
     $categoryId1 = $db->insertCategory('Avventura');
@@ -109,9 +110,9 @@ try {
         24.99, 'images/einst.jpg', 'exceptr/text4.txt', $categoryId5, $publisherId4, $authorId5
     );
     $bookId6 = $db->insertBookWithExceptr(
-        'Il Ritorno',
-        'Sequel del Grande Romanzo, continua la saga familiare con nuovi intrecci e rivelazioni. I protagonisti si confrontano con le conseguenze delle scelte passate, mentre nuove generazioni cercano il proprio posto nel mondo. Un racconto di redenzione, speranza e cambiamento.',
-        21.50, 'images/stevejobs.jpg', 'exceptr/text5.txt', $categoryId1, $publisherId1, $authorId1
+        'Steve jobs',
+        'La biografia di Steve Jobs, il visionario fondatore di Apple. Attraverso aneddoti e testimonianze, il libro racconta la sua vita, le sue sfide e le sue conquiste, offrendo un ritratto intimo e ispiratore di un uomo che ha cambiato il mondo della tecnologia. Un viaggio tra creatività, innovazione e leadership.',	
+        21.50, 'images/stevejobs.jpg', 'exceptr/text5.txt', $categoryId1, $publisherId1, $authorId10
     );
     $bookId7 = $db->insertBookWithExceptr(
         'Il barone rampante',
