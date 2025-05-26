@@ -21,7 +21,6 @@
                         <section class="border-top border-bottom py-3 my-3">
                             <h2>Descrizione</h2>
                             <p><?php echo $templateParams["libro"]["Description"]; ?></p>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae praesentium ea quam sunt sit aliquid eveniet deleniti! Optio quis veniam assumenda accusamus mollitia labore, a, explicabo cupiditate aperiam fugiat harum?</p>
                         </section>
                         <form action="utils/cart_actions.php" method="POST" class="d-flex align-items-center mb-3">
                             <input type="hidden" name="action" value="add">
