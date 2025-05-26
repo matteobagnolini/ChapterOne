@@ -1,6 +1,16 @@
 <?php
 require_once 'bootstrap.php';
 
+if (!isAdminLoggedIn()) {
+    if (isUserLoggedIn()) {
+        header("location: index.php"); 
+    } else {
+        header("location: login.php"); 
+    }
+    exit; 
+}
+
+
 $templateParams["titolo"] = "ChapterOne - Modifica Casa Editrice";
 $templateParams["nome"] = "gestisci-case-editricipage.php";
 $templateParams["categorie"] = $dbh->getCategories();

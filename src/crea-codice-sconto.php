@@ -2,8 +2,12 @@
 require_once 'bootstrap.php';
 
 if (!isAdminLoggedIn()) {
-    header("location: login.php");
-    exit;
+    if (isUserLoggedIn()) {
+        header("location: index.php"); 
+    } else {
+        header("location: login.php"); 
+    }
+    exit; 
 }
 
 $templateParams["titolo"] = "ChapterOne - Crea Codice Sconto";
