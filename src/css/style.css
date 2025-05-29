@@ -144,7 +144,6 @@ body table tbody td img {
 
 
 
-.btn-link,
 .btn-link {
     background-color: #ffffff;
     border-radius: 0.25rem;
@@ -155,7 +154,6 @@ body table tbody td img {
 
 }
 
-.btn-link:hover,
 .btn-link:hover {
     background-color: #f8f9fa;
     text-decoration: none;
@@ -186,7 +184,9 @@ article section .img-fluid {
 
 }
 
-
+.btn:focus, .btn:focus-visible {
+    background-color: #37474f !important;
+}
 
 @media (min-width: 576px) {
     .card-img-container {
