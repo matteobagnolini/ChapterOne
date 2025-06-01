@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Gestione Libri</h1>
         <a href="accountadmin.php" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Torna al Pannello Admin
+            <span class="bi bi-arrow-left-circle me-1"></span> Torna al Pannello Admin
         </a>
     </div>
     <p class="mb-4">Seleziona un libro per modificarlo o eliminarlo, oppure crea un nuovo libro.</p>
@@ -47,10 +47,10 @@
                         <td headers="riga-<?php echo $book['Id']; ?> intestazione-quantita"><?php echo isset($book["Product_count"]) ? $book["Product_count"] : 'N/D'; ?></td> 
                         <td headers="riga-<?php echo $book['Id']; ?> intestazione-azioni">
                             <a href="gestisci-libro.php?id=<?php echo $book["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Libro">
-                                <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
+                                <span class="bi bi-pencil-square"></span> <span class="d-none d-md-inline">Modifica</span>
                             </a>
                             <a href="utils/delete-libro.php?id=<?php echo $book["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo libro? L\'operazione è irreversibile.');" title="Elimina Libro">
-                                <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
+                                <span class="bi bi-trash"></span> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                         </td>
                     </tr>
@@ -62,6 +62,6 @@
     <?php endif; ?>
     
     <a href="crea-libro.php" class="btn btn-success mt-3">
-        <i class="bi bi-plus-circle me-1"></i> Crea un nuovo libro
+        <span class="bi bi-plus-circle me-1"></span> Crea un nuovo libro
     </a>
 </section>

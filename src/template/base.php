@@ -19,7 +19,7 @@
                     
                     <?php if(isset($_SESSION['username'])): ?>
                         <a class="nav-link me-3 position-relative" href="notifiche.php" aria-label="Notifiche">
-                            <i class="bi bi-bell me-1"></i>
+                            <span class="bi bi-bell me-1"></span>
                             <?php if (isset($templateParams['unread_notifications_count']) && $templateParams['unread_notifications_count'] > 0): ?>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     <?php echo htmlspecialchars($templateParams['unread_notifications_count']); ?>
@@ -32,7 +32,7 @@
 
                     <?php if(isset($_SESSION['username']) && (!isset($_SESSION['admin']) || !$_SESSION['admin'])): ?>
                         <a class="nav-link me-3 position-relative" href="cart.php" aria-label="Carrello"> 
-                            <i class="bi bi-cart me-1"></i>
+                            <span class="bi bi-cart me-1"></span>
                             <?php if (isset($templateParams['cart_item_count']) && $templateParams['cart_item_count'] > 0): ?>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     <?php echo htmlspecialchars($templateParams['cart_item_count']); ?>
@@ -44,16 +44,17 @@
                     <?php endif; ?>
                     
                     <?php if(!isset($_SESSION['username'])): ?>
-                        <a class="nav-link me-3" href="login.php" aria-label="Login"><i class="bi bi-box-arrow-in-right me-1"></i><span class="d-none d-md-inline"> Login</span></a> 
+                        <a class="nav-link me-3" href="login.php" aria-label="Login"><span class="bi bi-box-arrow-in-right me-1"></span><span class="d-none d-md-inline"> Login</span></a> 
                     <?php elseif(isset($_SESSION['admin']) && $_SESSION['admin']): ?>
-                        <a class="nav-link me-3" href="accountadmin.php" aria-label="Pannello Admin"><i class="bi bi-shield-lock me-1"></i><span class="d-none d-md-inline"> Admin</span></a> 
+                        <a class="nav-link me-3" href="accountadmin.php" aria-label="Pannello Admin"><span class="bi bi-shield-lock me-1"></span><span class="d-none d-md-inline"> Admin</span></a> 
                     <?php else: ?>
-                        <a class="nav-link me-3" href="account.php" aria-label="Account Utente"><i class="bi bi-person me-1"></i><span class="d-none d-md-inline"> Account</span></a> 
+                        <a class="nav-link me-3" href="account.php" aria-label="Account Utente"><span class="bi bi-person me-1"></span><span class="d-none d-md-inline"> Account</span></a> 
                     <?php endif; ?>
 
                     <form class="d-flex" method="GET" action="./ricerca.php">
-                        <input class="form-control me-2" name="query" type="search" placeholder="Cerca" aria-label="Search">
-                        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+                        <label for="cerca" class="visually-hidden">Cerca</label>
+                        <input id="cerca" class="form-control me-2" name="query" type="search" placeholder="Cerca" aria-label="Search">
+                        <button class="btn" type="submit"><span class="bi bi-search"></span></button>
                     </form>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

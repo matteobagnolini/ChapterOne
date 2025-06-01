@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Carrello</h1>
             <a href="account.php" class="btn btn-outline-secondary">
-                <i class="bi bi-person me-1"></i> Torna ad account
+                <span class="bi bi-person me-1"></span> Torna ad account
             </a>
         </div>
     </section>
@@ -32,7 +32,7 @@
                         <li class="card mb-3 shadow-sm">
                             <div class="row g-0">
                                 <div class="col-md-2 col-lg-1 text-center text-md-start">
-                                    <a href="libro.php?id=<?php echo $item["Id"]; ?>">
+                                    <a href="libro.php?id=<?php echo $item["Id"]; ?>" title="copertina libro">
                                         <figure class="m-2 m-md-3" style="max-width: 80px; margin: auto;">
                                             <img src="<?php echo UPLOAD_DIR . $item["Cover"]; ?>" alt="Copertina: <?php echo $item["Title"]; ?>" class="img-fluid rounded">
                                         </figure>
@@ -55,7 +55,7 @@
 
 
                                                     <button type="submit" class="btn btn-link text-danger btn-sm p-0" title="Elimina notifica">
-                                                        <i class="bi bi-trash-fill fs-5"></i>
+                                                        <span class="bi bi-trash-fill fs-5"></span>
                                                     </button>
 
                                                 </form>
@@ -78,11 +78,11 @@
                 </ul>
             <?php else: ?>
                 <div class="alert alert-info text-center" role="alert">
-                    <i class="bi bi-cart-x fs-3 d-block mb-2"></i>
+                    <span class="bi bi-cart-x fs-3 d-block mb-2"></span>
                     Il tuo carrello è vuoto.
                 </div>
                 <div class="text-center mb-4">
-                    <a href="catalogo.php" class="btn btn-primary"><i class="bi bi-book"></i> Sfoglia il catalogo</a>
+                    <a href="catalogo.php" class="btn btn-primary"><span class="bi bi-book"></span> Sfoglia il catalogo</a>
                 </div>
             <?php endif; ?>
         </section>

@@ -5,11 +5,11 @@
                 <h1 class="mb-0">Dettagli Ordine #<?php echo $templateParams["ordineInfo"]['Id']; ?></h1>
                 <?php if ($templateParams["isAdminView"]): ?>
                     <a href="lista-ordini.php" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left me-1"></i> Torna alla lista ordini
+                        <span class="bi bi-arrow-left me-1"></span> Torna alla lista ordini
                     </a>
                 <?php else: ?>
                     <a href="lista-ordini.php" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left me-1"></i> Torna agli ordini
+                        <span class="bi bi-arrow-left me-1"></span> Torna agli ordini
                     </a>
                 <?php endif; ?>
             </div>
@@ -75,11 +75,11 @@
             <div class="text-center">
                 <?php if ($templateParams["isAdminView"]): ?>
                     <a href="lista-ordini.php" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left me-1"></i> Torna alla lista ordini
+                        <span class="bi bi-arrow-left me-1"></span> Torna alla lista ordini
                     </a>
                 <?php else: ?>
                     <a href="lista-ordini.php" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left me-1"></i> Torna agli ordini
+                        <span class="bi bi-arrow-left me-1"></span> Torna agli ordini
                     </a>
                 <?php endif; ?>
             </div>

@@ -33,26 +33,26 @@
                             ?>
                                 <div class="d-flex w-100">
                                     
-                                    <button type="submit" class="btn btn-primary flex-grow-1"><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                                    <button type="submit" class="btn btn-primary flex-grow-1"><span class="bi bi-cart-plus"></span> Aggiungi al carrello</button>
                                     <div class="ms-2">
                                         <label for="quantity_<?php echo $bookId; ?>" class="form-label visually-hidden">Quantità</label>
                                         <input type="number" name="quantity" id="quantity_<?php echo $bookId; ?>" class="form-control" value="1" min="1" <?php if (isset($templateParams["libro"]["Product_count"])) echo 'max="' . $templateParams["libro"]["Product_count"] . '"'; ?> style="width: 70px;" aria-label="Quantità">
                                     </div>
                                 </div>
                             <?php else: ?>
-                                <button type="button" class="btn btn-secondary w-100" disabled><i class="bi bi-cart-plus"></i> Non disponibile</button>
+                                <button type="button" class="btn btn-secondary w-100" disabled><span class="bi bi-cart-plus"></span> Non disponibile</button>
                             <?php endif; ?>
                             <?php else: // Se è admin ?>
-                                <button type="button" class="btn btn-secondary w-100" disabled><i class="bi bi-cart-plus"></i> Aggiungi al carrello</button>
+                                <button type="button" class="btn btn-secondary w-100" disabled><span class="bi bi-cart-plus"></span> Aggiungi al carrello</button>
                             <?php endif; ?>
                         </form>
 
                         <?php if ($excerptFilename && $bookId):?>
                             <a href="<?php echo $baseExcerptPath . $excerptFilename; ?>" class="btn btn-outline-secondary w-100 mt-2" download="<?php echo $bookDetails["Title"] . "_Preview" . ".txt"; ?>">
-                                <i class="bi bi-file-earmark-arrow-down"></i> Scarica estratto
+                                <span class="bi bi-file-earmark-arrow-down"></span> Scarica estratto
                             </a>
                         <?php else: ?>
-                            <button class="btn btn-outline-secondary w-100 mt-2" disabled><i class="bi bi-file-earmark-arrow-down"></i> Estratto non disponibile</button>
+                            <button class="btn btn-outline-secondary w-100 mt-2" disabled><span class="bi bi-file-earmark-arrow-down"></span> Estratto non disponibile</button>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             <?php if ($templateParams["abilitarecensione"] && !$templateParams["recensioneDone"]):?> 
                 <div class="mb-4">
                     <button class="btn btn-outline-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#reviewForm" aria-expanded="false" aria-controls="reviewForm">
-                    <i class="bi bi-pen"></i> Scrivi una recensione
+                    <span class="bi bi-pen"></span> Scrivi una recensione
                     </button>
             
                     <div class="collapse" id="reviewForm">
@@ -111,7 +111,7 @@
                                                     <h3 class="h5 mb-0 me-2"><?php echo $recensione["Customer_full_name"]; ?></h3>
                                                     <div class="text-warning d-inline-flex flex-nowrap"> 
                                                         <?php for($i = 0; $i < $recensione["Rating"]; $i++): ?>
-                                                        <i class="bi bi-star-fill"></i>
+                                                        <span class="bi bi-star-fill"></span>
                                                         <?php endfor; ?>
                                                     </div>
                                                 </div>
@@ -124,7 +124,7 @@
                                         <button type="submit" class="btn btn-link text-danger p-0" 
                                               onclick="return confirm('Sei sicuro di voler cancellare questa recensione?');" 
                                               aria-label="Cancella recensione">
-                                            <i class="bi bi-trash-fill"></i>
+                                            <span class="bi bi-trash-fill"></span>
                                         </button>
                                     </form>
                                     <?php endif; ?>
@@ -149,7 +149,7 @@
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                                 </div>
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $book["Title"] ?></h5>
+                                <h3 class="card-title"><?php echo $book["Title"] ?></h3>
                                 <p class="card-text"><?php echo $book["Author_name"] ?></p>
                                 <p class="card-text"><?php echo $book["Price"] ?> €</p>
                         </div>

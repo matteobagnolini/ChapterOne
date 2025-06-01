@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Gestione Ordini</h1>
         <a href="accountadmin.php" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Torna al Pannello Admin
+            <span class="bi bi-arrow-left-circle me-1"></span> Torna al Pannello Admin
         </a>
     </div>
     <p class="mb-4">Visualizza i dettagli degli ordini e gestisci il loro stato.</p>
@@ -53,7 +53,7 @@
                         </td>
                         <td headers="riga-<?php echo $ordine['Id']; ?> intestazione-azioni">
                             <a href="orderdetails.php?id_order=<?php echo $ordine["Id"]; ?>" class="btn btn-primary btn-sm me-2" title="Vedi Dettagli">
-                                <i class="bi bi-eye"></i> <span class="d-none d-md-inline">Dettagli</span>
+                                <span class="bi bi-eye"></span> <span class="d-none d-md-inline">Dettagli</span>
                             </a>
                             <?php
                                 $nextStatus = '';
@@ -71,7 +71,7 @@
                             ?>
                             <?php if ($nextStatus): ?>
                                 <a href="utils/update-stato-ordine.php?id_order=<?php echo $ordine["Id"]; ?>&next_status=<?php echo $nextStatus; ?>" class="btn btn-<?php echo $btnClass; ?> btn-sm" title="Imposta come <?php echo ucfirst($nextStatus); ?>">
-                                    <i class="bi bi-arrow-repeat"></i> <span class="d-none d-md-inline"><?php echo $btnText; ?></span>
+                                    <span class="bi bi-arrow-repeat"></span> <span class="d-none d-md-inline"><?php echo $btnText; ?></span>
                                 </a>
                             <?php endif; ?>
                         </td>

@@ -24,7 +24,7 @@
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $book["Title"] ?></h5>
+                            <h3 class="card-title"><?php echo $book["Title"] ?></h3>
                             <p class="card-text"><?php echo $book["Author_name"] ?></p>
                             <p class="card-text"><?php echo $book["Price"] ?> €</p>
                         </div>
@@ -52,7 +52,7 @@
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $book["Title"] ?></h5>
+                            <h3 class="card-title"><?php echo $book["Title"] ?></h3>
                             <p class="card-text"><?php echo $book["Author_name"] ?></p>
                             <p class="card-text"><?php echo $book["Price"] ?> €</p>
                         </div>

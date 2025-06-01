@@ -25,16 +25,10 @@ if(isUserLoggedIn()){
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         }
-        error_log("Password ricevuta: " . $password);
         $result = $dbh->updateCustomer($userId, $firstName, $lastName, $email, $hashedPassword, $indirizzo, $telefono);
 
         if ($result) {
-            $_SESSION['update_message'] = "Dati aggiornati con successo!";
-            $_SESSION['update_message_type'] = "success";
             $_SESSION["username"] = $email;
-        } else {
-            $_SESSION['update_message'] = "Errore durante l'aggiornamento dei dati.";
-            $_SESSION['update_message_type'] = "danger";
         }
         header("Location: account.php");
         exit;

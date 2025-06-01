@@ -21,7 +21,7 @@
                                         <form action="utils/mark_notification_seen.php" method="POST" class="me-1">
                                             <input type="hidden" name="notification_id" value="<?php echo $notification["Id"]; ?>">
                                             <button type="submit" class="btn btn-link text-success btn-sm p-0" title="Segna come letta">
-                                               <i class="bi bi-check-circle-fill fs-5"></i>
+                                               <span class="bi bi-check-circle-fill fs-5"></span>
                                             </button>
                                         </form>
                                         <?php endif; ?>
@@ -29,7 +29,7 @@
                                         <form action="utils/delete_notification.php" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questa notifica?');">
                                             <input type="hidden" name="notification_id" value="<?php echo $notification["Id"]; ?>">
                                             <button type="submit" class="btn btn-link text-danger btn-sm p-0" title="Elimina notifica">
-                                               <i class="bi bi-trash-fill fs-5"></i>
+                                               <span class="bi bi-trash-fill fs-5"></span>
                                             </button>
                                         </form>
                                         <?php endif; ?>
@@ -69,7 +69,7 @@
                                 <form action="utils/delete_notification.php" method="POST" class="position-absolute top-0 end-0 p-2" style="z-index: 10;" onsubmit="return confirm('Sei sicuro di voler eliminare questa notifica?');">
                                     <input type="hidden" name="notification_id" value="<?php echo $notification["Id"]; ?>">
                                     <button type="submit" class="btn btn-link text-danger btn-sm p-0" title="Elimina notifica">
-                                       <i class="bi bi-trash-fill fs-5"></i>
+                                       <span class="bi bi-trash-fill fs-5"></span>
                                     </button>
                                 </form>
                                 <?php endif; ?>

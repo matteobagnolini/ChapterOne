@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Gestione Clienti</h1>
         <a href="accountadmin.php" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Torna al Pannello Admin
+            <span class="bi bi-arrow-left-circle me-1"></span> Torna al Pannello Admin
         </a>
     </div>
     <p class="mb-4">Seleziona un cliente per visualizzare i dettagli, modificarlo o eliminarlo, oppure crea un nuovo cliente.</p>
@@ -32,27 +32,27 @@
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Cognome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Indirizzo</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Azioni</th>
+                        <th scope="col" id="id">ID</th>
+                        <th scope="col" id="nome">Nome</th>
+                        <th scope="col" id="cognome">Cognome</th>
+                        <th scope="col" id="email">Email</th>
+                        <th scope="col" id="indirizzo">Indirizzo</th>
+                        <th scope="col" id="telefono">Telefono</th>
+                        <th scope="col" id="azioni">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($templateParams["utenti"] as $customer): ?>
                     <tr>
-                        <th scope="row"><?php echo htmlspecialchars($customer["Id"]); ?></th>
-                        <td><?php echo htmlspecialchars($customer["First_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($customer["Last_name"]); ?></td>
-                        <td><?php echo htmlspecialchars($customer["Email"]); ?></td>
-                        <td><?php echo htmlspecialchars($customer["Address"]); ?></td>
-                        <td><?php echo htmlspecialchars($customer["Phone"]); ?></td>
-                        <td>
+                        <th scope="row" id="row-<?php echo $customer["Id"]; ?>" headers="id"><?php echo $customer["Id"]; ?></th>
+                        <td headers="nome row-<?php echo $customer["Id"]; ?>"><?php echo $customer["First_name"]; ?></td>
+                        <td headers="cognome row-<?php echo $customer["Id"]; ?>"><?php echo $customer["Last_name"]; ?></td>
+                        <td headers="email row-<?php echo $customer["Id"]; ?>"><?php echo $customer["Email"]; ?></td>
+                        <td headers="indirizzo row-<?php echo $customer["Id"]; ?>"><?php echo $customer["Address"]; ?></td>
+                        <td headers="telefono row-<?php echo $customer["Id"]; ?>"><?php echo $customer["Phone"]; ?></td>
+                        <td headers="azioni row-<?php echo $customer["Id"]; ?>">
                             <a href="utils/delete-customer.php?id=<?php echo $customer["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo cliente? L\'eliminazione potrebbe influenzare gli ordini e i dati associati.');" title="Elimina Cliente">
-                                <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
+                                <span class="bi bi-trash"></span> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                         </td>
                     </tr>

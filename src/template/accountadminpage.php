@@ -7,7 +7,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="card-title mb-0">Pannello di Controllo Admin</h2>
                         <a href="logout.php" class="btn btn-danger">
-                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                            <span class="bi bi-box-arrow-right me-1"></span> Logout
                         </a>
                     </div>
                     <nav>

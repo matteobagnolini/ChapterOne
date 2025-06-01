@@ -1,11 +1,8 @@
 <section class="container my-4">
-    <?php /* Rimosso blocco per $_SESSION['success_message'] */ ?>
-    <?php /* Rimosso blocco per $_SESSION['error_message'] */ ?>
-
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Gestione Codici Sconto</h1>
         <a href="accountadmin.php" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Torna al Pannello Admin
+            <span class="bi bi-arrow-left-circle me-1"></span> Torna al Pannello Admin
         </a>
     </div>
     <p class="mb-4">Seleziona un codice sconto per modificarlo, attivarlo/disattivarlo o eliminarlo, oppure crea un nuovo codice sconto.</p>
@@ -69,13 +66,13 @@
                         </td>
                         <td>
                             <a href="gestisci-codice-sconto.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Codice Sconto">
-                                <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
+                                <span class="bi bi-pencil-square"></span> <span class="d-none d-md-inline">Modifica</span>
                             </a>
                             <a href="utils/delete-discountcode.php?id=<?php echo $discountCode["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questo codice sconto?');" title="Elimina Codice Sconto">
-                                <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
+                                <span class="bi bi-trash"></span> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                             <a href="utils/toggle-discountcode.php?id=<?php echo $discountCode["Id"]; ?>&current_status=<?php echo $discountCode["Active"] ? '1' : '0'; ?>" class="btn btn-<?php echo $discountCode["Active"] ? 'warning' : 'success'; ?> btn-sm mb-1" title="<?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?>">
-                                <i class="bi bi-<?php echo $discountCode["Active"] ? 'toggle-off' : 'toggle-on'; ?>"></i> <span class="d-none d-md-inline"><?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?></span>
+                                <span class="bi bi-<?php echo $discountCode["Active"] ? 'toggle-off' : 'toggle-on'; ?>"></span> <span class="d-none d-md-inline"><?php echo $discountCode["Active"] ? 'Disattiva' : 'Attiva'; ?></span>
                             </a>
                         </td>
                     </tr>
@@ -86,6 +83,6 @@
     <?php endif; ?>
     
     <a href="crea-codice-sconto.php" class="btn btn-success mt-3">
-        <i class="bi bi-plus-circle me-1"></i> Crea un nuovo codice sconto
+        <span class="bi bi-plus-circle me-1"></span> Crea un nuovo codice sconto
     </a>
 </section>

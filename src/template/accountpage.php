@@ -6,15 +6,15 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="card-title mb-0">Il tuo Account</h2>
                         <a href="logout.php" class="btn btn-danger">
-                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                            <span class="bi bi-box-arrow-right me-1"></span> Logout
                         </a>
                     </div>
                     <div class="d-grid gap-3 mb-4">
                         <a href="cart.php" class="btn btn-outline-primary">
-                            <i class="bi bi-cart"></i> Vai al Carrello
+                            <span class="bi bi-cart"></span> Vai al Carrello
                         </a>
                         <a href="../orders.php" class="btn btn-outline-secondary">
-                            <i class="bi bi-clock-history"></i> Cronologia acquisti
+                            <span class="bi bi-clock-history"></span> Cronologia acquisti
                         </a>
                     </div>
 
@@ -73,11 +73,11 @@
                                 <div class="d-flex justify-content-between mt-4">
                        
                                     <button type="submit" name="action" value="update_account" class="btn btn-secondary">
-                                        <i class="bi bi-check-lg me-1"></i> Salva modifiche
+                                        <span class="bi bi-check-lg me-1"></span> Salva modifiche
                                     </button>
                                     
                                     <a href="utils/delete-account.php" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile.');">
-                                        <i class="bi bi-trash me-1"></i> Elimina Account
+                                        <span class="bi bi-trash me-1"></span> Elimina Account
                                     </a>
                                 </div>
                             </form>

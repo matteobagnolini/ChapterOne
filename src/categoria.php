@@ -19,7 +19,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
         $templateParams["titolo"] = "ChapterOne - " . $categoria["Name"];
         $templateParams["libri"] = $dbh->getBooksFromCategoryId($IdCategoria);
         $templateParams["intestazione"] = "Sezione Categoria: " . $templateParams["categoria"]["Name"];
-        $templateParams["testo"] = "Esplora la nostra selezione di libri per la categoria <b>" . $templateParams["categoria"]["Name"] . "</b>. Trova nuove avventure e lasciati ispirare dalle storie che abbiamo scelto per te.";
+        $templateParams["testo"] = "Esplora la nostra selezione di libri per la categoria <strong>" . $templateParams["categoria"]["Name"] . "</strong>. Trova nuove avventure e lasciati ispirare dalle storie che abbiamo scelto per te.";
 
     }
 }

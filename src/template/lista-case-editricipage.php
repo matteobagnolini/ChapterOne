@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Gestione Case Editrici</h1>
         <a href="accountadmin.php" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left-circle me-1"></i> Torna al Pannello Admin
+            <span class="bi bi-arrow-left-circle me-1"></span> Torna al Pannello Admin
         </a>
     </div>
     <p class="mb-4">Seleziona una casa editrice per modificarla o eliminarla, oppure crea una nuova casa editrice.</p>
@@ -33,10 +33,10 @@
                         <td headers="riga-<?php echo $publisher['Id']; ?> intestazione-indirizzo"><?php echo htmlspecialchars($publisher["Address"]); ?></td>
                         <td headers="riga-<?php echo $publisher['Id']; ?> intestazione-azioni">
                             <a href="../gestisci-casa-editrice.php?id=<?php echo $publisher["Id"]; ?>" class="btn btn-primary btn-sm me-2 mb-1" title="Modifica Casa Editrice">
-                                <i class="bi bi-pencil-square"></i> <span class="d-none d-md-inline">Modifica</span>
+                                <span class="bi bi-pencil-square"></span> <span class="d-none d-md-inline">Modifica</span>
                             </a>
                             <a href="utils/delete-casa-editrice.php?id=<?php echo $publisher["Id"]; ?>" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Sei sicuro di voler eliminare questa casa editrice? L\'eliminazione potrebbe influenzare i libri associati.');" title="Elimina Casa Editrice">
-                                <i class="bi bi-trash"></i> <span class="d-none d-md-inline">Elimina</span>
+                                <span class="bi bi-trash"></span> <span class="d-none d-md-inline">Elimina</span>
                             </a>
                         </td>
                     </tr>
@@ -48,6 +48,6 @@
     <?php endif; ?>
     
     <a href="crea-casa-editrice.php" class="btn btn-success mt-3">
-        <i class="bi bi-plus-circle me-1"></i> Crea una nuova casa editrice
+        <span class="bi bi-plus-circle me-1"></span> Crea una nuova casa editrice
     </a>
 </section>

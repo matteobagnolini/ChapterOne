@@ -22,7 +22,7 @@
                             <img src="<?php echo UPLOAD_DIR . $book["Cover"] ?>" class="card-img-top" alt="Copertina Libro">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $book["Title"]; ?></h5>
+                            <h2 class="card-title"><?php echo $book["Title"]; ?></h2>
                             <p class="card-text"><?php echo $book["Author_First_name"] . " " . $book["Author_Last_name"]; ?></p>
                             <p class="card-text"><?php echo $book["Price"]; ?> €</p>
                         </div>
