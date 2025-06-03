@@ -3,6 +3,8 @@ CREATE DATABASE Chapter_one;
 
 USE Chapter_one;
 
+
+
 CREATE TABLE CUSTOMER (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     First_name VARCHAR(100) NOT NULL,
@@ -211,7 +213,6 @@ BEGIN
 END$$
 
 
--- Trigger per creare un carrello quando viene creato un nuovo cliente
 CREATE TRIGGER after_insert_customer
 AFTER INSERT ON CUSTOMER
 FOR EACH ROW
@@ -233,6 +234,16 @@ BEGIN
     UPDATE BOOK
     SET Product_count = Product_count - NEW.Quantity
     WHERE Id = NEW.Book_id;
+      IF (SELECT Product_count FROM BOOK WHERE Id = NEW.Book_id) = 0 THEN
+        INSERT INTO ADMIN_ORDER_NOTIFICATION (Order_id, Preview, Message)
+        VALUES (
+            NEW.Order_id,
+            CONCAT('Libro esaurito: ', (SELECT Title FROM BOOK WHERE Id = NEW.Book_id)),
+             CONCAT('Il libro "', (SELECT Title FROM BOOK WHERE Id = NEW.Book_id), '" ha raggiunto zero copie in magazzino.')
+        );
+    END IF;
+
+    
 END$$
 
 CREATE TRIGGER after_insert_order_notification_for_admin

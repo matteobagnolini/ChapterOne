@@ -1003,11 +1003,11 @@ class MySqlDatabase implements
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getAdminOrderNotificationById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM ADMIN_ORDER_NOTIFICATION WHERE Id = ?");
-        $stmt->bind_param('i', $id);
+    public function getAdminOrderNotificationByOrderId($orderId) {
+        $stmt = $this->db->prepare("SELECT * FROM ADMIN_ORDER_NOTIFICATION WHERE Order_id = ?");
+        $stmt->bind_param('i', $orderId);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function SetSeenAdminNotification($notificationId) {

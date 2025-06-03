@@ -89,4 +89,43 @@ class NotificationTest extends BaseTest {
         $this->assertEquals("sent", $notifications[1]['Status']);
         $this->assertEquals(0, $notifications[1]['Seen']); // Verifica che la nuova notifica non sia vista
     }
+
+
+    public function testAdminNotificationOnBookOutOfStock(): void {
+    $this->tearDown();
+
+    // Crea un admin (se serve)
+    $adminId = $this->db->insertAdmin('Admin', 'User', 'admin@example.com', password_hash('admin123', PASSWORD_DEFAULT));
+    $this->assertIsInt($adminId);
+
+    // Crea un cliente
+    $customerId = $this->db->insertCustomer('Mario', 'Rossi', 'mario.rossi@example.com', 'password123', 'Via Roma 1', '3331234567');
+    $this->assertIsInt($customerId);
+
+    // Crea un libro con 1 copia
+    $bookId = $this->db->insertBook('Libro Unico', 'Descrizione', 10.00, 'cover.jpg', null, null, null, 1);
+    $this->assertIsInt($bookId);
+    $this->db->updateBookQuantity($bookId, 1); // default is 10 for now
+    $book = $this->db->getBookById($bookId);
+    $this->assertEquals(1, $book['Product_count']);
+
+    // Aggiungi il libro al carrello
+    $cart = $this->db->getCartByCustomerId($customerId);
+    $cartId = $cart['Id'];
+    $this->db->insertBookInCart($cartId, $bookId, 1);
+
+    // Crea l'ordine
+    $orderId = $this->db->insertOrder(date('Y-m-d H:i:s'), 10.00, $customerId, null);
+    $this->assertIsInt($orderId);
+
+
+
+    // Controlla che il libro sia esaurito
+    $book = $this->db->getBookById($bookId);
+    $this->assertEquals(0, $book['Product_count']);
+
+    // Controlla che sia stata creata una notifica per l'admin
+    $adminNotifications = $this->db->getAdminOrderNotificationByOrderId($orderId);
+    $this->assertNotEmpty($adminNotifications);
+}
 }
