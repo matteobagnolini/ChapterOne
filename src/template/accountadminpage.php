@@ -1,4 +1,3 @@
-
 <div class="container py-4">
     <div class="row">
         <div class="col-12">
@@ -23,6 +22,10 @@
                             <li class="list-group-item border-0">
                                 <a href="lista-autori.php" class="fw-bold text-decoration-none">Gestisci Autori</a>
                                 <p class="mb-0 mt-1 text-muted">Modifica, aggiungi o rimuovi autori dal database.</p>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <a href="lista-categorie.php" class="fw-bold text-decoration-none">Gestisci Categorie</a>
+                                <p class="mb-0 mt-1 text-muted">Aggiungi o rimuovi categorie dal database.</p>
                             </li>
                             <li class="list-group-item border-0">
                                 <a href="lista-case-editrici.php" class="fw-bold text-decoration-none">Gestisci Case Editrici</a>
