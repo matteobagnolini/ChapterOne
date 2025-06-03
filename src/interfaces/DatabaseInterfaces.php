@@ -132,7 +132,7 @@ interface OrderNotificationManager {
 
 interface AdminNotificationManager {
     public function getAdminOrderNotifications();
-    public function getAdminOrderNotificationById($id);
+    public function getAdminOrderNotificationByOrderId($id);
     public function SetSeenAdminNotification($id);
     public function deleteAdminNotification($id);
 }
