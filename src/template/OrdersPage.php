@@ -30,7 +30,7 @@
         <li class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <h2 class="mb-1">Ordine #<?php echo $ordine["Id"]; ?></h2>
-            <small class=$statusClass><?php echo $ordine["Status"]; ?></small>
+            <small class="<?php echo $statusClass; ?>"><?php echo $ordine["Status"]; ?></small>
         </div>
         <p class="mb-1">Data ordine: <?php echo $ordine["Date"]; ?></p>
         <p class="mb-1">Totale: € <?php echo $ordine["Total"] ?></p>
