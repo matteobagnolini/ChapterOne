@@ -11,8 +11,7 @@
         <?php foreach($templateParams["ordini"] as $ordine): ?>
         <?php
         $status = $ordine["Status"];
-        var_dump($status);
-            switch (strtolower($status)) {
+        switch (strtolower($status)) {
         case "pending":
             $statusClass = "text-warning";
         break;
