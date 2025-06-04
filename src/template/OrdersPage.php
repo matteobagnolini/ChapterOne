@@ -1,19 +1,4 @@
-<?php
-$status = $ordine["Status"];
-switch (strtolower($status)) {
-    case "pending":
-        $statusClass = "text-warning";
-        break;
-    case "sent":
-        $statusClass = "text-primary";
-        break;
-    case "arrived":
-        $statusClass = "text-success";
-        break;
-    default:
-        $statusClass = "text-secondary"; 
-}
-?>
+
 <section class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">I tuoi ordini</h1>
@@ -24,6 +9,23 @@ switch (strtolower($status)) {
     <p class="text-muted mb-4">Visualizza lo storico dei tuoi acquisti</p>
     <ul class="list-group mb-4">
         <?php foreach($templateParams["ordini"] as $ordine): ?>
+        <?php
+        $status = $ordine["Status"];
+            switch (strtolower($status)) {
+        case "pending":
+            $statusClass = "text-warning";
+        break;
+        case "sent":
+            $statusClass = "text-primary";
+        break;
+        case "arrived":
+            $statusClass = "text-success";
+        break;
+        default:
+            $statusClass = "text-secondary"; 
+        }
+        ?>
+
         <li class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <h2 class="mb-1">Ordine #<?php echo $ordine["Id"]; ?></h2>
