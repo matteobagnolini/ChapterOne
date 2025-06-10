@@ -844,7 +844,13 @@ class MySqlDatabase implements
     }
 
     public function getOrderDetailsByOrderId($orderId) {
-        $stmt = $this->db->prepare("SELECT * FROM ORDER_DETAIL WHERE Order_id = ?");
+        $stmt = $this->db->prepare("
+            SELECT od.Book_id, b.Title, b.Price, SUM(od.Quantity) as Quantity, SUM(od.Subtotal) as Subtotal
+            FROM ORDER_DETAIL od
+            JOIN BOOK b ON od.Book_id = b.Id
+            WHERE od.Order_id = ?
+            GROUP BY od.Book_id
+        ");
         $stmt->bind_param('i', $orderId);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

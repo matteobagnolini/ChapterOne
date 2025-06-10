@@ -50,19 +50,15 @@ if (isset($_GET["id_order"])) {
  
                             $bookInfo['Author_First_name'] = 'Autore';
                             $bookInfo['Author_Last_name'] = 'Sconosciuto';
-                            error_log("Autore con ID $authorId non trovato per il libro $bookId");
                         }
                     } else {
      
                         $bookInfo['Author_First_name'] = 'Autore';
                         $bookInfo['Author_Last_name'] = 'Non specificato';
-                        error_log("ID autore non trovato per il libro $bookId");
                     }
             
                     $booksInOrder[$bookId] = $bookInfo;
 
-                } else {
-                    error_log("Libro con ID $bookId non trovato per l'ordine $orderId");
                 }
             }
         }
