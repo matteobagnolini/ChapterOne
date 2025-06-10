@@ -19,9 +19,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_account') {
     $firstName = $nameParts[0];
     $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
 
-    try {
-        
-        $result = $dbh->updateCustomer(
+        $dbh->updateCustomer(
             $userId,
             $firstName,
             $lastName,
@@ -30,25 +28,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_account') {
             $address,
             $phone
         );
-
-        if ($result) {
-            $_SESSION['update_message'] = 'Profilo aggiornato con successo!';
-            $_SESSION['update_message_type'] = 'success';
-            $_SESSION['username'] = $email; 
-        } else {
-            $_SESSION['update_message'] = 'Nessuna modifica rilevata.';
-            $_SESSION['update_message_type'] = 'info';
-
-        }
-    } catch (Exception $e) {
-
-        error_log("Errore aggiornamento account per utente " . $userId . ": " . $e->getMessage());
-        $_SESSION['update_message'] = 'Si è verificato un errore tecnico durante l\'aggiornamento.';
-        $_SESSION['update_message_type'] = 'danger';
-    }
-} else {
-    $_SESSION['update_message'] = 'Richiesta non valida.';
-    $_SESSION['update_message_type'] = 'warning';
 }
 
 
