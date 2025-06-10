@@ -81,11 +81,7 @@ if ($templateParams["isAdminView"]) {
                     $templateParams["notifiche_non_lette"][] = $currentNotification;
                 }
             }
-        } else {
-            error_log("getOrderNotificationByCustomerId non ha restituito un array per l'utente: " . $userId);
         }
-    } else {
-        error_log("ID utente non trovato in sessione o non recuperabile per la visualizzazione delle notifiche utente.");
     }
 }
 

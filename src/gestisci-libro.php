@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         if ($result) {
             $copertinaToSave = $msg;
         } else {
-            $errors[] = "Errore caricamento copertina: " . htmlspecialchars($msg);
+            $errors[] = "Errore caricamento copertina: " . $msg;
         }
     } elseif (isset($_FILES['copertina']) && $_FILES['copertina']['error'] != UPLOAD_ERR_NO_FILE) {
         $errors[] = "Errore file copertina: codice " . $_FILES['copertina']['error'];
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         if ($result) {
             $estrattoToSave = $msg;
         } else {
-            $errors[] = "Errore caricamento estratto: " . htmlspecialchars($msg);
+            $errors[] = "Errore caricamento estratto: " . $msg;
         }
     } elseif (isset($_FILES['estratto']) && $_FILES['estratto']['error'] != UPLOAD_ERR_NO_FILE) {
         $errors[] = "Errore file estratto: codice " . $_FILES['estratto']['error'];
